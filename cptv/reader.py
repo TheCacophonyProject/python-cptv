@@ -33,6 +33,21 @@ epoch = datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc)
 
 
 class CPTVReader:
+    """
+    CPTVReader is a parser and decompressor for Cacophony Project
+    Thermal Video files.
+
+    Usage:
+
+        reader = CPTVReader(file_object)
+        print(reader.timestamp)
+        print(reader.x_resolution)
+        print(reader.y_resolution)
+
+        for frame in reader:
+            print(frame)  # frame is a 2D numpy array
+
+    """
 
     def __init__(self, fileobj):
         # Create a temporary file with the decompressed output because
