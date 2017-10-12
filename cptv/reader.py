@@ -1,13 +1,16 @@
-from bitstring import ConstBitStream, ReadError
 import datetime
 import gzip
-import numpy as np
 import shutil
 import tempfile
+
+from bitstring import ConstBitStream, ReadError
+import numpy as np
+
 
 class Section:
     HEADER = b'H'
     FRAME = b'F'
+
 
 class Field:
     TIMESTAMP = b'T'
@@ -16,6 +19,7 @@ class Field:
     COMPRESSION = b'C'
     BIT_WIDTH = b'w'
     FRAME_SIZE = b'f'
+
 
 UINT_FIELDS = {
     Field.X_RESOLUTION,
@@ -63,9 +67,22 @@ class CPTVReader:
 
     def __iter__(self):
         prev_frame = np.zeros(self.frame_dim, dtype="uint16")
+        frame = np.zeros(self.frame_dim, dtype="uint16")
         delta_frame = np.zeros(self.frame_dim, dtype="int32")
         x_res = self.x_resolution
         num_deltas = (x_res * self.y_resolution) - 1
+
+        # Precompute the way we walk through the frame.
+        walk_coords = []
+        # offset by 1 because we will already have initial value
+        for i in range(1, num_deltas+1):
+            y = i // x_res
+            x = i % x_res
+            # Deltas are "snaked" so work backwards through every
+            # second row.
+            if y % 2 == 1:
+                x = x_res - x - 1
+            walk_coords.append((y, x))
 
         while True:
             try:
@@ -90,22 +107,13 @@ class CPTVReader:
 
             # ... then apply deltas
             delta_frame[0][0] = v
-
-            # offset by 1 b/c we already have initial value
-            for i in range(1, num_deltas+1):
-                y = i // x_res
-                x = i % x_res
-                # Deltas are "snaked" so work backwards through every
-                # second row.
-                if y % 2 == 1:
-                    x = x_res - x - 1
+            for y, x in walk_coords:
                 v += s_read_inner(read_fmt)
                 delta_frame[y][x] = v
 
             # Calculate the frame by applying the delta frame to the
             # previously decompressed frame.
             frame = (prev_frame + delta_frame).astype('uint16')
-
             yield frame
             prev_frame = frame
 
