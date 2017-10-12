@@ -61,9 +61,12 @@ class CPTVReader:
         self.y_resolution = fields[Field.Y_RESOLUTION]
         self.frame_dim = (self.y_resolution, self.x_resolution)
 
-        self.prev_frame = np.zeros(self.frame_dim, dtype="uint16")
-
     def __iter__(self):
+        prev_frame = np.zeros(self.frame_dim, dtype="uint16")
+        delta_frame = np.zeros(self.frame_dim, dtype="int32")
+        x_res = self.x_resolution
+        num_deltas = (x_res * self.y_resolution) - 1
+
         while True:
             try:
                 section_type, fields = self._read_section()
@@ -76,32 +79,35 @@ class CPTVReader:
             bit_width = fields[Field.BIT_WIDTH]
             read_fmt = 'int:'+str(bit_width)
 
+            # For some reason, it's signficantly faster to read the
+            # full frame into memory and then pull it apart from
+            # there.
+            s = self.s.read('bits:'+str(8*frame_size))
+            s_read_inner = s.read
+
             # Assemble the delta frame
-            v = self.s.read('intle:32')  # read starting value...
+            v = s_read_inner('intle:32')  # read starting value...
 
             # ... then apply deltas
-            delta_frame = np.zeros(self.frame_dim, dtype="int32")
             delta_frame[0][0] = v
-            num_deltas = (self.x_resolution * self.y_resolution) - 1
 
             # offset by 1 b/c we already have initial value
             for i in range(1, num_deltas+1):
-                y = i // self.x_resolution
-                x = i % self.x_resolution
+                y = i // x_res
+                x = i % x_res
                 # Deltas are "snaked" so work backwards through every
                 # second row.
                 if y % 2 == 1:
-                    x = self.x_resolution - x - 1
-                v += self.s.read(read_fmt)
+                    x = x_res - x - 1
+                v += s_read_inner(read_fmt)
                 delta_frame[y][x] = v
 
             # Calculate the frame by applying the delta frame to the
             # previously decompressed frame.
-            frame = (self.prev_frame + delta_frame).astype('uint16')
+            frame = (prev_frame + delta_frame).astype('uint16')
 
-            self.prev_frame = frame
-            self.s.bytealign()
             yield frame
+            prev_frame = frame
 
     def _read_section(self):
         section_type = self.s.read('bytes:1')
@@ -116,11 +122,11 @@ class CPTVReader:
         data_len = self.s.read('uint:8')
         ftype = self.s.read('bytes:1')
 
-        if ftype == Field.TIMESTAMP:
+        if ftype in UINT_FIELDS:
+            val = self.s.read('uintle:' + str(8 * data_len))
+        elif ftype == Field.TIMESTAMP:
             micros = self.s.read('uintle:' + str(8 * data_len))
             val = epoch + datetime.timedelta(microseconds=micros)
-        elif ftype in UINT_FIELDS:
-            val = self.s.read('uintle:' + str(8 * data_len))
         else:
             # Unknown field, just slurp up the bytes
             val = self.s.read('bytes:' + str(data_len))
