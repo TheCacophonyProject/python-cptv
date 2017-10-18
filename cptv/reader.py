@@ -152,7 +152,11 @@ class CPTVReader:
             val = self.s.read('uintle:' + str(8 * data_len))
         elif ftype == Field.TIMESTAMP:
             micros = self.s.read('uintle:' + str(8 * data_len))
-            val = epoch + datetime.timedelta(microseconds=micros)
+            try:
+                val = epoch + datetime.timedelta(microseconds=micros)
+            except OverflowError:
+                print("timestamp is broken - using default")
+                val = epoch
         else:
             # Unknown field, just slurp up the bytes
             val = self.s.read('bytes:' + str(data_len))
