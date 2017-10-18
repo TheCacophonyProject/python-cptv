@@ -1,0 +1,45 @@
+#!/usr/bin/python3
+
+from os import path
+import subprocess
+import pytz
+import tempfile
+import sys
+
+from cptv import CPTVReader, image
+
+
+def main():
+    if len(sys.argv) != 2:
+        sys.exit("usage cptv-to-mp4.py <file.cptv>")
+    filename = sys.argv[1]
+
+    rootname, ext = path.splitext(filename)
+    assert ext == '.cptv'
+    outfilename = rootname + '.mp4'
+
+    reader = CPTVReader(open(filename, "rb"))
+    print(reader.timestamp.astimezone(pytz.timezone('Pacific/Auckland')))
+
+    with tempfile.TemporaryDirectory() as tempdir:
+        try:
+            for n, (frame, offset) in enumerate(reader):
+                image.save_frame(frame, path.join(tempdir, "{:06}.png".format(n)))
+        except Exception as err:
+            print(err)
+
+        fps = n * 1000000.0 / offset
+        print("{} frames, {} fps".format(n, fps))
+
+        subprocess.check_call([
+            'ffmpeg',
+            '-loglevel', 'warning',
+            '-i', path.join(tempdir, '%06d.png'),
+            '-r', str(fps),
+            '-pix_fmt', 'yuv420p',
+            '-y',
+            outfilename])
+
+
+if __name__ == '__main__':
+    main()

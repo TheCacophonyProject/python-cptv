@@ -1,8 +1,10 @@
 from PIL import Image
-from path import join
 import cv2
 import numpy as np
 
+def save_frame(frame, filename):
+    rgb = process_frame_to_rgb(frame)
+    rgb_to_png(rgb, filename)
 
 def process_frame_to_rgb(frame):
     a = np.zeros((120, 160))
@@ -20,7 +22,6 @@ def process_frame_to_rgb(frame):
     rgb[..., 2] = (b1*255 + b2*255*((0.5*65535.0-a)*4)/65535.0 )
     return rgb
 
-def save_rgb_as_image(rgb, n, folder):
+def rgb_to_png(rgb, filename):
     im = Image.fromarray(rgb, "RGB")
-    imName = str(n).zfill(6) + '.png'
-    im.save(join(folder, imName))
+    im.save(filename)

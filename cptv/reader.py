@@ -19,12 +19,14 @@ class Field:
     COMPRESSION = b'C'
     BIT_WIDTH = b'w'
     FRAME_SIZE = b'f'
+    FRAME_OFFSET = b't'
 
 
 UINT_FIELDS = {
     Field.X_RESOLUTION,
     Field.Y_RESOLUTION,
     Field.COMPRESSION,
+    Field.FRAME_OFFSET,
     Field.BIT_WIDTH,
     Field.FRAME_SIZE,
 }
@@ -107,6 +109,7 @@ class CPTVReader:
             if section_type != Section.FRAME:
                 raise IOError("unexpected section: {}".format(section_type))
 
+
             frame_size = fields[Field.FRAME_SIZE]
             bit_width = fields[Field.BIT_WIDTH]
             read_fmt = 'int:'+str(bit_width)
@@ -129,7 +132,7 @@ class CPTVReader:
             # Calculate the frame by applying the delta frame to the
             # previously decompressed frame.
             frame = (prev_frame + delta_frame).astype('uint16')
-            yield frame
+            yield frame, fields[Field.FRAME_OFFSET]
             prev_frame = frame
 
     def _read_section(self):
