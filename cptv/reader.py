@@ -1,10 +1,9 @@
 import datetime
 import gzip
-import shutil
-import tempfile
 
-from bitstring import ConstBitStream, ReadError
 import numpy as np
+
+from .bitstream import BitStream
 
 
 class Section:
@@ -22,14 +21,17 @@ class Field:
     FRAME_OFFSET = b't'
 
 
-UINT_FIELDS = {
+UINT32_FIELDS = {
     Field.X_RESOLUTION,
     Field.Y_RESOLUTION,
-    Field.COMPRESSION,
     Field.FRAME_OFFSET,
-    Field.BIT_WIDTH,
     Field.FRAME_SIZE,
-}
+    }
+
+UINT8_FIELDS = {
+    Field.COMPRESSION,
+    Field.BIT_WIDTH,
+    }
 
 epoch = datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc)
 
@@ -52,21 +54,13 @@ class CPTVReader:
     """
 
     def __init__(self, fileobj):
-        # Create a temporary file with the decompressed output because
-        # bitstring wants the mmap the file which doesn't work with a
-        # GzipFile. On POSIX at least, the temporary file gets
-        # unlinked from the filesystem but the ConstBitStream can
-        # still work with the open file handle.
-        with tempfile.TemporaryFile() as tmpF:
-            with gzip.GzipFile(fileobj=fileobj, mode="rb") as gz_file:
-                shutil.copyfileobj(gz_file, tmpF)
-            self.s = ConstBitStream(tmpF)
+        self.s = BitStream(gzip.GzipFile(fileobj=fileobj, mode="rb"))
 
         # check magic and version
-        if self.s.read("bytes:4") != b"CPTV":
+        if self.s.bytes(4) != b"CPTV":
             raise IOError("magic not found")
 
-        if self.s.read("uint:8") != 1:
+        if self.s.uint8() != 1:
             raise IOError("unsupported version")
 
         section_type, fields = self._read_section()
@@ -75,7 +69,8 @@ class CPTVReader:
 
         self.compression = fields[Field.COMPRESSION]
         if self.compression != 1:
-            raise ValueError("unsupported compression type: {}".format(self.compression))
+            raise ValueError("unsupported compression type: {}"
+                             .format(self.compression))
 
         self.timestamp = fields[Field.TIMESTAMP]
         self.x_resolution = fields[Field.X_RESOLUTION]
@@ -104,29 +99,22 @@ class CPTVReader:
         while True:
             try:
                 section_type, fields = self._read_section()
-            except ReadError:
+            except EOFError:
                 return
             if section_type != Section.FRAME:
                 raise IOError("unexpected section: {}".format(section_type))
 
-
-            frame_size = fields[Field.FRAME_SIZE]
-            bit_width = fields[Field.BIT_WIDTH]
-            read_fmt = 'int:'+str(bit_width)
-
-            # For some reason, it's signficantly faster to read the
-            # full frame into memory and then pull it apart from
-            # there.
-            s = self.s.read('bits:'+str(8*frame_size))
-            s_read_inner = s.read
-
-            # Assemble the delta frame
-            v = s_read_inner('intle:32')  # read starting value...
+            v = self.s.uint32()  # read starting value
+            delta_frame[0][0] = v
 
             # ... then apply deltas
-            delta_frame[0][0] = v
-            for y, x in walk_coords:
-                v += s_read_inner(read_fmt)
+
+            # sub 4 to account for uint32 just read
+            frame_size = fields[Field.FRAME_SIZE] - 4
+            bit_width = fields[Field.BIT_WIDTH]
+            deltas = self.s.iter_int(frame_size, bit_width)
+            for (y, x), d in zip(walk_coords, deltas):
+                v += d
                 delta_frame[y][x] = v
 
             # Calculate the frame by applying the delta frame to the
@@ -136,8 +124,8 @@ class CPTVReader:
             prev_frame = frame
 
     def _read_section(self):
-        section_type = self.s.read('bytes:1')
-        field_count = self.s.read('uint:8')
+        section_type = self.s.bytes(1)
+        field_count = self.s.uint8()
         fields = {}
         for _ in range(field_count):
             ftype, value = self._read_field()
@@ -145,13 +133,15 @@ class CPTVReader:
         return section_type, fields
 
     def _read_field(self):
-        data_len = self.s.read('uint:8')
-        ftype = self.s.read('bytes:1')
+        data_len = self.s.uint8()
+        ftype = self.s.bytes(1)
 
-        if ftype in UINT_FIELDS:
-            val = self.s.read('uintle:' + str(8 * data_len))
+        if ftype in UINT8_FIELDS:
+            val = self.s.uint8()
+        elif ftype in UINT32_FIELDS:
+            val = self.s.uint32()
         elif ftype == Field.TIMESTAMP:
-            micros = self.s.read('uintle:' + str(8 * data_len))
+            micros = self.s.uint64()
             try:
                 val = epoch + datetime.timedelta(microseconds=micros)
             except OverflowError:
@@ -159,6 +149,6 @@ class CPTVReader:
                 val = epoch
         else:
             # Unknown field, just slurp up the bytes
-            val = self.s.read('bytes:' + str(data_len))
+            val = self.s.bytes(data_len)
 
         return ftype, val
