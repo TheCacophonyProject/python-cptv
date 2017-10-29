@@ -6,6 +6,23 @@ Project Thermal Video (CPTV) files. It works with Python 3 only.
 For more details on the internals of CPTV files, see the
 [specification](https://github.com/TheCacophonyProject/go-cptv/blob/master/SPEC.md).
 
+## Installation
+
+Installation from PyPI:
+
+```
+pip install cptv
+```
+
+Installation from source:
+
+```
+pip install .
+```
+
+(`python setup.py install` won't work)
+
+
 ## Example Usage
 
 ```python
@@ -26,4 +43,4 @@ with open(filename, "rb") as f:
 
 ## License
 
-The package is licensed under the Apache License 2.0.
+This software is licensed under the Apache License 2.0.
