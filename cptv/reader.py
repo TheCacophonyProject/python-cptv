@@ -54,17 +54,13 @@ class CPTVReader:
     """
     CPTVReader is a parser and decompressor for Cacophony Project
     Thermal Video (CPTV) files.
-
     Usage:
-
         reader = CPTVReader(file_object)
         print(reader.timestamp)
         print(reader.x_resolution)
         print(reader.y_resolution)
-
         for frame in reader:
             print(frame)  # frame is a 2D numpy array
-
     """
 
     def __init__(self, fileobj):
@@ -118,7 +114,7 @@ class CPTVReader:
             if section_type != Section.FRAME:
                 raise IOError("unexpected section: {}".format(section_type))
 
-            v = self.s.uint32()  # read starting value
+            v = self.s.int32()  # read starting value
             delta_frame[0][0] = v
 
             # ... then apply deltas
