@@ -118,7 +118,7 @@ class CPTVReader:
             if section_type != Section.FRAME:
                 raise IOError("unexpected section: {}".format(section_type))
 
-            v = self.s.uint32()  # read starting value
+            v = self.s.int32()  # read starting value
             delta_frame[0][0] = v
 
             # ... then apply deltas
