@@ -39,6 +39,9 @@ class BitStream:
 
     def uint64(self):
         return struct.unpack("<Q", self.bytes(8))[0]
+        
+    def int32(self):
+        return struct.unpack("<l", self.bytes(4))[0]        
 
     def iter_int(self, total_size, bitw):
         """Return an iterator which processes the the next total_size
