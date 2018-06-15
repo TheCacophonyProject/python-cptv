@@ -30,6 +30,7 @@ class Field:
     X_RESOLUTION = b'X'
     Y_RESOLUTION = b'Y'
     COMPRESSION = b'C'
+    DEVICENAME = b'D'
     BIT_WIDTH = b'w'
     FRAME_SIZE = b'f'
     FRAME_OFFSET = b't'
@@ -46,6 +47,10 @@ UINT8_FIELDS = {
     Field.COMPRESSION,
     Field.BIT_WIDTH,
     }
+
+STRING_FIELDS = {
+    Field.DEVICENAME
+}
 
 epoch = datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc)
 
@@ -90,6 +95,10 @@ class CPTVReader:
         self.x_resolution = fields[Field.X_RESOLUTION]
         self.y_resolution = fields[Field.Y_RESOLUTION]
         self.frame_dim = (self.y_resolution, self.x_resolution)
+
+        self.device_name = ""
+        if Field.DEVICENAME in fields:
+            self.device_name = fields[Field.DEVICENAME]
 
     def __iter__(self):
         prev_frame = np.zeros(self.frame_dim, dtype="uint16")
@@ -154,6 +163,8 @@ class CPTVReader:
             val = self.s.uint8()
         elif ftype in UINT32_FIELDS:
             val = self.s.uint32()
+        elif ftype in STRING_FIELDS:
+            val = self.s.string(data_len)
         elif ftype == Field.TIMESTAMP:
             micros = self.s.uint64()
             try:
