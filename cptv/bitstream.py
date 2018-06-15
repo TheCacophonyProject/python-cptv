@@ -39,6 +39,10 @@ class BitStream:
 
     def uint64(self):
         return struct.unpack("<Q", self.bytes(8))[0]
+
+    def string(self, data_len):
+        formatString = str(data_len) + 's'
+        return struct.unpack(formatString, self.bytes(data_len))[0]
         
     def int32(self):
         return struct.unpack("<l", self.bytes(4))[0]        
