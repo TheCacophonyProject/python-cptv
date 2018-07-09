@@ -1,4 +1,3 @@
 *.pyc
 /build
-/cptv/*.c
 /cptv/*.so

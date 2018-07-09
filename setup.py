@@ -1,6 +1,5 @@
 from setuptools import setup, find_packages
 from setuptools.extension import Extension
-from Cython.Build import cythonize
 
 long_description = """\
 This is Python package provides for quick, easy parsing for Cacophony
@@ -32,6 +31,13 @@ extensions = [
     Extension("cptv.reader", ["cptv/reader.pyx"]),
 ]
 
+try:
+    from Cython.Build import cythonize
+    extensions = cythonize(extensions)
+except ImportError:
+    pass
+
+
 setup(
     name='cptv',
     version='0.2.0',
@@ -57,7 +63,7 @@ setup(
     keywords='video compression',
 
     packages=['cptv'],
-    ext_modules = cythonize(extensions),
+    ext_modules = extensions,
 
     install_requires=['numpy', 'Pillow', 'opencv-python'],
     extras_require={
