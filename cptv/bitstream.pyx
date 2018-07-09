@@ -1,4 +1,4 @@
-# Copyright 2017 The Cacophony Project
+# Copyright 2018 The Cacophony Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,11 +15,13 @@
 import struct
 
 
-class BitStream:
+cdef class BitStream:
     """
     BitStream takes a file like object and allows it to be consumed at
     various bit widths
     """
+
+    cdef object s
 
     def __init__(self, fobj):
         self.s = fobj
@@ -40,21 +42,22 @@ class BitStream:
     def uint64(self):
         return struct.unpack("<Q", self.bytes(8))[0]
 
+    def int32(self):
+        return struct.unpack("<l", self.bytes(4))[0]
+
     def string(self, data_len):
         formatString = str(data_len) + 's'
         return struct.unpack(formatString, self.bytes(data_len))[0]
-        
-    def int32(self):
-        return struct.unpack("<l", self.bytes(4))[0]        
 
-    def iter_int(self, total_size, bitw):
+    def iter_int(self, int total_size, int bitw):
         """Return an iterator which processes the the next total_size
         bytes, generating signed integers of bitw width.
         """
         source = self.bytes(total_size)
-        i = 0
-        bits = 0
-        nbits = 0
+        cdef int i = 0
+        cdef long bits = 0
+        cdef int nbits = 0
+        cdef long out = 0
         while True:
             while nbits < bitw:
                 bits |= source[i] << (24 - nbits)
@@ -66,9 +69,9 @@ class BitStream:
             yield out
 
 
-def twos_comp(v, width):
+cdef inline twos_comp(int v, int width):
     """Convert the signed value with the given bit width to its two's
     complement representation.
     """
-    mask = 2**(width - 1)
+    cdef int mask = 1 << (width - 1)
     return -(v & mask) + (v & ~mask)

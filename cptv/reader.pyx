@@ -1,4 +1,4 @@
-# Copyright 2017 The Cacophony Project
+# Copyright 2018 The Cacophony Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -55,7 +55,7 @@ STRING_FIELDS = {
 epoch = datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc)
 
 
-class CPTVReader:
+cdef class CPTVReader:
     """
     CPTVReader is a parser and decompressor for Cacophony Project
     Thermal Video (CPTV) files.
@@ -71,6 +71,13 @@ class CPTVReader:
             print(frame)  # frame is a 2D numpy array
 
     """
+
+    cdef object s
+    cdef public int compression
+    cdef public object timestamp
+    cdef public int x_resolution
+    cdef public int y_resolution
+    cdef object frame_dim
 
     def __init__(self, fileobj):
         self.s = BitStream(gzip.GzipFile(fileobj=fileobj, mode="rb"))
@@ -101,6 +108,12 @@ class CPTVReader:
             self.device_name = fields[Field.DEVICENAME]
 
     def __iter__(self):
+        cdef long v
+        cdef int x, y
+        cdef long d
+        cdef int i
+        cdef int x_res
+
         prev_frame = np.zeros(self.frame_dim, dtype="uint16")
         frame = np.zeros(self.frame_dim, dtype="uint16")
         delta_frame = np.zeros(self.frame_dim, dtype="int32")

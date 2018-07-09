@@ -1,5 +1,6 @@
-from setuptools import setup
-
+from setuptools import setup, find_packages
+from setuptools.extension import Extension
+from Cython.Build import cythonize
 
 long_description = """\
 This is Python package provides for quick, easy parsing for Cacophony
@@ -26,10 +27,14 @@ Example usage::
 .. _`specification`: https://github.com/TheCacophonyProject/go-cptv/blob/master/SPEC.md
 """
 
+extensions = [
+    Extension("cptv.bitstream", ["cptv/bitstream.pyx"]),
+    Extension("cptv.reader", ["cptv/reader.pyx"]),
+]
 
 setup(
     name='cptv',
-    version='0.1.1',
+    version='0.2.0',
 
     description='Python library for handling Cacophony Project Thermal Video (CPTV) files',
     long_description=long_description,
@@ -52,10 +57,10 @@ setup(
     keywords='video compression',
 
     packages=['cptv'],
+    ext_modules = cythonize(extensions),
 
     install_requires=['numpy', 'Pillow', 'opencv-python'],
-
     extras_require={
-        'test': ['pytest'],
+        'dev': ['Cython', 'pytest'],
     },
 )
