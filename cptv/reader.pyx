@@ -102,10 +102,7 @@ cdef class CPTVReader:
         self.x_resolution = fields[Field.X_RESOLUTION]
         self.y_resolution = fields[Field.Y_RESOLUTION]
         self.frame_dim = (self.y_resolution, self.x_resolution)
-
-        self.device_name = ""
-        if Field.DEVICENAME in fields:
-            self.device_name = fields[Field.DEVICENAME]
+        self.device_name = fields.get(Field.DEVICENAME, "")
 
     def __iter__(self):
         cdef long v
