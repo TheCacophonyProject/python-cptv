@@ -49,4 +49,4 @@ This software is licensed under the Apache License 2.0.
 * Build the source distribution: `python setup.py sdist --formats=zip`
 * Tag the release, for example: `git tag -a v0.2.1 -m "0.2.1 release"`
 * Push the tag to Github, for example: `git push origin v0.2.1`
-* Push the release to PyPI, for example: `twine upload sdist/cptv-0.2.1.zip`
+* Push the release to PyPI, for example: `twine upload dist/cptv-0.2.1.zip`
