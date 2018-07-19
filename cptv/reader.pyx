@@ -72,12 +72,14 @@ cdef class CPTVReader:
 
     """
 
-    cdef object s
     cdef public int compression
     cdef public object timestamp
     cdef public int x_resolution
     cdef public int y_resolution
-    cdef object frame_dim
+    cdef public object frame_dim
+    cdef public object device_name
+
+    cdef object s
 
     def __init__(self, fileobj):
         self.s = BitStream(gzip.GzipFile(fileobj=fileobj, mode="rb"))
