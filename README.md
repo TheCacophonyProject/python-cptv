@@ -28,11 +28,12 @@ from cptv import CPTVReader
 
 with open(filename, "rb") as f:
     reader = CPTVReader(f)
+    print(reader.device_name)
     print(reader.timestamp)
     print(reader.x_resolution)
     print(reader.y_resolution)
 
-    for frame in reader:
+    for frame, t_offset in reader:
         # Do something with frame.
         # Each frame is a 2D numpy array.
 
