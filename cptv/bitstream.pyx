@@ -55,9 +55,9 @@ cdef class BitStream:
         """
         source = self.bytes(total_size)
         cdef int i = 0
-        cdef long bits = 0
+        cdef long long bits = 0
         cdef int nbits = 0
-        cdef long out = 0
+        cdef long long out = 0
         while True:
             while nbits < bitw:
                 bits |= source[i] << (24 - nbits)

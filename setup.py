@@ -27,7 +27,7 @@ Example usage::
 
 setup(
     name="cptv",
-    version="0.2.2",
+    version="0.2.3",
     description="Python library for handling Cacophony Project Thermal Video (CPTV) files",
     long_description=long_description,
     url="https://github.com/TheCacophonyProject/python-cptv",
