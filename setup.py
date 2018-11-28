@@ -50,5 +50,5 @@ setup(
         Extension("cptv.reader", ["cptv/reader.pyx"]),
         Extension("cptv.bitstream", ["cptv/bitstream.pyx"]),
     ],
-    install_requires=["numpy", "Pillow", "opencv-python"],
+    install_requires=["numpy"],
 )
