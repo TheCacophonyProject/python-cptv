@@ -12,47 +12,56 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import datetime
+from datetime import datetime, timedelta, timezone
 import gzip
 
 import numpy as np
 
 from .bitstream import BitStream
+from .frame import Frame
 
 
-class Section:
+cdef class Section:
     HEADER = b'H'
     FRAME = b'F'
 
 
-class Field:
+cdef class Field:
+    # Header fields
     TIMESTAMP = b'T'
     X_RESOLUTION = b'X'
     Y_RESOLUTION = b'Y'
     COMPRESSION = b'C'
     DEVICENAME = b'D'
+    PREVIEW_SECS = b'P'
+    MOTION_CONFIG = b'M'
+
+    # Frame fields
     BIT_WIDTH = b'w'
     FRAME_SIZE = b'f'
-    FRAME_OFFSET = b't'
+    TIME_ON = b't'
+    LAST_FFC_TIME = b'c'
 
 
 UINT32_FIELDS = {
     Field.X_RESOLUTION,
     Field.Y_RESOLUTION,
-    Field.FRAME_OFFSET,
     Field.FRAME_SIZE,
+    Field.TIME_ON,
+    Field.LAST_FFC_TIME,
     }
 
 UINT8_FIELDS = {
     Field.COMPRESSION,
     Field.BIT_WIDTH,
+    Field.PREVIEW_SECS,
     }
 
 STRING_FIELDS = {
     Field.DEVICENAME
 }
 
-epoch = datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc)
+epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)
 
 
 cdef class CPTVReader:
@@ -72,12 +81,15 @@ cdef class CPTVReader:
 
     """
 
+    cdef public int version
     cdef public int compression
     cdef public object timestamp
     cdef public int x_resolution
     cdef public int y_resolution
     cdef public object frame_dim
     cdef public object device_name
+    cdef public int preview_secs
+    cdef public object motion_config
 
     cdef object s
 
@@ -88,7 +100,8 @@ cdef class CPTVReader:
         if self.s.bytes(4) != b"CPTV":
             raise IOError("magic not found")
 
-        if self.s.uint8() != 1:
+        self.version = self.s.uint8()
+        if self.version not in (1, 2):
             raise IOError("unsupported version")
 
         section_type, fields = self._read_section()
@@ -105,6 +118,8 @@ cdef class CPTVReader:
         self.y_resolution = fields[Field.Y_RESOLUTION]
         self.frame_dim = (self.y_resolution, self.x_resolution)
         self.device_name = fields.get(Field.DEVICENAME, "")
+        self.preview_secs = fields.get(Field.PREVIEW_SECS, 0)
+        self.motion_config = fields.get(Field.MOTION_CONFIG, None)
 
     def __iter__(self):
         cdef long v
@@ -113,9 +128,9 @@ cdef class CPTVReader:
         cdef int i
         cdef int x_res
 
-        prev_frame = np.zeros(self.frame_dim, dtype="uint16")
+        prev_pix = np.zeros(self.frame_dim, dtype="uint16")
         frame = np.zeros(self.frame_dim, dtype="uint16")
-        delta_frame = np.zeros(self.frame_dim, dtype="int32")
+        delta_pix = np.zeros(self.frame_dim, dtype="int32")
         x_res = self.x_resolution
         num_deltas = (x_res * self.y_resolution) - 1
 
@@ -140,7 +155,7 @@ cdef class CPTVReader:
                 raise IOError("unexpected section: {}".format(section_type))
 
             v = self.s.int32()  # read starting value
-            delta_frame[0][0] = v
+            delta_pix[0][0] = v
 
             # ... then apply deltas
 
@@ -150,13 +165,17 @@ cdef class CPTVReader:
             deltas = self.s.iter_int(frame_size, bit_width)
             for (y, x), d in zip(walk_coords, deltas):
                 v += d
-                delta_frame[y][x] = v
+                delta_pix[y][x] = v
 
             # Calculate the frame by applying the delta frame to the
             # previously decompressed frame.
-            frame = (prev_frame + delta_frame).astype('uint16')
-            yield frame, fields[Field.FRAME_OFFSET]
-            prev_frame = frame
+            pix = (prev_pix + delta_pix).astype('uint16')
+
+            time_on = timedelta(milliseconds=fields.get(Field.TIME_ON, 0))
+            last_ffc_time = timedelta(milliseconds=fields.get(Field.LAST_FFC_TIME, 0))
+
+            yield Frame(pix, time_on, last_ffc_time)
+            prev_pix = pix
 
     def _read_section(self):
         section_type = self.s.bytes(1)
@@ -180,7 +199,7 @@ cdef class CPTVReader:
         elif ftype == Field.TIMESTAMP:
             micros = self.s.uint64()
             try:
-                val = epoch + datetime.timedelta(microseconds=micros)
+                val = epoch + timedelta(microseconds=micros)
             except OverflowError:
                 print("timestamp is broken - using default")
                 val = epoch
