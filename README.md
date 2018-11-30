@@ -4,7 +4,10 @@ This is Python package provides for quick, easy parsing for Cacophony
 Project Thermal Video (CPTV) files. It works with **Python 3** only.
 
 For more details on the internals of CPTV files, see the
-[specification](https://github.com/TheCacophonyProject/go-cptv/blob/master/SPEC.md).
+[specification](https://github.com/TheCacophonyProject/go-cptv/blob/master/SPECv2.md).
+
+See [read.py](https://github.com/TheCacophonyProject/python-cptv/blob/master/read.py)
+for example usage.
 
 ## Installation
 
@@ -14,29 +17,10 @@ Installation from PyPI:
 pip install cptv
 ```
 
-Installation from source (highly recommended to use a virtualenv):
+Installation from source (use of a virtualenv is highly recommended):
 
 ```
 pip install .
-```
-
-## Example Usage
-
-```python
-from cptv import CPTVReader
-
-
-with open(filename, "rb") as f:
-    reader = CPTVReader(f)
-    print(reader.device_name)
-    print(reader.timestamp)
-    print(reader.x_resolution)
-    print(reader.y_resolution)
-
-    for frame, t_offset in reader:
-        # Do something with frame.
-        # Each frame is a 2D numpy array.
-
 ```
 
 ## License
