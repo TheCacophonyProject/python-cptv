@@ -127,6 +127,8 @@ cdef class CPTVReader:
         cdef long d
         cdef int i
         cdef int x_res
+        cdef object time_on = None
+        cdef object last_ffc_time = None
 
         prev_pix = np.zeros(self.frame_dim, dtype="uint16")
         frame = np.zeros(self.frame_dim, dtype="uint16")
@@ -171,8 +173,9 @@ cdef class CPTVReader:
             # previously decompressed frame.
             pix = (prev_pix + delta_pix).astype('uint16')
 
-            time_on = timedelta(milliseconds=fields.get(Field.TIME_ON, 0))
-            last_ffc_time = timedelta(milliseconds=fields.get(Field.LAST_FFC_TIME, 0))
+            if self.version >= 2:
+                time_on = timedelta(milliseconds=fields.get(Field.TIME_ON, 0))
+                last_ffc_time = timedelta(milliseconds=fields.get(Field.LAST_FFC_TIME, 0))
 
             yield Frame(pix, time_on, last_ffc_time)
             prev_pix = pix
