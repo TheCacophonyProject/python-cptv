@@ -6,6 +6,9 @@ Project Thermal Video (CPTV) files. It works with **Python 3** only.
 For more details on the internals of CPTV files, see the
 [specification](https://github.com/TheCacophonyProject/go-cptv/blob/master/SPECv2.md).
 
+See [read.py](https://github.com/TheCacophonyProject/python-cptv/blob/master/read.py)
+for example usage.
+
 ## Installation
 
 Installation from PyPI:
@@ -18,35 +21,6 @@ Installation from source (use of a virtualenv is highly recommended):
 
 ```
 pip install .
-```
-
-## Example Usage
-
-```python
-from cptv import CPTVReader
-
-
-with open(filename, "rb") as f:
-    reader = CPTVReader(f)
-    print("version:", reader.version)
-    print("device:", reader.device_name)
-    print("time:", reader.timestamp)
-    print("dims:", reader.x_resolution, reader.y_resolution)
-    print("preview secs:", reader.preview_secs)
-    print("motion config:", reader.motion_config)
-
-    for frame in reader:
-        # Print out some details about the frame
-        print(
-            "t:",
-            frame.time_on,
-            "ffc:",
-            frame.last_ffc_time,
-            "min:",
-            frame.pix.min(),
-            "max:",
-            frame.pix.max(),
-        )
 ```
 
 ## License
