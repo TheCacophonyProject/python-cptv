@@ -1,5 +1,7 @@
 # python-cptv
 
+https://travis-ci.com/TheCacophonyProject/python-cptv.svg?branch=master
+
 This is Python package provides for quick, easy parsing for Cacophony
 Project Thermal Video (CPTV) files. It works with **Python 3** only.
 
