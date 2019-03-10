@@ -49,6 +49,9 @@ cdef class BitStream:
         formatString = str(data_len) + 's'
         return struct.unpack(formatString, self.bytes(data_len))[0]
 
+    def float32(self):
+        return struct.unpack("<f", self.bytes(4))[0]
+
     def iter_int(self, int total_size, int bitw):
         """Return an iterator which processes the the next total_size
         bytes, generating signed integers of bitw width.
