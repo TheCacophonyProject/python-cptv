@@ -1,11 +1,23 @@
 dist: xenial
 language: python
+
 python:
-  - "3.5"
-  - "3.6"
+- '3.5'
+- '3.6'
 
 install:
-  - python setup.py install
+- python setup.py install
 
 script:
-  - pytest
+- pytest
+
+deploy:
+- provider: pypi
+  user: mjs0
+  password:
+    secure: "oyYOlplwqG4mj/AY1Dhtg/yjukua6YCz5UCN541ZZAcvCwCFF5MpxmQvJVkqjvJHpBNJFOKvfV1BE8+iPEqzgv1plYZCGSmvI05myS9mxPbdW98A7MCf6aUsAXdCb/MyiIQ6LyA3GtufYTGxHkiSqCOe44PdCp77irudis2b1eMdvmlzZS7Yd70AHgpR466/bcu/n/7B3SdkI+M4XQOsGnx9dpjXsrZZ8MPMEdG9+mLtWfC57YjFnDMMf4J9TSea6xj/wC3h3zcW4MmSwuwhJ/UBTDz0e3xYtWNjWRrqSMhTt/pYm2nqIzpztNc6VrdZ/7SEInq1d4HIGDA2u+rEkvvPpGWWds/zgTxNwlf3bswnqiobhZgeYDxGoZu6q2yoE3BAJ6p4S/9sDure5sSIBvPmCOv4d3UPtjaP1HUVQ3hMwR6KVP1DSLIOtCivwnd1UBJtRstVzaPw/z7n7pS8209MSePORRMZa9i+7I7SjX++XWB7kiKzldRzYT7OzEhDm9eBGpEwAnNWRd6yGa2mqSTuLJcUAngdfaMwgEKyY1L3LyVrJyyyyoEYMtA1mwJyqY7pO+W1F8osCw7YMKEr9qB93a1YbAZ2RooW/DvoBzfBGYO6hK5OprxDmHc74vRPj3sjq7QVUxpgJJwlKymCLmcnultmxVXD9sAZKKZp2xo="
+  skip_cleanup: true
+  distributions: sdist bdist_wheel
+  on:
+    tags: true
+    python: '3.6'
