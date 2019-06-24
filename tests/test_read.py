@@ -1,6 +1,8 @@
 from datetime import datetime, timezone
 from pathlib import Path
 
+from pytest import approx
+
 from cptv import CPTVReader
 
 
@@ -18,6 +20,8 @@ def test_read_v1():
         assert r.y_resolution == 120
         assert r.preview_secs == 0
         assert r.motion_config is None
+        assert r.latitude == 0
+        assert r.longitude == 0
 
         count = 0
         for frame in r:
@@ -38,6 +42,8 @@ def test_read_v2():
         assert r.y_resolution == 120
         assert r.preview_secs == 1
         assert r.motion_config == b"motion"
+        assert r.latitude == 0
+        assert r.longitude == 0
 
         count = 0
         for frame in r:
@@ -45,3 +51,12 @@ def test_read_v2():
             assert frame.time_on is not None
             assert frame.last_ffc_time is not None
         assert count == 100
+
+
+def test_lat_lon():
+    filename = str(data_dir / "v2-latlon.cptv")
+    with open(filename, "rb") as f:
+        r = CPTVReader(f)
+        assert r.version == 2
+        assert r.latitude == approx(-36.943634)
+        assert r.longitude == approx(174.661544)

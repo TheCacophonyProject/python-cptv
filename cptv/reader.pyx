@@ -64,7 +64,7 @@ STRING_FIELDS = {
     }
 
 FLOAT_FIELDS = {
-    Field.LATITUDE
+    Field.LATITUDE,
     Field.LONGITUDE
     }
 
@@ -95,6 +95,8 @@ cdef class CPTVReader:
     cdef public int y_resolution
     cdef public object frame_dim
     cdef public object device_name
+    cdef public float latitude
+    cdef public float longitude
     cdef public int preview_secs
     cdef public object motion_config
 
@@ -127,8 +129,8 @@ cdef class CPTVReader:
         self.device_name = fields.get(Field.DEVICENAME, "")
         self.preview_secs = fields.get(Field.PREVIEW_SECS, 0)
         self.motion_config = fields.get(Field.MOTION_CONFIG, None)
-        self.preview_secs = fields.get(Field.LATITUDE, 0.0)
-        self.preview_secs = fields.get(Field.LONGITUDE, 0.0)
+        self.latitude = fields.get(Field.LATITUDE, 0.0)
+        self.longitude = fields.get(Field.LONGITUDE, 0.0)
 
     def __iter__(self):
         cdef long v
