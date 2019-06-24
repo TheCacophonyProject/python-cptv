@@ -35,6 +35,8 @@ cdef class Field:
     DEVICENAME = b'D'
     PREVIEW_SECS = b'P'
     MOTION_CONFIG = b'M'
+    LATITUDE = b'L'
+    LONGITUDE = b'O'
 
     # Frame fields
     BIT_WIDTH = b'w'
@@ -59,7 +61,12 @@ UINT8_FIELDS = {
 
 STRING_FIELDS = {
     Field.DEVICENAME
-}
+    }
+
+FLOAT_FIELDS = {
+    Field.LATITUDE,
+    Field.LONGITUDE
+    }
 
 epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)
 
@@ -88,6 +95,8 @@ cdef class CPTVReader:
     cdef public int y_resolution
     cdef public object frame_dim
     cdef public object device_name
+    cdef public float latitude
+    cdef public float longitude
     cdef public int preview_secs
     cdef public object motion_config
 
@@ -120,6 +129,8 @@ cdef class CPTVReader:
         self.device_name = fields.get(Field.DEVICENAME, "")
         self.preview_secs = fields.get(Field.PREVIEW_SECS, 0)
         self.motion_config = fields.get(Field.MOTION_CONFIG, None)
+        self.latitude = fields.get(Field.LATITUDE, 0.0)
+        self.longitude = fields.get(Field.LONGITUDE, 0.0)
 
     def __iter__(self):
         cdef long v
@@ -199,6 +210,8 @@ cdef class CPTVReader:
             val = self.s.uint32()
         elif ftype in STRING_FIELDS:
             val = self.s.string(data_len)
+        elif ftype in FLOAT_FIELDS:
+            val = self.s.float32()
         elif ftype == Field.TIMESTAMP:
             micros = self.s.uint64()
             try:
