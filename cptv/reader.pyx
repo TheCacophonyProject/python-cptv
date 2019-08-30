@@ -17,7 +17,7 @@ import gzip
 
 import numpy as np
 
-from .bitstream import BitStream
+from .bitreader import BitReader
 from .frame import Frame
 
 
@@ -103,7 +103,7 @@ cdef class CPTVReader:
     cdef object s
 
     def __init__(self, fileobj):
-        self.s = BitStream(gzip.GzipFile(fileobj=fileobj, mode="rb"))
+        self.s = BitReader(gzip.GzipFile(fileobj=fileobj, mode="rb"))
 
         # check magic and version
         if self.s.bytes(4) != b"CPTV":

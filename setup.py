@@ -29,7 +29,7 @@ setup(
     ext_modules=[
         Extension("cptv.reader", ["cptv/reader.pyx"]),
         Extension("cptv.writer", ["cptv/writer.pyx"]),
-        Extension("cptv.bitstream", ["cptv/bitstream.pyx"]),
+        Extension("cptv.bitreader", ["cptv/bitreader.pyx"]),
     ],
     install_requires=["numpy"],
 )

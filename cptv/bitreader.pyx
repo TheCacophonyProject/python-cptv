@@ -1,4 +1,4 @@
-# Copyright 2018 The Cacophony Project
+# Copyright 2019 The Cacophony Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -15,9 +15,9 @@
 import struct
 
 
-cdef class BitStream:
+cdef class BitReader:
     """
-    BitStream takes a file like object and allows it to be consumed at
+    BitReader takes a file like object and allows it to be consumed at
     various bit widths
     """
 
