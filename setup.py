@@ -28,6 +28,7 @@ setup(
     setup_requires=["setuptools>=18.0", "cython"],
     ext_modules=[
         Extension("cptv.reader", ["cptv/reader.pyx"]),
+        Extension("cptv.writer", ["cptv/writer.pyx"]),
         Extension("cptv.bitstream", ["cptv/bitstream.pyx"]),
     ],
     install_requires=["numpy"],
