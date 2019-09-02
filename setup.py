@@ -7,7 +7,7 @@ Project Thermal Video (CPTV) files. It works with Python 3 only.
 
 setup(
     name="cptv",
-    version="0.3.0",
+    version="0.4.0",
     description="Python library for handling Cacophony Project Thermal Video (CPTV) files",
     long_description=long_description,
     url="https://github.com/TheCacophonyProject/python-cptv",
