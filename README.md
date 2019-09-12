@@ -6,7 +6,9 @@ This is Python package provides for quick, easy parsing for Cacophony
 Project Thermal Video (CPTV) files. It works with **Python 3** only.
 
 See [read.py](https://github.com/TheCacophonyProject/python-cptv/blob/master/read.py)
+and [write.py](https://github.com/TheCacophonyProject/python-cptv/blob/master/write.py)
 for example usage.
+
 
 For more details on the internals of CPTV files, see the specifications:
 
