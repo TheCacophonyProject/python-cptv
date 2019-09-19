@@ -1,4 +1,4 @@
-# Copyright 2018 The Cacophony Project
+# Copyright 2019 The Cacophony Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,12 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# cython: language_level=3
+
 import struct
 
 
-cdef class BitStream:
+cdef class BitReader:
     """
-    BitStream takes a file like object and allows it to be consumed at
+    BitReader takes a file like object and allows it to be consumed at
     various bit widths
     """
 
@@ -66,15 +68,17 @@ cdef class BitStream:
                 bits |= source[i] << (24 - nbits)
                 nbits += 8
                 i += 1
-            out = twos_comp(bits >> (32 - bitw) & 0xffff, bitw)
+            out = inverse_twos_comp(bits >> (32 - bitw) & 0xffff, bitw)
             bits = (bits << bitw) & 0xffffffff
             nbits -= bitw
             yield out
 
 
-cdef inline twos_comp(int v, int width):
-    """Convert the signed value with the given bit width to its two's
-    complement representation.
+cdef inline inverse_twos_comp(int v, int width):
+    """Convert a two's complement value of a specific bit width to a
+    full width integer.
+
+    The inverse of twos_comp() in writer.pyx.
     """
     cdef int mask = 1 << (width - 1)
     return -(v & mask) + (v & ~mask)

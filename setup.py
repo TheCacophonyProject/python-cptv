@@ -25,10 +25,12 @@ setup(
     ],
     keywords="video compression",
     packages=["cptv"],
-    setup_requires=["setuptools>=18.0", "cython"],
+    setup_requires=["setuptools>=18.0", "cython>=0.29.13"],
     ext_modules=[
         Extension("cptv.reader", ["cptv/reader.pyx"]),
-        Extension("cptv.bitstream", ["cptv/bitstream.pyx"]),
+        Extension("cptv.writer", ["cptv/writer.pyx"]),
+        Extension("cptv.bitreader", ["cptv/bitreader.pyx"]),
+        Extension("cptv.bitwriter", ["cptv/bitwriter.pyx"]),
     ],
     install_requires=["numpy"],
 )
