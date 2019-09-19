@@ -153,7 +153,7 @@ cdef class Compressor:
     @cython.boundscheck(False) # turn off bounds-checking for entire function
     @cython.wraparound(False)  # turn off negative index wrapping for entire function
     def next_frame(self, unsigned short[:, :] pix):
-        cdef int y, inc, i
+        cdef int x, y, inc, i
 
         # Generate the interframe delta.
         # The output is written in a "snaked" fashion to avoid
