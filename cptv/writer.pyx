@@ -173,10 +173,12 @@ cdef class Compressor:
         self.prev_pix[...] = pix
 
         # Now generate the adjacent "delta of deltas".
+        cdef unsigned long max_delta = 0
+        cdef long delta
         for i in range(ELEMS - 1):
-           self.adj_delta[i] = self.frame_delta[i + 1] - self.frame_delta[i]
-
-        cdef unsigned long max_delta = np.abs(self.adj_delta).max()
+            delta = self.frame_delta[i + 1] - self.frame_delta[i]
+            self.adj_delta[i] = delta
+            max_delta = max(max_delta, abs(delta))
 
         # How many bits required to store the largest delta?
         # Add 1 to allow for sign bit

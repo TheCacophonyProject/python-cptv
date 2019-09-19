@@ -1946,8 +1946,6 @@ static const char __pyx_k_BBL[] = "<BBL";
 static const char __pyx_k_BBQ[] = "<BBQ";
 static const char __pyx_k_BBf[] = "<BBf";
 static const char __pyx_k__19[] = "\002";
-static const char __pyx_k_abs[] = "abs";
-static const char __pyx_k_max[] = "max";
 static const char __pyx_k_new[] = "__new__";
 static const char __pyx_k_now[] = "now";
 static const char __pyx_k_obj[] = "obj";
@@ -2156,7 +2154,6 @@ static PyObject *__pyx_n_s_View_MemoryView;
 static PyObject *__pyx_n_s_X_RESOLUTION;
 static PyObject *__pyx_n_s_Y_RESOLUTION;
 static PyObject *__pyx_kp_b__19;
-static PyObject *__pyx_n_s_abs;
 static PyObject *__pyx_n_s_allocate_buffer;
 static PyObject *__pyx_n_s_append;
 static PyObject *__pyx_n_s_array;
@@ -2201,7 +2198,6 @@ static PyObject *__pyx_kp_u_l;
 static PyObject *__pyx_n_s_last_ffc_time;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_math;
-static PyObject *__pyx_n_s_max;
 static PyObject *__pyx_n_s_memview;
 static PyObject *__pyx_n_s_milliseconds;
 static PyObject *__pyx_n_s_mode;
@@ -7114,6 +7110,7 @@ static PyObject *__pyx_pf_4cptv_6writer_10Compressor_2next_frame(struct __pyx_ob
   int __pyx_v_inc;
   int __pyx_v_i;
   unsigned long __pyx_v_max_delta;
+  long __pyx_v_delta;
   unsigned char __pyx_v_width;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
@@ -7135,13 +7132,14 @@ static PyObject *__pyx_pf_4cptv_6writer_10Compressor_2next_frame(struct __pyx_ob
   Py_ssize_t __pyx_t_16;
   Py_ssize_t __pyx_t_17;
   Py_ssize_t __pyx_t_18;
-  PyObject *__pyx_t_19 = NULL;
-  PyObject *__pyx_t_20 = NULL;
-  unsigned long __pyx_t_21;
+  unsigned long __pyx_t_19;
+  unsigned long __pyx_t_20;
+  PyObject *__pyx_t_21 = NULL;
   unsigned char __pyx_t_22;
-  Py_ssize_t __pyx_t_23;
-  PyObject *__pyx_t_24 = NULL;
+  PyObject *__pyx_t_23 = NULL;
+  Py_ssize_t __pyx_t_24;
   PyObject *__pyx_t_25 = NULL;
+  PyObject *__pyx_t_26 = NULL;
   __Pyx_RefNannySetupContext("next_frame", 0);
 
   /* "cptv/writer.pyx":161
@@ -7284,226 +7282,207 @@ static PyObject *__pyx_pf_4cptv_6writer_10Compressor_2next_frame(struct __pyx_ob
   /* "cptv/writer.pyx":176
  * 
  *         # Now generate the adjacent "delta of deltas".
- *         for i in range(ELEMS - 1):             # <<<<<<<<<<<<<<
- *            self.adj_delta[i] = self.frame_delta[i + 1] - self.frame_delta[i]
- * 
+ *         cdef unsigned long max_delta = 0             # <<<<<<<<<<<<<<
+ *         cdef unsigned long abs_delta
+ *         cdef long delta
  */
-  __pyx_t_8 = __Pyx_PyInt_SubtractObjC(__pyx_v_4cptv_6writer_ELEMS, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 176, __pyx_L1_error)
+  __pyx_v_max_delta = 0;
+
+  /* "cptv/writer.pyx":179
+ *         cdef unsigned long abs_delta
+ *         cdef long delta
+ *         for i in range(ELEMS - 1):             # <<<<<<<<<<<<<<
+ *             delta = self.frame_delta[i + 1] - self.frame_delta[i]
+ *             self.adj_delta[i] = delta
+ */
+  __pyx_t_8 = __Pyx_PyInt_SubtractObjC(__pyx_v_4cptv_6writer_ELEMS, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 179, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_1 = __Pyx_PyInt_As_long(__pyx_t_8); if (unlikely((__pyx_t_1 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 176, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_long(__pyx_t_8); if (unlikely((__pyx_t_1 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 179, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __pyx_t_2 = __pyx_t_1;
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "cptv/writer.pyx":177
- *         # Now generate the adjacent "delta of deltas".
+    /* "cptv/writer.pyx":180
+ *         cdef long delta
  *         for i in range(ELEMS - 1):
- *            self.adj_delta[i] = self.frame_delta[i + 1] - self.frame_delta[i]             # <<<<<<<<<<<<<<
- * 
- *         cdef unsigned long max_delta = np.abs(self.adj_delta).max()
+ *             delta = self.frame_delta[i + 1] - self.frame_delta[i]             # <<<<<<<<<<<<<<
+ *             self.adj_delta[i] = delta
+ *             max_delta = max(max_delta, abs(delta))
  */
-    if (unlikely(!__pyx_v_self->frame_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 177, __pyx_L1_error)}
+    if (unlikely(!__pyx_v_self->frame_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 180, __pyx_L1_error)}
     __pyx_t_16 = (__pyx_v_i + 1);
-    if (unlikely(!__pyx_v_self->frame_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 177, __pyx_L1_error)}
+    if (unlikely(!__pyx_v_self->frame_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 180, __pyx_L1_error)}
     __pyx_t_17 = __pyx_v_i;
-    if (unlikely(!__pyx_v_self->adj_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 177, __pyx_L1_error)}
-    __pyx_t_18 = __pyx_v_i;
-    *((int *) ( /* dim=0 */ (__pyx_v_self->adj_delta.data + __pyx_t_18 * __pyx_v_self->adj_delta.strides[0]) )) = ((*((int *) ( /* dim=0 */ (__pyx_v_self->frame_delta.data + __pyx_t_16 * __pyx_v_self->frame_delta.strides[0]) ))) - (*((int *) ( /* dim=0 */ (__pyx_v_self->frame_delta.data + __pyx_t_17 * __pyx_v_self->frame_delta.strides[0]) ))));
-  }
+    __pyx_v_delta = ((*((int *) ( /* dim=0 */ (__pyx_v_self->frame_delta.data + __pyx_t_16 * __pyx_v_self->frame_delta.strides[0]) ))) - (*((int *) ( /* dim=0 */ (__pyx_v_self->frame_delta.data + __pyx_t_17 * __pyx_v_self->frame_delta.strides[0]) ))));
 
-  /* "cptv/writer.pyx":179
- *            self.adj_delta[i] = self.frame_delta[i + 1] - self.frame_delta[i]
- * 
- *         cdef unsigned long max_delta = np.abs(self.adj_delta).max()             # <<<<<<<<<<<<<<
- * 
- *         # How many bits required to store the largest delta?
+    /* "cptv/writer.pyx":181
+ *         for i in range(ELEMS - 1):
+ *             delta = self.frame_delta[i + 1] - self.frame_delta[i]
+ *             self.adj_delta[i] = delta             # <<<<<<<<<<<<<<
+ *             max_delta = max(max_delta, abs(delta))
+ *             # abs_delta = abs(delta)
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_np); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 179, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_19 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_abs); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 179, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_19);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_v_self->adj_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 179, __pyx_L1_error)}
-  __pyx_t_5 = __pyx_memoryview_fromslice(__pyx_v_self->adj_delta, 1, (PyObject *(*)(char *)) __pyx_memview_get_int, (int (*)(char *, PyObject *)) __pyx_memview_set_int, 0);; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 179, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_20 = NULL;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_19))) {
-    __pyx_t_20 = PyMethod_GET_SELF(__pyx_t_19);
-    if (likely(__pyx_t_20)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_19);
-      __Pyx_INCREF(__pyx_t_20);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_19, function);
-    }
-  }
-  __pyx_t_4 = (__pyx_t_20) ? __Pyx_PyObject_Call2Args(__pyx_t_19, __pyx_t_20, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_19, __pyx_t_5);
-  __Pyx_XDECREF(__pyx_t_20); __pyx_t_20 = 0;
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 179, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
-  __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-  __pyx_t_19 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_max); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 179, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_19);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_19))) {
-    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_19);
-    if (likely(__pyx_t_4)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_19);
-      __Pyx_INCREF(__pyx_t_4);
-      __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_19, function);
-    }
-  }
-  __pyx_t_8 = (__pyx_t_4) ? __Pyx_PyObject_CallOneArg(__pyx_t_19, __pyx_t_4) : __Pyx_PyObject_CallNoArg(__pyx_t_19);
-  __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 179, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-  __pyx_t_21 = __Pyx_PyInt_As_unsigned_long(__pyx_t_8); if (unlikely((__pyx_t_21 == (unsigned long)-1) && PyErr_Occurred())) __PYX_ERR(0, 179, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_v_max_delta = __pyx_t_21;
+    if (unlikely(!__pyx_v_self->adj_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 181, __pyx_L1_error)}
+    __pyx_t_18 = __pyx_v_i;
+    *((int *) ( /* dim=0 */ (__pyx_v_self->adj_delta.data + __pyx_t_18 * __pyx_v_self->adj_delta.strides[0]) )) = __pyx_v_delta;
 
-  /* "cptv/writer.pyx":183
+    /* "cptv/writer.pyx":182
+ *             delta = self.frame_delta[i + 1] - self.frame_delta[i]
+ *             self.adj_delta[i] = delta
+ *             max_delta = max(max_delta, abs(delta))             # <<<<<<<<<<<<<<
+ *             # abs_delta = abs(delta)
+ *             # if abs_delta > max_delta:
+ */
+    __pyx_t_9 = labs(__pyx_v_delta); if (unlikely(__pyx_t_9 == ((long)-1))) __PYX_ERR(0, 182, __pyx_L1_error)
+    __pyx_t_19 = __pyx_v_max_delta;
+    if (((__pyx_t_9 > __pyx_t_19) != 0)) {
+      __pyx_t_20 = __pyx_t_9;
+    } else {
+      __pyx_t_20 = __pyx_t_19;
+    }
+    __pyx_v_max_delta = __pyx_t_20;
+  }
+
+  /* "cptv/writer.pyx":189
  *         # How many bits required to store the largest delta?
  *         # Add 1 to allow for sign bit
  *         cdef unsigned char width = int.bit_length(max_delta) + 1             # <<<<<<<<<<<<<<
  * 
  *         # Reset the buffer
  */
-  __pyx_t_19 = __Pyx_PyObject_GetAttrStr(((PyObject *)(&PyInt_Type)), __pyx_n_s_bit_length); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 183, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_19);
-  __pyx_t_4 = __Pyx_PyInt_From_unsigned_long(__pyx_v_max_delta); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 183, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)(&PyInt_Type)), __pyx_n_s_bit_length); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 189, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = NULL;
-  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_19))) {
-    __pyx_t_5 = PyMethod_GET_SELF(__pyx_t_19);
-    if (likely(__pyx_t_5)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_19);
-      __Pyx_INCREF(__pyx_t_5);
+  __pyx_t_5 = __Pyx_PyInt_From_unsigned_long(__pyx_v_max_delta); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_21 = NULL;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
+    __pyx_t_21 = PyMethod_GET_SELF(__pyx_t_4);
+    if (likely(__pyx_t_21)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_4);
+      __Pyx_INCREF(__pyx_t_21);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_19, function);
+      __Pyx_DECREF_SET(__pyx_t_4, function);
     }
   }
-  __pyx_t_8 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_19, __pyx_t_5, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_19, __pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 183, __pyx_L1_error)
+  __pyx_t_8 = (__pyx_t_21) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_21, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 189, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
-  __pyx_t_19 = __Pyx_PyInt_AddObjC(__pyx_t_8, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 183, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_19);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  __pyx_t_4 = __Pyx_PyInt_AddObjC(__pyx_t_8, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_22 = __Pyx_PyInt_As_unsigned_char(__pyx_t_19); if (unlikely((__pyx_t_22 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 183, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+  __pyx_t_22 = __Pyx_PyInt_As_unsigned_char(__pyx_t_4); if (unlikely((__pyx_t_22 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 189, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_v_width = __pyx_t_22;
 
-  /* "cptv/writer.pyx":186
+  /* "cptv/writer.pyx":192
  * 
  *         # Reset the buffer
  *         del self.out[:]             # <<<<<<<<<<<<<<
  * 
  *         # Write out the starting frame delta value (required for reconstruction)
  */
-  if (__Pyx_PyObject_DelSlice(__pyx_v_self->out, 0, 0, NULL, NULL, &__pyx_slice_, 0, 0, 0) < 0) __PYX_ERR(0, 186, __pyx_L1_error)
+  if (__Pyx_PyObject_DelSlice(__pyx_v_self->out, 0, 0, NULL, NULL, &__pyx_slice_, 0, 0, 0) < 0) __PYX_ERR(0, 192, __pyx_L1_error)
 
-  /* "cptv/writer.pyx":189
+  /* "cptv/writer.pyx":195
  * 
  *         # Write out the starting frame delta value (required for reconstruction)
  *         self.out.extend(struct.pack("<l", self.frame_delta[0]))             # <<<<<<<<<<<<<<
  * 
  *         # Pack the deltas according to the bit width determined
  */
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->out, __pyx_n_s_extend); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->out, __pyx_n_s_extend); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 195, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_struct); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 189, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_20 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_pack); if (unlikely(!__pyx_t_20)) __PYX_ERR(0, 189, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_20);
-  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_v_self->frame_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 189, __pyx_L1_error)}
-  __pyx_t_23 = 0;
-  __pyx_t_5 = __Pyx_PyInt_From_int((*((int *) ( /* dim=0 */ (__pyx_v_self->frame_delta.data + __pyx_t_23 * __pyx_v_self->frame_delta.strides[0]) )))); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 189, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_24 = NULL;
+  __Pyx_GetModuleGlobalName(__pyx_t_21, __pyx_n_s_struct); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_21);
+  __pyx_t_23 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_pack); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_23);
+  __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
+  if (unlikely(!__pyx_v_self->frame_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 195, __pyx_L1_error)}
+  __pyx_t_24 = 0;
+  __pyx_t_21 = __Pyx_PyInt_From_int((*((int *) ( /* dim=0 */ (__pyx_v_self->frame_delta.data + __pyx_t_24 * __pyx_v_self->frame_delta.strides[0]) )))); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_21);
+  __pyx_t_25 = NULL;
   __pyx_t_3 = 0;
-  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_20))) {
-    __pyx_t_24 = PyMethod_GET_SELF(__pyx_t_20);
-    if (likely(__pyx_t_24)) {
-      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_20);
-      __Pyx_INCREF(__pyx_t_24);
+  if (CYTHON_UNPACK_METHODS && unlikely(PyMethod_Check(__pyx_t_23))) {
+    __pyx_t_25 = PyMethod_GET_SELF(__pyx_t_23);
+    if (likely(__pyx_t_25)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_23);
+      __Pyx_INCREF(__pyx_t_25);
       __Pyx_INCREF(function);
-      __Pyx_DECREF_SET(__pyx_t_20, function);
+      __Pyx_DECREF_SET(__pyx_t_23, function);
       __pyx_t_3 = 1;
     }
   }
   #if CYTHON_FAST_PYCALL
-  if (PyFunction_Check(__pyx_t_20)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_24, __pyx_kp_u_l, __pyx_t_5};
-    __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_20, __pyx_temp+1-__pyx_t_3, 2+__pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 189, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (PyFunction_Check(__pyx_t_23)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_25, __pyx_kp_u_l, __pyx_t_21};
+    __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_3, 2+__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 195, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_25); __pyx_t_25 = 0;
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
   } else
   #endif
   #if CYTHON_FAST_PYCCALL
-  if (__Pyx_PyFastCFunction_Check(__pyx_t_20)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_24, __pyx_kp_u_l, __pyx_t_5};
-    __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_20, __pyx_temp+1-__pyx_t_3, 2+__pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 189, __pyx_L1_error)
-    __Pyx_XDECREF(__pyx_t_24); __pyx_t_24 = 0;
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_23)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_25, __pyx_kp_u_l, __pyx_t_21};
+    __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_3, 2+__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 195, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_25); __pyx_t_25 = 0;
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
   } else
   #endif
   {
-    __pyx_t_25 = PyTuple_New(2+__pyx_t_3); if (unlikely(!__pyx_t_25)) __PYX_ERR(0, 189, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_25);
-    if (__pyx_t_24) {
-      __Pyx_GIVEREF(__pyx_t_24); PyTuple_SET_ITEM(__pyx_t_25, 0, __pyx_t_24); __pyx_t_24 = NULL;
+    __pyx_t_26 = PyTuple_New(2+__pyx_t_3); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 195, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_26);
+    if (__pyx_t_25) {
+      __Pyx_GIVEREF(__pyx_t_25); PyTuple_SET_ITEM(__pyx_t_26, 0, __pyx_t_25); __pyx_t_25 = NULL;
     }
     __Pyx_INCREF(__pyx_kp_u_l);
     __Pyx_GIVEREF(__pyx_kp_u_l);
-    PyTuple_SET_ITEM(__pyx_t_25, 0+__pyx_t_3, __pyx_kp_u_l);
-    __Pyx_GIVEREF(__pyx_t_5);
-    PyTuple_SET_ITEM(__pyx_t_25, 1+__pyx_t_3, __pyx_t_5);
-    __pyx_t_5 = 0;
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_20, __pyx_t_25, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 189, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_4);
-    __Pyx_DECREF(__pyx_t_25); __pyx_t_25 = 0;
+    PyTuple_SET_ITEM(__pyx_t_26, 0+__pyx_t_3, __pyx_kp_u_l);
+    __Pyx_GIVEREF(__pyx_t_21);
+    PyTuple_SET_ITEM(__pyx_t_26, 1+__pyx_t_3, __pyx_t_21);
+    __pyx_t_21 = 0;
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_23, __pyx_t_26, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 195, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_5);
+    __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
   }
-  __Pyx_DECREF(__pyx_t_20); __pyx_t_20 = 0;
-  __pyx_t_20 = NULL;
+  __Pyx_DECREF(__pyx_t_23); __pyx_t_23 = 0;
+  __pyx_t_23 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_8))) {
-    __pyx_t_20 = PyMethod_GET_SELF(__pyx_t_8);
-    if (likely(__pyx_t_20)) {
+    __pyx_t_23 = PyMethod_GET_SELF(__pyx_t_8);
+    if (likely(__pyx_t_23)) {
       PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_8);
-      __Pyx_INCREF(__pyx_t_20);
+      __Pyx_INCREF(__pyx_t_23);
       __Pyx_INCREF(function);
       __Pyx_DECREF_SET(__pyx_t_8, function);
     }
   }
-  __pyx_t_19 = (__pyx_t_20) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_20, __pyx_t_4) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_4);
-  __Pyx_XDECREF(__pyx_t_20); __pyx_t_20 = 0;
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 189, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_19);
+  __pyx_t_4 = (__pyx_t_23) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_23, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_5);
+  __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "cptv/writer.pyx":192
+  /* "cptv/writer.pyx":198
  * 
  *         # Pack the deltas according to the bit width determined
  *         self.pack_bits(width, self.adj_delta)             # <<<<<<<<<<<<<<
  * 
  *         return width, self.out
  */
-  if (unlikely(!__pyx_v_self->adj_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 192, __pyx_L1_error)}
-  __pyx_t_19 = ((struct __pyx_vtabstruct_4cptv_6writer_Compressor *)__pyx_v_self->__pyx_vtab)->pack_bits(__pyx_v_self, __pyx_v_width, __pyx_v_self->adj_delta); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 192, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_19);
-  __Pyx_DECREF(__pyx_t_19); __pyx_t_19 = 0;
+  if (unlikely(!__pyx_v_self->adj_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 198, __pyx_L1_error)}
+  __pyx_t_4 = ((struct __pyx_vtabstruct_4cptv_6writer_Compressor *)__pyx_v_self->__pyx_vtab)->pack_bits(__pyx_v_self, __pyx_v_width, __pyx_v_self->adj_delta); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "cptv/writer.pyx":194
+  /* "cptv/writer.pyx":200
  *         self.pack_bits(width, self.adj_delta)
  * 
  *         return width, self.out             # <<<<<<<<<<<<<<
@@ -7511,16 +7490,16 @@ static PyObject *__pyx_pf_4cptv_6writer_10Compressor_2next_frame(struct __pyx_ob
  *     @cython.boundscheck(False)
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_19 = __Pyx_PyInt_From_unsigned_char(__pyx_v_width); if (unlikely(!__pyx_t_19)) __PYX_ERR(0, 194, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_19);
-  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 194, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_unsigned_char(__pyx_v_width); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 200, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 200, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_GIVEREF(__pyx_t_19);
-  PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_19);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_4);
   __Pyx_INCREF(__pyx_v_self->out);
   __Pyx_GIVEREF(__pyx_v_self->out);
   PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_v_self->out);
-  __pyx_t_19 = 0;
+  __pyx_t_4 = 0;
   __pyx_r = __pyx_t_8;
   __pyx_t_8 = 0;
   goto __pyx_L0;
@@ -7538,10 +7517,10 @@ static PyObject *__pyx_pf_4cptv_6writer_10Compressor_2next_frame(struct __pyx_ob
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_8);
-  __Pyx_XDECREF(__pyx_t_19);
-  __Pyx_XDECREF(__pyx_t_20);
-  __Pyx_XDECREF(__pyx_t_24);
+  __Pyx_XDECREF(__pyx_t_21);
+  __Pyx_XDECREF(__pyx_t_23);
   __Pyx_XDECREF(__pyx_t_25);
+  __Pyx_XDECREF(__pyx_t_26);
   __Pyx_AddTraceback("cptv.writer.Compressor.next_frame", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -7551,7 +7530,7 @@ static PyObject *__pyx_pf_4cptv_6writer_10Compressor_2next_frame(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "cptv/writer.pyx":198
+/* "cptv/writer.pyx":204
  *     @cython.boundscheck(False)
  *     @cython.wraparound(False)
  *     cdef pack_bits(self, int width, int[:] vals):             # <<<<<<<<<<<<<<
@@ -7575,7 +7554,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
   int __pyx_t_7;
   __Pyx_RefNannySetupContext("pack_bits", 0);
 
-  /* "cptv/writer.pyx":199
+  /* "cptv/writer.pyx":205
  *     @cython.wraparound(False)
  *     cdef pack_bits(self, int width, int[:] vals):
  *         cdef unsigned long bits = 0  # scratch buffer             # <<<<<<<<<<<<<<
@@ -7584,7 +7563,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
  */
   __pyx_v_bits = 0;
 
-  /* "cptv/writer.pyx":200
+  /* "cptv/writer.pyx":206
  *     cdef pack_bits(self, int width, int[:] vals):
  *         cdef unsigned long bits = 0  # scratch buffer
  *         cdef int num_bits = 0        # number of bits in use in scratch             # <<<<<<<<<<<<<<
@@ -7593,7 +7572,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
  */
   __pyx_v_num_bits = 0;
 
-  /* "cptv/writer.pyx":204
+  /* "cptv/writer.pyx":210
  *         cdef int i
  * 
  *         for i in range(vals.shape[0]):             # <<<<<<<<<<<<<<
@@ -7605,7 +7584,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "cptv/writer.pyx":205
+    /* "cptv/writer.pyx":211
  * 
  *         for i in range(vals.shape[0]):
  *             d = vals[i]             # <<<<<<<<<<<<<<
@@ -7615,7 +7594,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
     __pyx_t_4 = __pyx_v_i;
     __pyx_v_d = (*((int *) ( /* dim=0 */ (__pyx_v_vals.data + __pyx_t_4 * __pyx_v_vals.strides[0]) )));
 
-    /* "cptv/writer.pyx":206
+    /* "cptv/writer.pyx":212
  *         for i in range(vals.shape[0]):
  *             d = vals[i]
  *             bits |= <unsigned long>(twos_comp(d, width) << (32 - width - num_bits))             # <<<<<<<<<<<<<<
@@ -7624,7 +7603,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
  */
     __pyx_v_bits = (__pyx_v_bits | ((unsigned long)(__pyx_f_4cptv_6writer_twos_comp(__pyx_v_d, __pyx_v_width) << ((32 - __pyx_v_width) - __pyx_v_num_bits))));
 
-    /* "cptv/writer.pyx":207
+    /* "cptv/writer.pyx":213
  *             d = vals[i]
  *             bits |= <unsigned long>(twos_comp(d, width) << (32 - width - num_bits))
  *             num_bits += width             # <<<<<<<<<<<<<<
@@ -7633,7 +7612,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
  */
     __pyx_v_num_bits = (__pyx_v_num_bits + __pyx_v_width);
 
-    /* "cptv/writer.pyx":208
+    /* "cptv/writer.pyx":214
  *             bits |= <unsigned long>(twos_comp(d, width) << (32 - width - num_bits))
  *             num_bits += width
  *             while num_bits >= 8:             # <<<<<<<<<<<<<<
@@ -7644,19 +7623,19 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
       __pyx_t_5 = ((__pyx_v_num_bits >= 8) != 0);
       if (!__pyx_t_5) break;
 
-      /* "cptv/writer.pyx":209
+      /* "cptv/writer.pyx":215
  *             num_bits += width
  *             while num_bits >= 8:
  *                 self.out.append(<unsigned char>(bits >> 24))             # <<<<<<<<<<<<<<
  *                 bits <<= 8
  *                 num_bits -= 8
  */
-      __pyx_t_6 = __Pyx_PyInt_From_unsigned_char(((unsigned char)(__pyx_v_bits >> 24))); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 209, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyInt_From_unsigned_char(((unsigned char)(__pyx_v_bits >> 24))); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 215, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_7 = __Pyx_PyObject_Append(__pyx_v_self->out, __pyx_t_6); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 209, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_Append(__pyx_v_self->out, __pyx_t_6); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 215, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-      /* "cptv/writer.pyx":210
+      /* "cptv/writer.pyx":216
  *             while num_bits >= 8:
  *                 self.out.append(<unsigned char>(bits >> 24))
  *                 bits <<= 8             # <<<<<<<<<<<<<<
@@ -7665,7 +7644,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
  */
       __pyx_v_bits = (__pyx_v_bits << 8);
 
-      /* "cptv/writer.pyx":211
+      /* "cptv/writer.pyx":217
  *                 self.out.append(<unsigned char>(bits >> 24))
  *                 bits <<= 8
  *                 num_bits -= 8             # <<<<<<<<<<<<<<
@@ -7676,7 +7655,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
     }
   }
 
-  /* "cptv/writer.pyx":213
+  /* "cptv/writer.pyx":219
  *                 num_bits -= 8
  * 
  *         if num_bits > 0:             # <<<<<<<<<<<<<<
@@ -7686,19 +7665,19 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
   __pyx_t_5 = ((__pyx_v_num_bits > 0) != 0);
   if (__pyx_t_5) {
 
-    /* "cptv/writer.pyx":214
+    /* "cptv/writer.pyx":220
  * 
  *         if num_bits > 0:
  *             self.out.append(<unsigned char>(bits >> 24))             # <<<<<<<<<<<<<<
  * 
  * 
  */
-    __pyx_t_6 = __Pyx_PyInt_From_unsigned_char(((unsigned char)(__pyx_v_bits >> 24))); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 214, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyInt_From_unsigned_char(((unsigned char)(__pyx_v_bits >> 24))); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 220, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = __Pyx_PyObject_Append(__pyx_v_self->out, __pyx_t_6); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 214, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Append(__pyx_v_self->out, __pyx_t_6); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 220, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "cptv/writer.pyx":213
+    /* "cptv/writer.pyx":219
  *                 num_bits -= 8
  * 
  *         if num_bits > 0:             # <<<<<<<<<<<<<<
@@ -7707,7 +7686,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
  */
   }
 
-  /* "cptv/writer.pyx":198
+  /* "cptv/writer.pyx":204
  *     @cython.boundscheck(False)
  *     @cython.wraparound(False)
  *     cdef pack_bits(self, int width, int[:] vals):             # <<<<<<<<<<<<<<
@@ -8035,7 +8014,7 @@ static PyObject *__pyx_pf_4cptv_6writer_10Compressor_6__setstate_cython__(struct
   return __pyx_r;
 }
 
-/* "cptv/writer.pyx":219
+/* "cptv/writer.pyx":225
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef inline unsigned long twos_comp(long v, unsigned char width):             # <<<<<<<<<<<<<<
@@ -8049,7 +8028,7 @@ static CYTHON_INLINE unsigned long __pyx_f_4cptv_6writer_twos_comp(long __pyx_v_
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("twos_comp", 0);
 
-  /* "cptv/writer.pyx":220
+  /* "cptv/writer.pyx":226
  * @cython.wraparound(False)
  * cdef inline unsigned long twos_comp(long v, unsigned char width):
  *     if v >= 0:             # <<<<<<<<<<<<<<
@@ -8059,7 +8038,7 @@ static CYTHON_INLINE unsigned long __pyx_f_4cptv_6writer_twos_comp(long __pyx_v_
   __pyx_t_1 = ((__pyx_v_v >= 0) != 0);
   if (__pyx_t_1) {
 
-    /* "cptv/writer.pyx":221
+    /* "cptv/writer.pyx":227
  * cdef inline unsigned long twos_comp(long v, unsigned char width):
  *     if v >= 0:
  *         return v             # <<<<<<<<<<<<<<
@@ -8068,7 +8047,7 @@ static CYTHON_INLINE unsigned long __pyx_f_4cptv_6writer_twos_comp(long __pyx_v_
     __pyx_r = __pyx_v_v;
     goto __pyx_L0;
 
-    /* "cptv/writer.pyx":220
+    /* "cptv/writer.pyx":226
  * @cython.wraparound(False)
  * cdef inline unsigned long twos_comp(long v, unsigned char width):
  *     if v >= 0:             # <<<<<<<<<<<<<<
@@ -8077,7 +8056,7 @@ static CYTHON_INLINE unsigned long __pyx_f_4cptv_6writer_twos_comp(long __pyx_v_
  */
   }
 
-  /* "cptv/writer.pyx":222
+  /* "cptv/writer.pyx":228
  *     if v >= 0:
  *         return v
  *     return (~(-v) + 1) & ((1 << width) - 1)             # <<<<<<<<<<<<<<
@@ -8085,7 +8064,7 @@ static CYTHON_INLINE unsigned long __pyx_f_4cptv_6writer_twos_comp(long __pyx_v_
   __pyx_r = (((~(-__pyx_v_v)) + 1) & ((1 << __pyx_v_width) - 1));
   goto __pyx_L0;
 
-  /* "cptv/writer.pyx":219
+  /* "cptv/writer.pyx":225
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef inline unsigned long twos_comp(long v, unsigned char width):             # <<<<<<<<<<<<<<
@@ -23466,7 +23445,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_X_RESOLUTION, __pyx_k_X_RESOLUTION, sizeof(__pyx_k_X_RESOLUTION), 0, 0, 1, 1},
   {&__pyx_n_s_Y_RESOLUTION, __pyx_k_Y_RESOLUTION, sizeof(__pyx_k_Y_RESOLUTION), 0, 0, 1, 1},
   {&__pyx_kp_b__19, __pyx_k__19, sizeof(__pyx_k__19), 0, 0, 0, 0},
-  {&__pyx_n_s_abs, __pyx_k_abs, sizeof(__pyx_k_abs), 0, 0, 1, 1},
   {&__pyx_n_s_allocate_buffer, __pyx_k_allocate_buffer, sizeof(__pyx_k_allocate_buffer), 0, 0, 1, 1},
   {&__pyx_n_s_append, __pyx_k_append, sizeof(__pyx_k_append), 0, 0, 1, 1},
   {&__pyx_n_s_array, __pyx_k_array, sizeof(__pyx_k_array), 0, 0, 1, 1},
@@ -23511,7 +23489,6 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_last_ffc_time, __pyx_k_last_ffc_time, sizeof(__pyx_k_last_ffc_time), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_math, __pyx_k_math, sizeof(__pyx_k_math), 0, 0, 1, 1},
-  {&__pyx_n_s_max, __pyx_k_max, sizeof(__pyx_k_max), 0, 0, 1, 1},
   {&__pyx_n_s_memview, __pyx_k_memview, sizeof(__pyx_k_memview), 0, 0, 1, 1},
   {&__pyx_n_s_milliseconds, __pyx_k_milliseconds, sizeof(__pyx_k_milliseconds), 0, 0, 1, 1},
   {&__pyx_n_s_mode, __pyx_k_mode, sizeof(__pyx_k_mode), 0, 0, 1, 1},
@@ -23597,14 +23574,14 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "cptv/writer.pyx":186
+  /* "cptv/writer.pyx":192
  * 
  *         # Reset the buffer
  *         del self.out[:]             # <<<<<<<<<<<<<<
  * 
  *         # Write out the starting frame delta value (required for reconstruction)
  */
-  __pyx_slice_ = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice_)) __PYX_ERR(0, 186, __pyx_L1_error)
+  __pyx_slice_ = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice_)) __PYX_ERR(0, 192, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice_);
   __Pyx_GIVEREF(__pyx_slice_);
 
