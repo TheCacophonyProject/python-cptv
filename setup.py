@@ -1,8 +1,9 @@
 from setuptools import setup, find_packages, Extension
 
 long_description = """\
-This is Python package provides for quick, easy parsing for Cacophony
-Project Thermal Video (CPTV) files. It works with Python 3 only.
+This is Python package provides for quick parsing and generation of
+Cacophony Project Thermal Video (CPTV) files. It works with Python
+3.5+ only.
 """
 
 setup(
