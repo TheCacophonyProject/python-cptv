@@ -18,7 +18,7 @@ import sys
 from datetime import datetime
 from typing import Iterable
 
-from cptv import CPTVReader, Frame
+from cptv import CPTVWriter, Frame
 
 
 def write_cptv(frames: Iterable[Frame], filename: str):
