@@ -7283,58 +7283,58 @@ static PyObject *__pyx_pf_4cptv_6writer_10Compressor_2next_frame(struct __pyx_ob
  * 
  *         # Now generate the adjacent "delta of deltas".
  *         cdef unsigned long max_delta = 0             # <<<<<<<<<<<<<<
- *         cdef unsigned long abs_delta
  *         cdef long delta
+ *         for i in range(ELEMS - 1):
  */
   __pyx_v_max_delta = 0;
 
-  /* "cptv/writer.pyx":179
- *         cdef unsigned long abs_delta
+  /* "cptv/writer.pyx":178
+ *         cdef unsigned long max_delta = 0
  *         cdef long delta
  *         for i in range(ELEMS - 1):             # <<<<<<<<<<<<<<
  *             delta = self.frame_delta[i + 1] - self.frame_delta[i]
  *             self.adj_delta[i] = delta
  */
-  __pyx_t_8 = __Pyx_PyInt_SubtractObjC(__pyx_v_4cptv_6writer_ELEMS, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyInt_SubtractObjC(__pyx_v_4cptv_6writer_ELEMS, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 178, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __pyx_t_1 = __Pyx_PyInt_As_long(__pyx_t_8); if (unlikely((__pyx_t_1 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 179, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_long(__pyx_t_8); if (unlikely((__pyx_t_1 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 178, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __pyx_t_2 = __pyx_t_1;
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "cptv/writer.pyx":180
+    /* "cptv/writer.pyx":179
  *         cdef long delta
  *         for i in range(ELEMS - 1):
  *             delta = self.frame_delta[i + 1] - self.frame_delta[i]             # <<<<<<<<<<<<<<
  *             self.adj_delta[i] = delta
  *             max_delta = max(max_delta, abs(delta))
  */
-    if (unlikely(!__pyx_v_self->frame_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 180, __pyx_L1_error)}
+    if (unlikely(!__pyx_v_self->frame_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 179, __pyx_L1_error)}
     __pyx_t_16 = (__pyx_v_i + 1);
-    if (unlikely(!__pyx_v_self->frame_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 180, __pyx_L1_error)}
+    if (unlikely(!__pyx_v_self->frame_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 179, __pyx_L1_error)}
     __pyx_t_17 = __pyx_v_i;
     __pyx_v_delta = ((*((int *) ( /* dim=0 */ (__pyx_v_self->frame_delta.data + __pyx_t_16 * __pyx_v_self->frame_delta.strides[0]) ))) - (*((int *) ( /* dim=0 */ (__pyx_v_self->frame_delta.data + __pyx_t_17 * __pyx_v_self->frame_delta.strides[0]) ))));
 
-    /* "cptv/writer.pyx":181
+    /* "cptv/writer.pyx":180
  *         for i in range(ELEMS - 1):
  *             delta = self.frame_delta[i + 1] - self.frame_delta[i]
  *             self.adj_delta[i] = delta             # <<<<<<<<<<<<<<
  *             max_delta = max(max_delta, abs(delta))
- *             # abs_delta = abs(delta)
+ * 
  */
-    if (unlikely(!__pyx_v_self->adj_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 181, __pyx_L1_error)}
+    if (unlikely(!__pyx_v_self->adj_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 180, __pyx_L1_error)}
     __pyx_t_18 = __pyx_v_i;
     *((int *) ( /* dim=0 */ (__pyx_v_self->adj_delta.data + __pyx_t_18 * __pyx_v_self->adj_delta.strides[0]) )) = __pyx_v_delta;
 
-    /* "cptv/writer.pyx":182
+    /* "cptv/writer.pyx":181
  *             delta = self.frame_delta[i + 1] - self.frame_delta[i]
  *             self.adj_delta[i] = delta
  *             max_delta = max(max_delta, abs(delta))             # <<<<<<<<<<<<<<
- *             # abs_delta = abs(delta)
- *             # if abs_delta > max_delta:
+ * 
+ *         # How many bits required to store the largest delta?
  */
-    __pyx_t_9 = labs(__pyx_v_delta); if (unlikely(__pyx_t_9 == ((long)-1))) __PYX_ERR(0, 182, __pyx_L1_error)
+    __pyx_t_9 = labs(__pyx_v_delta); if (unlikely(__pyx_t_9 == ((long)-1))) __PYX_ERR(0, 181, __pyx_L1_error)
     __pyx_t_19 = __pyx_v_max_delta;
     if (((__pyx_t_9 > __pyx_t_19) != 0)) {
       __pyx_t_20 = __pyx_t_9;
@@ -7344,16 +7344,16 @@ static PyObject *__pyx_pf_4cptv_6writer_10Compressor_2next_frame(struct __pyx_ob
     __pyx_v_max_delta = __pyx_t_20;
   }
 
-  /* "cptv/writer.pyx":189
+  /* "cptv/writer.pyx":185
  *         # How many bits required to store the largest delta?
  *         # Add 1 to allow for sign bit
  *         cdef unsigned char width = int.bit_length(max_delta) + 1             # <<<<<<<<<<<<<<
  * 
  *         # Reset the buffer
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)(&PyInt_Type)), __pyx_n_s_bit_length); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)(&PyInt_Type)), __pyx_n_s_bit_length); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyInt_From_unsigned_long(__pyx_v_max_delta); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_unsigned_long(__pyx_v_max_delta); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __pyx_t_21 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -7368,42 +7368,42 @@ static PyObject *__pyx_pf_4cptv_6writer_10Compressor_2next_frame(struct __pyx_ob
   __pyx_t_8 = (__pyx_t_21) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_21, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_5);
   __Pyx_XDECREF(__pyx_t_21); __pyx_t_21 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 189, __pyx_L1_error)
+  if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = __Pyx_PyInt_AddObjC(__pyx_t_8, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 189, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_AddObjC(__pyx_t_8, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-  __pyx_t_22 = __Pyx_PyInt_As_unsigned_char(__pyx_t_4); if (unlikely((__pyx_t_22 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 189, __pyx_L1_error)
+  __pyx_t_22 = __Pyx_PyInt_As_unsigned_char(__pyx_t_4); if (unlikely((__pyx_t_22 == (unsigned char)-1) && PyErr_Occurred())) __PYX_ERR(0, 185, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __pyx_v_width = __pyx_t_22;
 
-  /* "cptv/writer.pyx":192
+  /* "cptv/writer.pyx":188
  * 
  *         # Reset the buffer
  *         del self.out[:]             # <<<<<<<<<<<<<<
  * 
  *         # Write out the starting frame delta value (required for reconstruction)
  */
-  if (__Pyx_PyObject_DelSlice(__pyx_v_self->out, 0, 0, NULL, NULL, &__pyx_slice_, 0, 0, 0) < 0) __PYX_ERR(0, 192, __pyx_L1_error)
+  if (__Pyx_PyObject_DelSlice(__pyx_v_self->out, 0, 0, NULL, NULL, &__pyx_slice_, 0, 0, 0) < 0) __PYX_ERR(0, 188, __pyx_L1_error)
 
-  /* "cptv/writer.pyx":195
+  /* "cptv/writer.pyx":191
  * 
  *         # Write out the starting frame delta value (required for reconstruction)
  *         self.out.extend(struct.pack("<l", self.frame_delta[0]))             # <<<<<<<<<<<<<<
  * 
  *         # Pack the deltas according to the bit width determined
  */
-  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->out, __pyx_n_s_extend); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->out, __pyx_n_s_extend); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
-  __Pyx_GetModuleGlobalName(__pyx_t_21, __pyx_n_s_struct); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_21, __pyx_n_s_struct); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_21);
-  __pyx_t_23 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_pack); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_t_23 = __Pyx_PyObject_GetAttrStr(__pyx_t_21, __pyx_n_s_pack); if (unlikely(!__pyx_t_23)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_23);
   __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
-  if (unlikely(!__pyx_v_self->frame_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 195, __pyx_L1_error)}
+  if (unlikely(!__pyx_v_self->frame_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 191, __pyx_L1_error)}
   __pyx_t_24 = 0;
-  __pyx_t_21 = __Pyx_PyInt_From_int((*((int *) ( /* dim=0 */ (__pyx_v_self->frame_delta.data + __pyx_t_24 * __pyx_v_self->frame_delta.strides[0]) )))); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 195, __pyx_L1_error)
+  __pyx_t_21 = __Pyx_PyInt_From_int((*((int *) ( /* dim=0 */ (__pyx_v_self->frame_delta.data + __pyx_t_24 * __pyx_v_self->frame_delta.strides[0]) )))); if (unlikely(!__pyx_t_21)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_21);
   __pyx_t_25 = NULL;
   __pyx_t_3 = 0;
@@ -7420,7 +7420,7 @@ static PyObject *__pyx_pf_4cptv_6writer_10Compressor_2next_frame(struct __pyx_ob
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_23)) {
     PyObject *__pyx_temp[3] = {__pyx_t_25, __pyx_kp_u_l, __pyx_t_21};
-    __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_3, 2+__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 195, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_3, 2+__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 191, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_25); __pyx_t_25 = 0;
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
@@ -7429,14 +7429,14 @@ static PyObject *__pyx_pf_4cptv_6writer_10Compressor_2next_frame(struct __pyx_ob
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_23)) {
     PyObject *__pyx_temp[3] = {__pyx_t_25, __pyx_kp_u_l, __pyx_t_21};
-    __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_3, 2+__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 195, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyCFunction_FastCall(__pyx_t_23, __pyx_temp+1-__pyx_t_3, 2+__pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 191, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_25); __pyx_t_25 = 0;
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_21); __pyx_t_21 = 0;
   } else
   #endif
   {
-    __pyx_t_26 = PyTuple_New(2+__pyx_t_3); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 195, __pyx_L1_error)
+    __pyx_t_26 = PyTuple_New(2+__pyx_t_3); if (unlikely(!__pyx_t_26)) __PYX_ERR(0, 191, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_26);
     if (__pyx_t_25) {
       __Pyx_GIVEREF(__pyx_t_25); PyTuple_SET_ITEM(__pyx_t_26, 0, __pyx_t_25); __pyx_t_25 = NULL;
@@ -7447,7 +7447,7 @@ static PyObject *__pyx_pf_4cptv_6writer_10Compressor_2next_frame(struct __pyx_ob
     __Pyx_GIVEREF(__pyx_t_21);
     PyTuple_SET_ITEM(__pyx_t_26, 1+__pyx_t_3, __pyx_t_21);
     __pyx_t_21 = 0;
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_23, __pyx_t_26, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 195, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_23, __pyx_t_26, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 191, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_26); __pyx_t_26 = 0;
   }
@@ -7465,24 +7465,24 @@ static PyObject *__pyx_pf_4cptv_6writer_10Compressor_2next_frame(struct __pyx_ob
   __pyx_t_4 = (__pyx_t_23) ? __Pyx_PyObject_Call2Args(__pyx_t_8, __pyx_t_23, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_8, __pyx_t_5);
   __Pyx_XDECREF(__pyx_t_23); __pyx_t_23 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 195, __pyx_L1_error)
+  if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 191, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "cptv/writer.pyx":198
+  /* "cptv/writer.pyx":194
  * 
  *         # Pack the deltas according to the bit width determined
  *         self.pack_bits(width, self.adj_delta)             # <<<<<<<<<<<<<<
  * 
  *         return width, self.out
  */
-  if (unlikely(!__pyx_v_self->adj_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 198, __pyx_L1_error)}
-  __pyx_t_4 = ((struct __pyx_vtabstruct_4cptv_6writer_Compressor *)__pyx_v_self->__pyx_vtab)->pack_bits(__pyx_v_self, __pyx_v_width, __pyx_v_self->adj_delta); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 198, __pyx_L1_error)
+  if (unlikely(!__pyx_v_self->adj_delta.memview)) {PyErr_SetString(PyExc_AttributeError,"Memoryview is not initialized");__PYX_ERR(0, 194, __pyx_L1_error)}
+  __pyx_t_4 = ((struct __pyx_vtabstruct_4cptv_6writer_Compressor *)__pyx_v_self->__pyx_vtab)->pack_bits(__pyx_v_self, __pyx_v_width, __pyx_v_self->adj_delta); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 194, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "cptv/writer.pyx":200
+  /* "cptv/writer.pyx":196
  *         self.pack_bits(width, self.adj_delta)
  * 
  *         return width, self.out             # <<<<<<<<<<<<<<
@@ -7490,9 +7490,9 @@ static PyObject *__pyx_pf_4cptv_6writer_10Compressor_2next_frame(struct __pyx_ob
  *     @cython.boundscheck(False)
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_4 = __Pyx_PyInt_From_unsigned_char(__pyx_v_width); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 200, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyInt_From_unsigned_char(__pyx_v_width); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 196, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 200, __pyx_L1_error)
+  __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(0, 196, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
   __Pyx_GIVEREF(__pyx_t_4);
   PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_4);
@@ -7530,7 +7530,7 @@ static PyObject *__pyx_pf_4cptv_6writer_10Compressor_2next_frame(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "cptv/writer.pyx":204
+/* "cptv/writer.pyx":200
  *     @cython.boundscheck(False)
  *     @cython.wraparound(False)
  *     cdef pack_bits(self, int width, int[:] vals):             # <<<<<<<<<<<<<<
@@ -7554,7 +7554,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
   int __pyx_t_7;
   __Pyx_RefNannySetupContext("pack_bits", 0);
 
-  /* "cptv/writer.pyx":205
+  /* "cptv/writer.pyx":201
  *     @cython.wraparound(False)
  *     cdef pack_bits(self, int width, int[:] vals):
  *         cdef unsigned long bits = 0  # scratch buffer             # <<<<<<<<<<<<<<
@@ -7563,7 +7563,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
  */
   __pyx_v_bits = 0;
 
-  /* "cptv/writer.pyx":206
+  /* "cptv/writer.pyx":202
  *     cdef pack_bits(self, int width, int[:] vals):
  *         cdef unsigned long bits = 0  # scratch buffer
  *         cdef int num_bits = 0        # number of bits in use in scratch             # <<<<<<<<<<<<<<
@@ -7572,7 +7572,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
  */
   __pyx_v_num_bits = 0;
 
-  /* "cptv/writer.pyx":210
+  /* "cptv/writer.pyx":206
  *         cdef int i
  * 
  *         for i in range(vals.shape[0]):             # <<<<<<<<<<<<<<
@@ -7584,7 +7584,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "cptv/writer.pyx":211
+    /* "cptv/writer.pyx":207
  * 
  *         for i in range(vals.shape[0]):
  *             d = vals[i]             # <<<<<<<<<<<<<<
@@ -7594,7 +7594,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
     __pyx_t_4 = __pyx_v_i;
     __pyx_v_d = (*((int *) ( /* dim=0 */ (__pyx_v_vals.data + __pyx_t_4 * __pyx_v_vals.strides[0]) )));
 
-    /* "cptv/writer.pyx":212
+    /* "cptv/writer.pyx":208
  *         for i in range(vals.shape[0]):
  *             d = vals[i]
  *             bits |= <unsigned long>(twos_comp(d, width) << (32 - width - num_bits))             # <<<<<<<<<<<<<<
@@ -7603,7 +7603,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
  */
     __pyx_v_bits = (__pyx_v_bits | ((unsigned long)(__pyx_f_4cptv_6writer_twos_comp(__pyx_v_d, __pyx_v_width) << ((32 - __pyx_v_width) - __pyx_v_num_bits))));
 
-    /* "cptv/writer.pyx":213
+    /* "cptv/writer.pyx":209
  *             d = vals[i]
  *             bits |= <unsigned long>(twos_comp(d, width) << (32 - width - num_bits))
  *             num_bits += width             # <<<<<<<<<<<<<<
@@ -7612,7 +7612,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
  */
     __pyx_v_num_bits = (__pyx_v_num_bits + __pyx_v_width);
 
-    /* "cptv/writer.pyx":214
+    /* "cptv/writer.pyx":210
  *             bits |= <unsigned long>(twos_comp(d, width) << (32 - width - num_bits))
  *             num_bits += width
  *             while num_bits >= 8:             # <<<<<<<<<<<<<<
@@ -7623,19 +7623,19 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
       __pyx_t_5 = ((__pyx_v_num_bits >= 8) != 0);
       if (!__pyx_t_5) break;
 
-      /* "cptv/writer.pyx":215
+      /* "cptv/writer.pyx":211
  *             num_bits += width
  *             while num_bits >= 8:
  *                 self.out.append(<unsigned char>(bits >> 24))             # <<<<<<<<<<<<<<
  *                 bits <<= 8
  *                 num_bits -= 8
  */
-      __pyx_t_6 = __Pyx_PyInt_From_unsigned_char(((unsigned char)(__pyx_v_bits >> 24))); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 215, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyInt_From_unsigned_char(((unsigned char)(__pyx_v_bits >> 24))); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 211, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_7 = __Pyx_PyObject_Append(__pyx_v_self->out, __pyx_t_6); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 215, __pyx_L1_error)
+      __pyx_t_7 = __Pyx_PyObject_Append(__pyx_v_self->out, __pyx_t_6); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 211, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-      /* "cptv/writer.pyx":216
+      /* "cptv/writer.pyx":212
  *             while num_bits >= 8:
  *                 self.out.append(<unsigned char>(bits >> 24))
  *                 bits <<= 8             # <<<<<<<<<<<<<<
@@ -7644,7 +7644,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
  */
       __pyx_v_bits = (__pyx_v_bits << 8);
 
-      /* "cptv/writer.pyx":217
+      /* "cptv/writer.pyx":213
  *                 self.out.append(<unsigned char>(bits >> 24))
  *                 bits <<= 8
  *                 num_bits -= 8             # <<<<<<<<<<<<<<
@@ -7655,7 +7655,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
     }
   }
 
-  /* "cptv/writer.pyx":219
+  /* "cptv/writer.pyx":215
  *                 num_bits -= 8
  * 
  *         if num_bits > 0:             # <<<<<<<<<<<<<<
@@ -7665,19 +7665,19 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
   __pyx_t_5 = ((__pyx_v_num_bits > 0) != 0);
   if (__pyx_t_5) {
 
-    /* "cptv/writer.pyx":220
+    /* "cptv/writer.pyx":216
  * 
  *         if num_bits > 0:
  *             self.out.append(<unsigned char>(bits >> 24))             # <<<<<<<<<<<<<<
  * 
  * 
  */
-    __pyx_t_6 = __Pyx_PyInt_From_unsigned_char(((unsigned char)(__pyx_v_bits >> 24))); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 220, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyInt_From_unsigned_char(((unsigned char)(__pyx_v_bits >> 24))); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 216, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_7 = __Pyx_PyObject_Append(__pyx_v_self->out, __pyx_t_6); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 220, __pyx_L1_error)
+    __pyx_t_7 = __Pyx_PyObject_Append(__pyx_v_self->out, __pyx_t_6); if (unlikely(__pyx_t_7 == ((int)-1))) __PYX_ERR(0, 216, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-    /* "cptv/writer.pyx":219
+    /* "cptv/writer.pyx":215
  *                 num_bits -= 8
  * 
  *         if num_bits > 0:             # <<<<<<<<<<<<<<
@@ -7686,7 +7686,7 @@ static PyObject *__pyx_f_4cptv_6writer_10Compressor_pack_bits(struct __pyx_obj_4
  */
   }
 
-  /* "cptv/writer.pyx":204
+  /* "cptv/writer.pyx":200
  *     @cython.boundscheck(False)
  *     @cython.wraparound(False)
  *     cdef pack_bits(self, int width, int[:] vals):             # <<<<<<<<<<<<<<
@@ -8014,12 +8014,12 @@ static PyObject *__pyx_pf_4cptv_6writer_10Compressor_6__setstate_cython__(struct
   return __pyx_r;
 }
 
-/* "cptv/writer.pyx":225
+/* "cptv/writer.pyx":221
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef inline unsigned long twos_comp(long v, unsigned char width):             # <<<<<<<<<<<<<<
- *     if v >= 0:
- *         return v
+ *     """Convert the signed value with the given bit width to its two's
+ *     complement representation.
  */
 
 static CYTHON_INLINE unsigned long __pyx_f_4cptv_6writer_twos_comp(long __pyx_v_v, unsigned char __pyx_v_width) {
@@ -8028,9 +8028,9 @@ static CYTHON_INLINE unsigned long __pyx_f_4cptv_6writer_twos_comp(long __pyx_v_
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("twos_comp", 0);
 
-  /* "cptv/writer.pyx":226
- * @cython.wraparound(False)
- * cdef inline unsigned long twos_comp(long v, unsigned char width):
+  /* "cptv/writer.pyx":225
+ *     complement representation.
+ *     """
  *     if v >= 0:             # <<<<<<<<<<<<<<
  *         return v
  *     return (~(-v) + 1) & ((1 << width) - 1)
@@ -8038,8 +8038,8 @@ static CYTHON_INLINE unsigned long __pyx_f_4cptv_6writer_twos_comp(long __pyx_v_
   __pyx_t_1 = ((__pyx_v_v >= 0) != 0);
   if (__pyx_t_1) {
 
-    /* "cptv/writer.pyx":227
- * cdef inline unsigned long twos_comp(long v, unsigned char width):
+    /* "cptv/writer.pyx":226
+ *     """
  *     if v >= 0:
  *         return v             # <<<<<<<<<<<<<<
  *     return (~(-v) + 1) & ((1 << width) - 1)
@@ -8047,16 +8047,16 @@ static CYTHON_INLINE unsigned long __pyx_f_4cptv_6writer_twos_comp(long __pyx_v_
     __pyx_r = __pyx_v_v;
     goto __pyx_L0;
 
-    /* "cptv/writer.pyx":226
- * @cython.wraparound(False)
- * cdef inline unsigned long twos_comp(long v, unsigned char width):
+    /* "cptv/writer.pyx":225
+ *     complement representation.
+ *     """
  *     if v >= 0:             # <<<<<<<<<<<<<<
  *         return v
  *     return (~(-v) + 1) & ((1 << width) - 1)
  */
   }
 
-  /* "cptv/writer.pyx":228
+  /* "cptv/writer.pyx":227
  *     if v >= 0:
  *         return v
  *     return (~(-v) + 1) & ((1 << width) - 1)             # <<<<<<<<<<<<<<
@@ -8064,12 +8064,12 @@ static CYTHON_INLINE unsigned long __pyx_f_4cptv_6writer_twos_comp(long __pyx_v_
   __pyx_r = (((~(-__pyx_v_v)) + 1) & ((1 << __pyx_v_width) - 1));
   goto __pyx_L0;
 
-  /* "cptv/writer.pyx":225
+  /* "cptv/writer.pyx":221
  * @cython.boundscheck(False)
  * @cython.wraparound(False)
  * cdef inline unsigned long twos_comp(long v, unsigned char width):             # <<<<<<<<<<<<<<
- *     if v >= 0:
- *         return v
+ *     """Convert the signed value with the given bit width to its two's
+ *     complement representation.
  */
 
   /* function exit code */
@@ -23574,14 +23574,14 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "cptv/writer.pyx":192
+  /* "cptv/writer.pyx":188
  * 
  *         # Reset the buffer
  *         del self.out[:]             # <<<<<<<<<<<<<<
  * 
  *         # Write out the starting frame delta value (required for reconstruction)
  */
-  __pyx_slice_ = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice_)) __PYX_ERR(0, 192, __pyx_L1_error)
+  __pyx_slice_ = PySlice_New(Py_None, Py_None, Py_None); if (unlikely(!__pyx_slice_)) __PYX_ERR(0, 188, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_slice_);
   __Pyx_GIVEREF(__pyx_slice_);
 

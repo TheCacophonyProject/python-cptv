@@ -219,6 +219,9 @@ cdef class Compressor:
 @cython.boundscheck(False)
 @cython.wraparound(False)
 cdef inline unsigned long twos_comp(long v, unsigned char width):
+    """Convert the signed value with the given bit width to its two's
+    complement representation.
+    """
     if v >= 0:
         return v
     return (~(-v) + 1) & ((1 << width) - 1)

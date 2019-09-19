@@ -68,15 +68,17 @@ cdef class BitReader:
                 bits |= source[i] << (24 - nbits)
                 nbits += 8
                 i += 1
-            out = twos_uncomp(bits >> (32 - bitw) & 0xffff, bitw)
+            out = inverse_twos_comp(bits >> (32 - bitw) & 0xffff, bitw)
             bits = (bits << bitw) & 0xffffffff
             nbits -= bitw
             yield out
 
 
-cdef inline twos_uncomp(int v, int width):
-    """Convert the signed value with the given bit width to its two's
-    complement representation.
+cdef inline inverse_twos_comp(int v, int width):
+    """Convert a two's complement value of a specific bit width to a
+    full width integer.
+
+    The inverse of twos_comp() in writer.pyx.
     """
     cdef int mask = 1 << (width - 1)
     return -(v & mask) + (v & ~mask)

@@ -1314,7 +1314,7 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 /* Module declarations from 'cptv.bitreader' */
 static PyTypeObject *__pyx_ptype_4cptv_9bitreader_BitReader = 0;
 static PyTypeObject *__pyx_ptype_4cptv_9bitreader___pyx_scope_struct__iter_int = 0;
-static CYTHON_INLINE PyObject *__pyx_f_4cptv_9bitreader_twos_uncomp(int, int); /*proto*/
+static CYTHON_INLINE PyObject *__pyx_f_4cptv_9bitreader_inverse_twos_comp(int, int); /*proto*/
 static PyObject *__pyx_f_4cptv_9bitreader___pyx_unpickle_BitReader__set_state(struct __pyx_obj_4cptv_9bitreader_BitReader *, PyObject *); /*proto*/
 #define __Pyx_MODULE_NAME "cptv.bitreader"
 extern int __pyx_module_is_main_cptv__bitreader;
@@ -2767,7 +2767,7 @@ static PyObject *__pyx_gb_4cptv_9bitreader_9BitReader_18generator(__pyx_Coroutin
  *                 bits |= source[i] << (24 - nbits)
  *                 nbits += 8             # <<<<<<<<<<<<<<
  *                 i += 1
- *             out = twos_uncomp(bits >> (32 - bitw) & 0xffff, bitw)
+ *             out = inverse_twos_comp(bits >> (32 - bitw) & 0xffff, bitw)
  */
       __pyx_cur_scope->__pyx_v_nbits = (__pyx_cur_scope->__pyx_v_nbits + 8);
 
@@ -2775,7 +2775,7 @@ static PyObject *__pyx_gb_4cptv_9bitreader_9BitReader_18generator(__pyx_Coroutin
  *                 bits |= source[i] << (24 - nbits)
  *                 nbits += 8
  *                 i += 1             # <<<<<<<<<<<<<<
- *             out = twos_uncomp(bits >> (32 - bitw) & 0xffff, bitw)
+ *             out = inverse_twos_comp(bits >> (32 - bitw) & 0xffff, bitw)
  *             bits = (bits << bitw) & 0xffffffff
  */
       __pyx_cur_scope->__pyx_v_i = (__pyx_cur_scope->__pyx_v_i + 1);
@@ -2784,11 +2784,11 @@ static PyObject *__pyx_gb_4cptv_9bitreader_9BitReader_18generator(__pyx_Coroutin
     /* "cptv/bitreader.pyx":71
  *                 nbits += 8
  *                 i += 1
- *             out = twos_uncomp(bits >> (32 - bitw) & 0xffff, bitw)             # <<<<<<<<<<<<<<
+ *             out = inverse_twos_comp(bits >> (32 - bitw) & 0xffff, bitw)             # <<<<<<<<<<<<<<
  *             bits = (bits << bitw) & 0xffffffff
  *             nbits -= bitw
  */
-    __pyx_t_3 = __pyx_f_4cptv_9bitreader_twos_uncomp(((__pyx_cur_scope->__pyx_v_bits >> (32 - __pyx_cur_scope->__pyx_v_bitw)) & 0xffff), __pyx_cur_scope->__pyx_v_bitw); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 71, __pyx_L1_error)
+    __pyx_t_3 = __pyx_f_4cptv_9bitreader_inverse_twos_comp(((__pyx_cur_scope->__pyx_v_bits >> (32 - __pyx_cur_scope->__pyx_v_bitw)) & 0xffff), __pyx_cur_scope->__pyx_v_bitw); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 71, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_6 = __Pyx_PyInt_As_PY_LONG_LONG(__pyx_t_3); if (unlikely((__pyx_t_6 == (PY_LONG_LONG)-1) && PyErr_Occurred())) __PYX_ERR(0, 71, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -2796,7 +2796,7 @@ static PyObject *__pyx_gb_4cptv_9bitreader_9BitReader_18generator(__pyx_Coroutin
 
     /* "cptv/bitreader.pyx":72
  *                 i += 1
- *             out = twos_uncomp(bits >> (32 - bitw) & 0xffff, bitw)
+ *             out = inverse_twos_comp(bits >> (32 - bitw) & 0xffff, bitw)
  *             bits = (bits << bitw) & 0xffffffff             # <<<<<<<<<<<<<<
  *             nbits -= bitw
  *             yield out
@@ -2811,7 +2811,7 @@ static PyObject *__pyx_gb_4cptv_9bitreader_9BitReader_18generator(__pyx_Coroutin
     __pyx_cur_scope->__pyx_v_bits = __pyx_t_6;
 
     /* "cptv/bitreader.pyx":73
- *             out = twos_uncomp(bits >> (32 - bitw) & 0xffff, bitw)
+ *             out = inverse_twos_comp(bits >> (32 - bitw) & 0xffff, bitw)
  *             bits = (bits << bitw) & 0xffffffff
  *             nbits -= bitw             # <<<<<<<<<<<<<<
  *             yield out
@@ -3159,33 +3159,33 @@ static PyObject *__pyx_pf_4cptv_9bitreader_9BitReader_21__setstate_cython__(stru
 /* "cptv/bitreader.pyx":77
  * 
  * 
- * cdef inline twos_uncomp(int v, int width):             # <<<<<<<<<<<<<<
- *     """Convert the signed value with the given bit width to its two's
- *     complement representation.
+ * cdef inline inverse_twos_comp(int v, int width):             # <<<<<<<<<<<<<<
+ *     """Convert a two's complement value of a specific bit width to a
+ *     full width integer.
  */
 
-static CYTHON_INLINE PyObject *__pyx_f_4cptv_9bitreader_twos_uncomp(int __pyx_v_v, int __pyx_v_width) {
+static CYTHON_INLINE PyObject *__pyx_f_4cptv_9bitreader_inverse_twos_comp(int __pyx_v_v, int __pyx_v_width) {
   int __pyx_v_mask;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
-  __Pyx_RefNannySetupContext("twos_uncomp", 0);
+  __Pyx_RefNannySetupContext("inverse_twos_comp", 0);
 
-  /* "cptv/bitreader.pyx":81
- *     complement representation.
+  /* "cptv/bitreader.pyx":83
+ *     The inverse of twos_comp() in writer.pyx.
  *     """
  *     cdef int mask = 1 << (width - 1)             # <<<<<<<<<<<<<<
  *     return -(v & mask) + (v & ~mask)
  */
   __pyx_v_mask = (1 << (__pyx_v_width - 1));
 
-  /* "cptv/bitreader.pyx":82
+  /* "cptv/bitreader.pyx":84
  *     """
  *     cdef int mask = 1 << (width - 1)
  *     return -(v & mask) + (v & ~mask)             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(((-(__pyx_v_v & __pyx_v_mask)) + (__pyx_v_v & (~__pyx_v_mask)))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(((-(__pyx_v_v & __pyx_v_mask)) + (__pyx_v_v & (~__pyx_v_mask)))); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 84, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -3194,15 +3194,15 @@ static CYTHON_INLINE PyObject *__pyx_f_4cptv_9bitreader_twos_uncomp(int __pyx_v_
   /* "cptv/bitreader.pyx":77
  * 
  * 
- * cdef inline twos_uncomp(int v, int width):             # <<<<<<<<<<<<<<
- *     """Convert the signed value with the given bit width to its two's
- *     complement representation.
+ * cdef inline inverse_twos_comp(int v, int width):             # <<<<<<<<<<<<<<
+ *     """Convert a two's complement value of a specific bit width to a
+ *     full width integer.
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
-  __Pyx_AddTraceback("cptv.bitreader.twos_uncomp", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("cptv.bitreader.inverse_twos_comp", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = 0;
   __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
