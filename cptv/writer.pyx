@@ -43,6 +43,7 @@ cdef class CPTVWriter:
     cdef public float latitude
     cdef public float longitude
     cdef public int preview_secs
+    cdef public int device_id
     cdef public object motion_config
 
     cdef object s
@@ -63,6 +64,9 @@ cdef class CPTVWriter:
 
         if self.device_name:
            fw.string(ord(Field.DEVICENAME), self.device_name)
+
+        if self.device_id:
+           fw.uint32(ord(Field.DEVICEID), self.device_id)
 
         if not self.timestamp:
             self.timestamp = datetime.now()

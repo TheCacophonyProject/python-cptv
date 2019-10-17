@@ -35,6 +35,8 @@ cdef class Field:
     Y_RESOLUTION = b'Y'
     COMPRESSION = b'C'
     DEVICENAME = b'D'
+    DEVICEID = b'I'
+
     PREVIEW_SECS = b'P'
     MOTION_CONFIG = b'M'
     LATITUDE = b'L'
@@ -53,6 +55,7 @@ UINT32_FIELDS = {
     Field.FRAME_SIZE,
     Field.TIME_ON,
     Field.LAST_FFC_TIME,
+    Field.DEVICEID,
     }
 
 UINT8_FIELDS = {
@@ -97,6 +100,8 @@ cdef class CPTVReader:
     cdef public int y_resolution
     cdef public object frame_dim
     cdef public object device_name
+    cdef public int device_id
+
     cdef public float latitude
     cdef public float longitude
     cdef public int preview_secs
@@ -129,6 +134,8 @@ cdef class CPTVReader:
         self.y_resolution = fields[Field.Y_RESOLUTION]
         self.frame_dim = (self.y_resolution, self.x_resolution)
         self.device_name = fields.get(Field.DEVICENAME, "")
+        self.device_id = fields.get(Field.DEVICEID, 0)
+
         self.preview_secs = fields.get(Field.PREVIEW_SECS, 0)
         self.motion_config = fields.get(Field.MOTION_CONFIG, None)
         self.latitude = fields.get(Field.LATITUDE, 0.0)
