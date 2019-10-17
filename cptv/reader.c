@@ -835,7 +835,7 @@ struct __pyx_obj_4cptv_6reader_Field {
 };
 
 
-/* "cptv/reader.pyx":76
+/* "cptv/reader.pyx":79
  * 
  * 
  * cdef class CPTVReader:             # <<<<<<<<<<<<<<
@@ -851,6 +851,7 @@ struct __pyx_obj_4cptv_6reader_CPTVReader {
   int y_resolution;
   PyObject *frame_dim;
   PyObject *device_name;
+  int device_id;
   float latitude;
   float longitude;
   int preview_secs;
@@ -859,7 +860,7 @@ struct __pyx_obj_4cptv_6reader_CPTVReader {
 };
 
 
-/* "cptv/reader.pyx":137
+/* "cptv/reader.pyx":144
  *         self.longitude = fields.get(Field.LONGITUDE, 0.0)
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
@@ -1465,6 +1466,7 @@ static const char __pyx_k_C[] = "C";
 static const char __pyx_k_D[] = "D";
 static const char __pyx_k_F[] = "F";
 static const char __pyx_k_H[] = "H";
+static const char __pyx_k_I[] = "I";
 static const char __pyx_k_L[] = "L";
 static const char __pyx_k_M[] = "M";
 static const char __pyx_k_O[] = "O";
@@ -1525,6 +1527,7 @@ static const char __pyx_k_Section[] = "Section";
 static const char __pyx_k_TIME_ON[] = "TIME_ON";
 static const char __pyx_k_fileobj[] = "fileobj";
 static const char __pyx_k_float32[] = "float32";
+static const char __pyx_k_DEVICEID[] = "DEVICEID";
 static const char __pyx_k_EOFError[] = "EOFError";
 static const char __pyx_k_GzipFile[] = "GzipFile";
 static const char __pyx_k_LATITUDE[] = "LATITUDE";
@@ -1579,7 +1582,7 @@ static const char __pyx_k_unsupported_version[] = "unsupported version";
 static const char __pyx_k_pyx_unpickle_Section[] = "__pyx_unpickle_Section";
 static const char __pyx_k_pyx_unpickle_CPTVReader[] = "__pyx_unpickle_CPTVReader";
 static const char __pyx_k_unsupported_compression_type[] = "unsupported compression type: {}";
-static const char __pyx_k_Incompatible_checksums_s_vs_0xd3[] = "Incompatible checksums (%s vs 0xd364525 = (compression, device_name, frame_dim, latitude, longitude, motion_config, preview_secs, s, timestamp, version, x_resolution, y_resolution))";
+static const char __pyx_k_Incompatible_checksums_s_vs_0x40[] = "Incompatible checksums (%s vs 0x40bec20 = (compression, device_id, device_name, frame_dim, latitude, longitude, motion_config, preview_secs, s, timestamp, version, x_resolution, y_resolution))";
 static const char __pyx_k_Incompatible_checksums_s_vs_0xd4[] = "Incompatible checksums (%s vs 0xd41d8cd = ())";
 static const char __pyx_k_timestamp_is_broken_using_defaul[] = "timestamp is broken - using default";
 static PyObject *__pyx_n_s_BIT_WIDTH;
@@ -1590,6 +1593,7 @@ static PyObject *__pyx_n_b_CPTV;
 static PyObject *__pyx_n_s_CPTVReader;
 static PyObject *__pyx_n_s_CPTVReader___iter;
 static PyObject *__pyx_n_b_D;
+static PyObject *__pyx_n_s_DEVICEID;
 static PyObject *__pyx_n_s_DEVICENAME;
 static PyObject *__pyx_n_s_EOFError;
 static PyObject *__pyx_n_b_F;
@@ -1601,8 +1605,9 @@ static PyObject *__pyx_n_s_Frame;
 static PyObject *__pyx_n_s_GzipFile;
 static PyObject *__pyx_n_b_H;
 static PyObject *__pyx_n_s_HEADER;
+static PyObject *__pyx_n_b_I;
 static PyObject *__pyx_n_s_IOError;
-static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0xd3;
+static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0x40;
 static PyObject *__pyx_kp_s_Incompatible_checksums_s_vs_0xd4;
 static PyObject *__pyx_n_b_L;
 static PyObject *__pyx_n_s_LAST_FFC_TIME;
@@ -1729,6 +1734,8 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_9frame_dim_4__del__(struct __pyx_
 static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_11device_name___get__(struct __pyx_obj_4cptv_6reader_CPTVReader *__pyx_v_self); /* proto */
 static int __pyx_pf_4cptv_6reader_10CPTVReader_11device_name_2__set__(struct __pyx_obj_4cptv_6reader_CPTVReader *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static int __pyx_pf_4cptv_6reader_10CPTVReader_11device_name_4__del__(struct __pyx_obj_4cptv_6reader_CPTVReader *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_9device_id___get__(struct __pyx_obj_4cptv_6reader_CPTVReader *__pyx_v_self); /* proto */
+static int __pyx_pf_4cptv_6reader_10CPTVReader_9device_id_2__set__(struct __pyx_obj_4cptv_6reader_CPTVReader *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_8latitude___get__(struct __pyx_obj_4cptv_6reader_CPTVReader *__pyx_v_self); /* proto */
 static int __pyx_pf_4cptv_6reader_10CPTVReader_8latitude_2__set__(struct __pyx_obj_4cptv_6reader_CPTVReader *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_9longitude___get__(struct __pyx_obj_4cptv_6reader_CPTVReader *__pyx_v_self); /* proto */
@@ -1752,7 +1759,7 @@ static PyObject *__pyx_int_0;
 static PyObject *__pyx_int_1;
 static PyObject *__pyx_int_4;
 static PyObject *__pyx_int_1970;
-static PyObject *__pyx_int_221660453;
+static PyObject *__pyx_int_67890208;
 static PyObject *__pyx_int_222419149;
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_tuple__2;
@@ -2329,7 +2336,7 @@ static PyObject *__pyx_pf_4cptv_6reader_5Field_2__setstate_cython__(struct __pyx
   return __pyx_r;
 }
 
-/* "cptv/reader.pyx":107
+/* "cptv/reader.pyx":112
  *     cdef object s
  * 
  *     def __init__(self, fileobj):             # <<<<<<<<<<<<<<
@@ -2363,7 +2370,7 @@ static int __pyx_pw_4cptv_6reader_10CPTVReader_1__init__(PyObject *__pyx_v_self,
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 107, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "__init__") < 0)) __PYX_ERR(0, 112, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 1) {
       goto __pyx_L5_argtuple_error;
@@ -2374,7 +2381,7 @@ static int __pyx_pw_4cptv_6reader_10CPTVReader_1__init__(PyObject *__pyx_v_self,
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 107, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 1, 1, 1, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 112, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("cptv.reader.CPTVReader.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -2404,25 +2411,25 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   float __pyx_t_10;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "cptv/reader.pyx":108
+  /* "cptv/reader.pyx":113
  * 
  *     def __init__(self, fileobj):
  *         self.s = BitReader(gzip.GzipFile(fileobj=fileobj, mode="rb"))             # <<<<<<<<<<<<<<
  * 
  *         # check magic and version
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_BitReader); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_BitReader); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_gzip); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_gzip); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_GzipFile); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_GzipFile); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 108, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_fileobj, __pyx_v_fileobj) < 0) __PYX_ERR(0, 108, __pyx_L1_error)
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_mode, __pyx_n_u_rb) < 0) __PYX_ERR(0, 108, __pyx_L1_error)
-  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 108, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_fileobj, __pyx_v_fileobj) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_mode, __pyx_n_u_rb) < 0) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -2439,7 +2446,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_t_5) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 108, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_GIVEREF(__pyx_t_1);
@@ -2448,14 +2455,14 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   __pyx_v_self->s = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "cptv/reader.pyx":111
+  /* "cptv/reader.pyx":116
  * 
  *         # check magic and version
  *         if self.s.bytes(4) != b"CPTV":             # <<<<<<<<<<<<<<
  *             raise IOError("magic not found")
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_bytes); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_bytes); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_5 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -2469,27 +2476,27 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   }
   __pyx_t_1 = (__pyx_t_5) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_5, __pyx_int_4) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_int_4);
   __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 111, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_6 = (__Pyx_PyBytes_Equals(__pyx_t_1, __pyx_n_b_CPTV, Py_NE)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 111, __pyx_L1_error)
+  __pyx_t_6 = (__Pyx_PyBytes_Equals(__pyx_t_1, __pyx_n_b_CPTV, Py_NE)); if (unlikely(__pyx_t_6 < 0)) __PYX_ERR(0, 116, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (unlikely(__pyx_t_6)) {
 
-    /* "cptv/reader.pyx":112
+    /* "cptv/reader.pyx":117
  *         # check magic and version
  *         if self.s.bytes(4) != b"CPTV":
  *             raise IOError("magic not found")             # <<<<<<<<<<<<<<
  * 
  *         self.version = self.s.uint8()
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_IOError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_IOError, __pyx_tuple_, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 117, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 112, __pyx_L1_error)
+    __PYX_ERR(0, 117, __pyx_L1_error)
 
-    /* "cptv/reader.pyx":111
+    /* "cptv/reader.pyx":116
  * 
  *         # check magic and version
  *         if self.s.bytes(4) != b"CPTV":             # <<<<<<<<<<<<<<
@@ -2498,14 +2505,14 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
  */
   }
 
-  /* "cptv/reader.pyx":114
+  /* "cptv/reader.pyx":119
  *             raise IOError("magic not found")
  * 
  *         self.version = self.s.uint8()             # <<<<<<<<<<<<<<
  *         if self.version not in (1, 2):
  *             raise IOError("unsupported version")
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_uint8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_uint8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_5 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -2519,14 +2526,14 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   }
   __pyx_t_1 = (__pyx_t_5) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 114, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 114, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 119, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->version = __pyx_t_7;
 
-  /* "cptv/reader.pyx":115
+  /* "cptv/reader.pyx":120
  * 
  *         self.version = self.s.uint8()
  *         if self.version not in (1, 2):             # <<<<<<<<<<<<<<
@@ -2545,20 +2552,20 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   __pyx_t_8 = (__pyx_t_6 != 0);
   if (unlikely(__pyx_t_8)) {
 
-    /* "cptv/reader.pyx":116
+    /* "cptv/reader.pyx":121
  *         self.version = self.s.uint8()
  *         if self.version not in (1, 2):
  *             raise IOError("unsupported version")             # <<<<<<<<<<<<<<
  * 
  *         section_type, fields = self._read_section()
  */
-    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_IOError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 116, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_IOError, __pyx_tuple__2, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 121, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_Raise(__pyx_t_1, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-    __PYX_ERR(0, 116, __pyx_L1_error)
+    __PYX_ERR(0, 121, __pyx_L1_error)
 
-    /* "cptv/reader.pyx":115
+    /* "cptv/reader.pyx":120
  * 
  *         self.version = self.s.uint8()
  *         if self.version not in (1, 2):             # <<<<<<<<<<<<<<
@@ -2567,14 +2574,14 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
  */
   }
 
-  /* "cptv/reader.pyx":118
+  /* "cptv/reader.pyx":123
  *             raise IOError("unsupported version")
  * 
  *         section_type, fields = self._read_section()             # <<<<<<<<<<<<<<
  *         if section_type != Section.HEADER:
  *             raise IOError("header not found")
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_read_section); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 118, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_read_section); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_5 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -2588,7 +2595,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   }
   __pyx_t_1 = (__pyx_t_5) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_5) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 118, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 123, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
@@ -2597,7 +2604,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
     if (unlikely(size != 2)) {
       if (size > 2) __Pyx_RaiseTooManyValuesError(2);
       else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-      __PYX_ERR(0, 118, __pyx_L1_error)
+      __PYX_ERR(0, 123, __pyx_L1_error)
     }
     #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
     if (likely(PyTuple_CheckExact(sequence))) {
@@ -2610,15 +2617,15 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
     __Pyx_INCREF(__pyx_t_2);
     __Pyx_INCREF(__pyx_t_5);
     #else
-    __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_2 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 123, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_5 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 123, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     #endif
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else {
     Py_ssize_t index = -1;
-    __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 118, __pyx_L1_error)
+    __pyx_t_3 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 123, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_t_9 = Py_TYPE(__pyx_t_3)->tp_iternext;
@@ -2626,7 +2633,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
     __Pyx_GOTREF(__pyx_t_2);
     index = 1; __pyx_t_5 = __pyx_t_9(__pyx_t_3); if (unlikely(!__pyx_t_5)) goto __pyx_L5_unpacking_failed;
     __Pyx_GOTREF(__pyx_t_5);
-    if (__Pyx_IternextUnpackEndCheck(__pyx_t_9(__pyx_t_3), 2) < 0) __PYX_ERR(0, 118, __pyx_L1_error)
+    if (__Pyx_IternextUnpackEndCheck(__pyx_t_9(__pyx_t_3), 2) < 0) __PYX_ERR(0, 123, __pyx_L1_error)
     __pyx_t_9 = NULL;
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     goto __pyx_L6_unpacking_done;
@@ -2634,7 +2641,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __pyx_t_9 = NULL;
     if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-    __PYX_ERR(0, 118, __pyx_L1_error)
+    __PYX_ERR(0, 123, __pyx_L1_error)
     __pyx_L6_unpacking_done:;
   }
   __pyx_v_section_type = __pyx_t_2;
@@ -2642,35 +2649,35 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   __pyx_v_fields = __pyx_t_5;
   __pyx_t_5 = 0;
 
-  /* "cptv/reader.pyx":119
+  /* "cptv/reader.pyx":124
  * 
  *         section_type, fields = self._read_section()
  *         if section_type != Section.HEADER:             # <<<<<<<<<<<<<<
  *             raise IOError("header not found")
  * 
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Section), __pyx_n_s_HEADER); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 119, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Section), __pyx_n_s_HEADER); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 124, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = PyObject_RichCompare(__pyx_v_section_type, __pyx_t_1, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 119, __pyx_L1_error)
+  __pyx_t_5 = PyObject_RichCompare(__pyx_v_section_type, __pyx_t_1, Py_NE); __Pyx_XGOTREF(__pyx_t_5); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 124, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 119, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_5); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 124, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   if (unlikely(__pyx_t_8)) {
 
-    /* "cptv/reader.pyx":120
+    /* "cptv/reader.pyx":125
  *         section_type, fields = self._read_section()
  *         if section_type != Section.HEADER:
  *             raise IOError("header not found")             # <<<<<<<<<<<<<<
  * 
  *         self.compression = fields[Field.COMPRESSION]
  */
-    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_IOError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 120, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Call(__pyx_builtin_IOError, __pyx_tuple__3, NULL); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 125, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_Raise(__pyx_t_5, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __PYX_ERR(0, 120, __pyx_L1_error)
+    __PYX_ERR(0, 125, __pyx_L1_error)
 
-    /* "cptv/reader.pyx":119
+    /* "cptv/reader.pyx":124
  * 
  *         section_type, fields = self._read_section()
  *         if section_type != Section.HEADER:             # <<<<<<<<<<<<<<
@@ -2679,23 +2686,23 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
  */
   }
 
-  /* "cptv/reader.pyx":122
+  /* "cptv/reader.pyx":127
  *             raise IOError("header not found")
  * 
  *         self.compression = fields[Field.COMPRESSION]             # <<<<<<<<<<<<<<
  *         if self.compression != 1:
  *             raise ValueError("unsupported compression type: {}"
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_COMPRESSION); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_COMPRESSION); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_fields, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_fields, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 122, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 127, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->compression = __pyx_t_7;
 
-  /* "cptv/reader.pyx":123
+  /* "cptv/reader.pyx":128
  * 
  *         self.compression = fields[Field.COMPRESSION]
  *         if self.compression != 1:             # <<<<<<<<<<<<<<
@@ -2705,16 +2712,16 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   __pyx_t_8 = ((__pyx_v_self->compression != 1) != 0);
   if (unlikely(__pyx_t_8)) {
 
-    /* "cptv/reader.pyx":125
+    /* "cptv/reader.pyx":130
  *         if self.compression != 1:
  *             raise ValueError("unsupported compression type: {}"
  *                              .format(self.compression))             # <<<<<<<<<<<<<<
  * 
  *         self.timestamp = fields[Field.TIMESTAMP]
  */
-    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_unsupported_compression_type, __pyx_n_s_format); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 125, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_unsupported_compression_type, __pyx_n_s_format); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 130, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
-    __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_self->compression); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 125, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_self->compression); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 130, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
@@ -2729,25 +2736,25 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
     __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_5, __pyx_t_3, __pyx_t_2) : __Pyx_PyObject_CallOneArg(__pyx_t_5, __pyx_t_2);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 125, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 130, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-    /* "cptv/reader.pyx":124
+    /* "cptv/reader.pyx":129
  *         self.compression = fields[Field.COMPRESSION]
  *         if self.compression != 1:
  *             raise ValueError("unsupported compression type: {}"             # <<<<<<<<<<<<<<
  *                              .format(self.compression))
  * 
  */
-    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_ValueError, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 124, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_CallOneArg(__pyx_builtin_ValueError, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 129, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_Raise(__pyx_t_5, 0, 0, 0);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-    __PYX_ERR(0, 124, __pyx_L1_error)
+    __PYX_ERR(0, 129, __pyx_L1_error)
 
-    /* "cptv/reader.pyx":123
+    /* "cptv/reader.pyx":128
  * 
  *         self.compression = fields[Field.COMPRESSION]
  *         if self.compression != 1:             # <<<<<<<<<<<<<<
@@ -2756,16 +2763,16 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
  */
   }
 
-  /* "cptv/reader.pyx":127
+  /* "cptv/reader.pyx":132
  *                              .format(self.compression))
  * 
  *         self.timestamp = fields[Field.TIMESTAMP]             # <<<<<<<<<<<<<<
  *         self.x_resolution = fields[Field.X_RESOLUTION]
  *         self.y_resolution = fields[Field.Y_RESOLUTION]
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_TIMESTAMP); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 127, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_TIMESTAMP); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_fields, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 127, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_fields, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 132, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __Pyx_GIVEREF(__pyx_t_1);
@@ -2774,50 +2781,50 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   __pyx_v_self->timestamp = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "cptv/reader.pyx":128
+  /* "cptv/reader.pyx":133
  * 
  *         self.timestamp = fields[Field.TIMESTAMP]
  *         self.x_resolution = fields[Field.X_RESOLUTION]             # <<<<<<<<<<<<<<
  *         self.y_resolution = fields[Field.Y_RESOLUTION]
  *         self.frame_dim = (self.y_resolution, self.x_resolution)
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_X_RESOLUTION); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 128, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_X_RESOLUTION); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_fields, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 128, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetItem(__pyx_v_fields, __pyx_t_1); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_5); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 128, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_5); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 133, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   __pyx_v_self->x_resolution = __pyx_t_7;
 
-  /* "cptv/reader.pyx":129
+  /* "cptv/reader.pyx":134
  *         self.timestamp = fields[Field.TIMESTAMP]
  *         self.x_resolution = fields[Field.X_RESOLUTION]
  *         self.y_resolution = fields[Field.Y_RESOLUTION]             # <<<<<<<<<<<<<<
  *         self.frame_dim = (self.y_resolution, self.x_resolution)
  *         self.device_name = fields.get(Field.DEVICENAME, "")
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_Y_RESOLUTION); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_Y_RESOLUTION); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_fields, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 129, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetItem(__pyx_v_fields, __pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 129, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 134, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_self->y_resolution = __pyx_t_7;
 
-  /* "cptv/reader.pyx":130
+  /* "cptv/reader.pyx":135
  *         self.x_resolution = fields[Field.X_RESOLUTION]
  *         self.y_resolution = fields[Field.Y_RESOLUTION]
  *         self.frame_dim = (self.y_resolution, self.x_resolution)             # <<<<<<<<<<<<<<
  *         self.device_name = fields.get(Field.DEVICENAME, "")
- *         self.preview_secs = fields.get(Field.PREVIEW_SECS, 0)
+ *         self.device_id = fields.get(Field.DEVICEID, 0)
  */
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->y_resolution); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 130, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->y_resolution); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_self->x_resolution); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 130, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_self->x_resolution); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 130, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 135, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_1);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_1);
@@ -2831,16 +2838,16 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   __pyx_v_self->frame_dim = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "cptv/reader.pyx":131
+  /* "cptv/reader.pyx":136
  *         self.y_resolution = fields[Field.Y_RESOLUTION]
  *         self.frame_dim = (self.y_resolution, self.x_resolution)
  *         self.device_name = fields.get(Field.DEVICENAME, "")             # <<<<<<<<<<<<<<
- *         self.preview_secs = fields.get(Field.PREVIEW_SECS, 0)
- *         self.motion_config = fields.get(Field.MOTION_CONFIG, None)
+ *         self.device_id = fields.get(Field.DEVICEID, 0)
+ * 
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_fields, __pyx_n_s_get); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_fields, __pyx_n_s_get); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_DEVICENAME); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 131, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_DEVICENAME); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 136, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = NULL;
   __pyx_t_7 = 0;
@@ -2857,7 +2864,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_5)) {
     PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_1, __pyx_kp_u__4};
-    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 131, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -2866,14 +2873,14 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
     PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_1, __pyx_kp_u__4};
-    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 131, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else
   #endif
   {
-    __pyx_t_4 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 131, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 136, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     if (__pyx_t_3) {
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
@@ -2884,7 +2891,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
     __Pyx_GIVEREF(__pyx_kp_u__4);
     PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_7, __pyx_kp_u__4);
     __pyx_t_1 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 131, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 136, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
@@ -2895,16 +2902,16 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   __pyx_v_self->device_name = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "cptv/reader.pyx":132
+  /* "cptv/reader.pyx":137
  *         self.frame_dim = (self.y_resolution, self.x_resolution)
  *         self.device_name = fields.get(Field.DEVICENAME, "")
- *         self.preview_secs = fields.get(Field.PREVIEW_SECS, 0)             # <<<<<<<<<<<<<<
- *         self.motion_config = fields.get(Field.MOTION_CONFIG, None)
- *         self.latitude = fields.get(Field.LATITUDE, 0.0)
+ *         self.device_id = fields.get(Field.DEVICEID, 0)             # <<<<<<<<<<<<<<
+ * 
+ *         self.preview_secs = fields.get(Field.PREVIEW_SECS, 0)
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_fields, __pyx_n_s_get); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_fields, __pyx_n_s_get); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_PREVIEW_SECS); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_DEVICEID); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_1 = NULL;
   __pyx_t_7 = 0;
@@ -2921,7 +2928,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_5)) {
     PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_t_4, __pyx_int_0};
-    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 137, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -2930,14 +2937,14 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
     PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_t_4, __pyx_int_0};
-    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 137, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   } else
   #endif
   {
-    __pyx_t_3 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 132, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     if (__pyx_t_1) {
       __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1); __pyx_t_1 = NULL;
@@ -2948,25 +2955,25 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
     __Pyx_GIVEREF(__pyx_int_0);
     PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_7, __pyx_int_0);
     __pyx_t_4 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 132, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 137, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 132, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 137, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_v_self->preview_secs = __pyx_t_7;
+  __pyx_v_self->device_id = __pyx_t_7;
 
-  /* "cptv/reader.pyx":133
- *         self.device_name = fields.get(Field.DEVICENAME, "")
- *         self.preview_secs = fields.get(Field.PREVIEW_SECS, 0)
- *         self.motion_config = fields.get(Field.MOTION_CONFIG, None)             # <<<<<<<<<<<<<<
+  /* "cptv/reader.pyx":139
+ *         self.device_id = fields.get(Field.DEVICEID, 0)
+ * 
+ *         self.preview_secs = fields.get(Field.PREVIEW_SECS, 0)             # <<<<<<<<<<<<<<
+ *         self.motion_config = fields.get(Field.MOTION_CONFIG, None)
  *         self.latitude = fields.get(Field.LATITUDE, 0.0)
- *         self.longitude = fields.get(Field.LONGITUDE, 0.0)
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_fields, __pyx_n_s_get); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_fields, __pyx_n_s_get); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_MOTION_CONFIG); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 133, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_PREVIEW_SECS); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 139, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __pyx_t_4 = NULL;
   __pyx_t_7 = 0;
@@ -2982,8 +2989,8 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   }
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_5)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_t_3, Py_None};
-    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
+    PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_t_3, __pyx_int_0};
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
@@ -2991,46 +2998,44 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   #endif
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_t_3, Py_None};
-    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
+    PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_t_3, __pyx_int_0};
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   } else
   #endif
   {
-    __pyx_t_1 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 133, __pyx_L1_error)
+    __pyx_t_1 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     if (__pyx_t_4) {
       __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_4); __pyx_t_4 = NULL;
     }
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_1, 0+__pyx_t_7, __pyx_t_3);
-    __Pyx_INCREF(Py_None);
-    __Pyx_GIVEREF(Py_None);
-    PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_7, Py_None);
+    __Pyx_INCREF(__pyx_int_0);
+    __Pyx_GIVEREF(__pyx_int_0);
+    PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_7, __pyx_int_0);
     __pyx_t_3 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 133, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 139, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __Pyx_GIVEREF(__pyx_t_2);
-  __Pyx_GOTREF(__pyx_v_self->motion_config);
-  __Pyx_DECREF(__pyx_v_self->motion_config);
-  __pyx_v_self->motion_config = __pyx_t_2;
-  __pyx_t_2 = 0;
+  __pyx_t_7 = __Pyx_PyInt_As_int(__pyx_t_2); if (unlikely((__pyx_t_7 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 139, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_v_self->preview_secs = __pyx_t_7;
 
-  /* "cptv/reader.pyx":134
- *         self.preview_secs = fields.get(Field.PREVIEW_SECS, 0)
- *         self.motion_config = fields.get(Field.MOTION_CONFIG, None)
- *         self.latitude = fields.get(Field.LATITUDE, 0.0)             # <<<<<<<<<<<<<<
- *         self.longitude = fields.get(Field.LONGITUDE, 0.0)
+  /* "cptv/reader.pyx":140
  * 
+ *         self.preview_secs = fields.get(Field.PREVIEW_SECS, 0)
+ *         self.motion_config = fields.get(Field.MOTION_CONFIG, None)             # <<<<<<<<<<<<<<
+ *         self.latitude = fields.get(Field.LATITUDE, 0.0)
+ *         self.longitude = fields.get(Field.LONGITUDE, 0.0)
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_fields, __pyx_n_s_get); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_fields, __pyx_n_s_get); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_LATITUDE); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 134, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_MOTION_CONFIG); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 140, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = NULL;
   __pyx_t_7 = 0;
@@ -3046,8 +3051,8 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   }
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_5)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_1, __pyx_float_0_0};
-    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
+    PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_1, Py_None};
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -3055,44 +3060,46 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   #endif
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
-    PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_1, __pyx_float_0_0};
-    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
+    PyObject *__pyx_temp[3] = {__pyx_t_3, __pyx_t_1, Py_None};
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   } else
   #endif
   {
-    __pyx_t_4 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 134, __pyx_L1_error)
+    __pyx_t_4 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     if (__pyx_t_3) {
       __Pyx_GIVEREF(__pyx_t_3); PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_t_3); __pyx_t_3 = NULL;
     }
     __Pyx_GIVEREF(__pyx_t_1);
     PyTuple_SET_ITEM(__pyx_t_4, 0+__pyx_t_7, __pyx_t_1);
-    __Pyx_INCREF(__pyx_float_0_0);
-    __Pyx_GIVEREF(__pyx_float_0_0);
-    PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_7, __pyx_float_0_0);
+    __Pyx_INCREF(Py_None);
+    __Pyx_GIVEREF(Py_None);
+    PyTuple_SET_ITEM(__pyx_t_4, 1+__pyx_t_7, Py_None);
     __pyx_t_1 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 134, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_4, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 140, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 134, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_v_self->latitude = __pyx_t_10;
+  __Pyx_GIVEREF(__pyx_t_2);
+  __Pyx_GOTREF(__pyx_v_self->motion_config);
+  __Pyx_DECREF(__pyx_v_self->motion_config);
+  __pyx_v_self->motion_config = __pyx_t_2;
+  __pyx_t_2 = 0;
 
-  /* "cptv/reader.pyx":135
+  /* "cptv/reader.pyx":141
+ *         self.preview_secs = fields.get(Field.PREVIEW_SECS, 0)
  *         self.motion_config = fields.get(Field.MOTION_CONFIG, None)
- *         self.latitude = fields.get(Field.LATITUDE, 0.0)
- *         self.longitude = fields.get(Field.LONGITUDE, 0.0)             # <<<<<<<<<<<<<<
+ *         self.latitude = fields.get(Field.LATITUDE, 0.0)             # <<<<<<<<<<<<<<
+ *         self.longitude = fields.get(Field.LONGITUDE, 0.0)
  * 
- *     def __iter__(self):
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_fields, __pyx_n_s_get); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_fields, __pyx_n_s_get); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 141, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_LONGITUDE); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 135, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_LATITUDE); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 141, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __pyx_t_1 = NULL;
   __pyx_t_7 = 0;
@@ -3109,7 +3116,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   #if CYTHON_FAST_PYCALL
   if (PyFunction_Check(__pyx_t_5)) {
     PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_t_4, __pyx_float_0_0};
-    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 135, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -3118,14 +3125,14 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
   #if CYTHON_FAST_PYCCALL
   if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
     PyObject *__pyx_temp[3] = {__pyx_t_1, __pyx_t_4, __pyx_float_0_0};
-    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 135, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_XDECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   } else
   #endif
   {
-    __pyx_t_3 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 135, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     if (__pyx_t_1) {
       __Pyx_GIVEREF(__pyx_t_1); PyTuple_SET_ITEM(__pyx_t_3, 0, __pyx_t_1); __pyx_t_1 = NULL;
@@ -3136,16 +3143,78 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
     __Pyx_GIVEREF(__pyx_float_0_0);
     PyTuple_SET_ITEM(__pyx_t_3, 1+__pyx_t_7, __pyx_float_0_0);
     __pyx_t_4 = 0;
-    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 135, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_3, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 141, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 135, __pyx_L1_error)
+  __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 141, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_v_self->latitude = __pyx_t_10;
+
+  /* "cptv/reader.pyx":142
+ *         self.motion_config = fields.get(Field.MOTION_CONFIG, None)
+ *         self.latitude = fields.get(Field.LATITUDE, 0.0)
+ *         self.longitude = fields.get(Field.LONGITUDE, 0.0)             # <<<<<<<<<<<<<<
+ * 
+ *     def __iter__(self):
+ */
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(__pyx_v_fields, __pyx_n_s_get); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 142, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_LONGITUDE); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 142, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __pyx_t_4 = NULL;
+  __pyx_t_7 = 0;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_5))) {
+    __pyx_t_4 = PyMethod_GET_SELF(__pyx_t_5);
+    if (likely(__pyx_t_4)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_5);
+      __Pyx_INCREF(__pyx_t_4);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_5, function);
+      __pyx_t_7 = 1;
+    }
+  }
+  #if CYTHON_FAST_PYCALL
+  if (PyFunction_Check(__pyx_t_5)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_t_3, __pyx_float_0_0};
+    __pyx_t_2 = __Pyx_PyFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  } else
+  #endif
+  #if CYTHON_FAST_PYCCALL
+  if (__Pyx_PyFastCFunction_Check(__pyx_t_5)) {
+    PyObject *__pyx_temp[3] = {__pyx_t_4, __pyx_t_3, __pyx_float_0_0};
+    __pyx_t_2 = __Pyx_PyCFunction_FastCall(__pyx_t_5, __pyx_temp+1-__pyx_t_7, 2+__pyx_t_7); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
+    __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  } else
+  #endif
+  {
+    __pyx_t_1 = PyTuple_New(2+__pyx_t_7); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 142, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    if (__pyx_t_4) {
+      __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_4); __pyx_t_4 = NULL;
+    }
+    __Pyx_GIVEREF(__pyx_t_3);
+    PyTuple_SET_ITEM(__pyx_t_1, 0+__pyx_t_7, __pyx_t_3);
+    __Pyx_INCREF(__pyx_float_0_0);
+    __Pyx_GIVEREF(__pyx_float_0_0);
+    PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_7, __pyx_float_0_0);
+    __pyx_t_3 = 0;
+    __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_t_1, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 142, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
+    __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  }
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  __pyx_t_10 = __pyx_PyFloat_AsFloat(__pyx_t_2); if (unlikely((__pyx_t_10 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 142, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_self->longitude = __pyx_t_10;
 
-  /* "cptv/reader.pyx":107
+  /* "cptv/reader.pyx":112
  *     cdef object s
  * 
  *     def __init__(self, fileobj):             # <<<<<<<<<<<<<<
@@ -3172,7 +3241,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader___init__(struct __pyx_obj_4cptv_6
 }
 static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineObject *__pyx_generator, CYTHON_UNUSED PyThreadState *__pyx_tstate, PyObject *__pyx_sent_value); /* proto */
 
-/* "cptv/reader.pyx":137
+/* "cptv/reader.pyx":144
  *         self.longitude = fields.get(Field.LONGITUDE, 0.0)
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
@@ -3202,7 +3271,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_2__iter__(struct __pyx_obj_
   if (unlikely(!__pyx_cur_scope)) {
     __pyx_cur_scope = ((struct __pyx_obj_4cptv_6reader___pyx_scope_struct____iter__ *)Py_None);
     __Pyx_INCREF(Py_None);
-    __PYX_ERR(0, 137, __pyx_L1_error)
+    __PYX_ERR(0, 144, __pyx_L1_error)
   } else {
     __Pyx_GOTREF(__pyx_cur_scope);
   }
@@ -3210,7 +3279,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_2__iter__(struct __pyx_obj_
   __Pyx_INCREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   __Pyx_GIVEREF((PyObject *)__pyx_cur_scope->__pyx_v_self);
   {
-    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_4cptv_6reader_10CPTVReader_4generator, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_iter, __pyx_n_s_CPTVReader___iter, __pyx_n_s_cptv_reader); if (unlikely(!gen)) __PYX_ERR(0, 137, __pyx_L1_error)
+    __pyx_CoroutineObject *gen = __Pyx_Generator_New((__pyx_coroutine_body_t) __pyx_gb_4cptv_6reader_10CPTVReader_4generator, NULL, (PyObject *) __pyx_cur_scope, __pyx_n_s_iter, __pyx_n_s_CPTVReader___iter, __pyx_n_s_cptv_reader); if (unlikely(!gen)) __PYX_ERR(0, 144, __pyx_L1_error)
     __Pyx_DECREF(__pyx_cur_scope);
     __Pyx_RefNannyFinishContext();
     return (PyObject *) gen;
@@ -3259,9 +3328,9 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
     return NULL;
   }
   __pyx_L3_first_run:;
-  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 137, __pyx_L1_error)
+  if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 144, __pyx_L1_error)
 
-  /* "cptv/reader.pyx":143
+  /* "cptv/reader.pyx":150
  *         cdef int i
  *         cdef int x_res
  *         cdef object time_on = None             # <<<<<<<<<<<<<<
@@ -3272,7 +3341,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
   __Pyx_GIVEREF(Py_None);
   __pyx_cur_scope->__pyx_v_time_on = Py_None;
 
-  /* "cptv/reader.pyx":144
+  /* "cptv/reader.pyx":151
  *         cdef int x_res
  *         cdef object time_on = None
  *         cdef object last_ffc_time = None             # <<<<<<<<<<<<<<
@@ -3283,27 +3352,27 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
   __Pyx_GIVEREF(Py_None);
   __pyx_cur_scope->__pyx_v_last_ffc_time = Py_None;
 
-  /* "cptv/reader.pyx":146
+  /* "cptv/reader.pyx":153
  *         cdef object last_ffc_time = None
  * 
  *         prev_pix = np.zeros(self.frame_dim, dtype="uint16")             # <<<<<<<<<<<<<<
  *         frame = np.zeros(self.frame_dim, dtype="uint16")
  *         delta_pix = np.zeros(self.frame_dim, dtype="int32")
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_np); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_1, __pyx_n_s_zeros); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_1 = PyTuple_New(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self->frame_dim);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self->frame_dim);
   PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_cur_scope->__pyx_v_self->frame_dim);
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 146, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_n_u_uint16) < 0) __PYX_ERR(0, 146, __pyx_L1_error)
-  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 146, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_dtype, __pyx_n_u_uint16) < 0) __PYX_ERR(0, 153, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 153, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -3312,27 +3381,27 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
   __pyx_cur_scope->__pyx_v_prev_pix = __pyx_t_4;
   __pyx_t_4 = 0;
 
-  /* "cptv/reader.pyx":147
+  /* "cptv/reader.pyx":154
  * 
  *         prev_pix = np.zeros(self.frame_dim, dtype="uint16")
  *         frame = np.zeros(self.frame_dim, dtype="uint16")             # <<<<<<<<<<<<<<
  *         delta_pix = np.zeros(self.frame_dim, dtype="int32")
  *         x_res = self.x_resolution
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 147, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_np); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 154, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 147, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_zeros); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 154, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 147, __pyx_L1_error)
+  __pyx_t_4 = PyTuple_New(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 154, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self->frame_dim);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self->frame_dim);
   PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_cur_scope->__pyx_v_self->frame_dim);
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 147, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 154, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_n_u_uint16) < 0) __PYX_ERR(0, 147, __pyx_L1_error)
-  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 147, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_1, __pyx_n_s_dtype, __pyx_n_u_uint16) < 0) __PYX_ERR(0, 154, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_t_4, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 154, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
@@ -3341,27 +3410,27 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
   __pyx_cur_scope->__pyx_v_frame = __pyx_t_2;
   __pyx_t_2 = 0;
 
-  /* "cptv/reader.pyx":148
+  /* "cptv/reader.pyx":155
  *         prev_pix = np.zeros(self.frame_dim, dtype="uint16")
  *         frame = np.zeros(self.frame_dim, dtype="uint16")
  *         delta_pix = np.zeros(self.frame_dim, dtype="int32")             # <<<<<<<<<<<<<<
  *         x_res = self.x_resolution
  *         num_deltas = (x_res * self.y_resolution) - 1
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_np); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_zeros); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_cur_scope->__pyx_v_self->frame_dim);
   __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_self->frame_dim);
   PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_cur_scope->__pyx_v_self->frame_dim);
-  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 148, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_n_u_int32) < 0) __PYX_ERR(0, 148, __pyx_L1_error)
-  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 148, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_dtype, __pyx_n_u_int32) < 0) __PYX_ERR(0, 155, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 155, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -3370,7 +3439,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
   __pyx_cur_scope->__pyx_v_delta_pix = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "cptv/reader.pyx":149
+  /* "cptv/reader.pyx":156
  *         frame = np.zeros(self.frame_dim, dtype="uint16")
  *         delta_pix = np.zeros(self.frame_dim, dtype="int32")
  *         x_res = self.x_resolution             # <<<<<<<<<<<<<<
@@ -3380,48 +3449,48 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
   __pyx_t_5 = __pyx_cur_scope->__pyx_v_self->x_resolution;
   __pyx_cur_scope->__pyx_v_x_res = __pyx_t_5;
 
-  /* "cptv/reader.pyx":150
+  /* "cptv/reader.pyx":157
  *         delta_pix = np.zeros(self.frame_dim, dtype="int32")
  *         x_res = self.x_resolution
  *         num_deltas = (x_res * self.y_resolution) - 1             # <<<<<<<<<<<<<<
  * 
  *         # Precompute the way we walk through the frame.
  */
-  __pyx_t_3 = __Pyx_PyInt_From_long(((__pyx_cur_scope->__pyx_v_x_res * __pyx_cur_scope->__pyx_v_self->y_resolution) - 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 150, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_From_long(((__pyx_cur_scope->__pyx_v_x_res * __pyx_cur_scope->__pyx_v_self->y_resolution) - 1)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 157, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_3);
   __pyx_cur_scope->__pyx_v_num_deltas = __pyx_t_3;
   __pyx_t_3 = 0;
 
-  /* "cptv/reader.pyx":153
+  /* "cptv/reader.pyx":160
  * 
  *         # Precompute the way we walk through the frame.
  *         walk_coords = []             # <<<<<<<<<<<<<<
  *         # offset by 1 because we will already have initial value
  *         for i in range(1, num_deltas+1):
  */
-  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 153, __pyx_L1_error)
+  __pyx_t_3 = PyList_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 160, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_GIVEREF(__pyx_t_3);
   __pyx_cur_scope->__pyx_v_walk_coords = ((PyObject*)__pyx_t_3);
   __pyx_t_3 = 0;
 
-  /* "cptv/reader.pyx":155
+  /* "cptv/reader.pyx":162
  *         walk_coords = []
  *         # offset by 1 because we will already have initial value
  *         for i in range(1, num_deltas+1):             # <<<<<<<<<<<<<<
  *             y = i // x_res
  *             x = i % x_res
  */
-  __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_cur_scope->__pyx_v_num_deltas, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 155, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyInt_AddObjC(__pyx_cur_scope->__pyx_v_num_deltas, __pyx_int_1, 1, 0, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 155, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_3); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 162, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_7 = __pyx_t_6;
   for (__pyx_t_5 = 1; __pyx_t_5 < __pyx_t_7; __pyx_t_5+=1) {
     __pyx_cur_scope->__pyx_v_i = __pyx_t_5;
 
-    /* "cptv/reader.pyx":156
+    /* "cptv/reader.pyx":163
  *         # offset by 1 because we will already have initial value
  *         for i in range(1, num_deltas+1):
  *             y = i // x_res             # <<<<<<<<<<<<<<
@@ -3430,15 +3499,15 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
  */
     if (unlikely(__pyx_cur_scope->__pyx_v_x_res == 0)) {
       PyErr_SetString(PyExc_ZeroDivisionError, "integer division or modulo by zero");
-      __PYX_ERR(0, 156, __pyx_L1_error)
+      __PYX_ERR(0, 163, __pyx_L1_error)
     }
     else if (sizeof(int) == sizeof(long) && (!(((int)-1) > 0)) && unlikely(__pyx_cur_scope->__pyx_v_x_res == (int)-1)  && unlikely(UNARY_NEG_WOULD_OVERFLOW(__pyx_cur_scope->__pyx_v_i))) {
       PyErr_SetString(PyExc_OverflowError, "value too large to perform division");
-      __PYX_ERR(0, 156, __pyx_L1_error)
+      __PYX_ERR(0, 163, __pyx_L1_error)
     }
     __pyx_cur_scope->__pyx_v_y = __Pyx_div_int(__pyx_cur_scope->__pyx_v_i, __pyx_cur_scope->__pyx_v_x_res);
 
-    /* "cptv/reader.pyx":157
+    /* "cptv/reader.pyx":164
  *         for i in range(1, num_deltas+1):
  *             y = i // x_res
  *             x = i % x_res             # <<<<<<<<<<<<<<
@@ -3447,11 +3516,11 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
  */
     if (unlikely(__pyx_cur_scope->__pyx_v_x_res == 0)) {
       PyErr_SetString(PyExc_ZeroDivisionError, "integer division or modulo by zero");
-      __PYX_ERR(0, 157, __pyx_L1_error)
+      __PYX_ERR(0, 164, __pyx_L1_error)
     }
     __pyx_cur_scope->__pyx_v_x = __Pyx_mod_int(__pyx_cur_scope->__pyx_v_i, __pyx_cur_scope->__pyx_v_x_res);
 
-    /* "cptv/reader.pyx":160
+    /* "cptv/reader.pyx":167
  *             # Deltas are "snaked" so work backwards through every
  *             # second row.
  *             if y % 2 == 1:             # <<<<<<<<<<<<<<
@@ -3461,7 +3530,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
     __pyx_t_8 = ((__Pyx_mod_long(__pyx_cur_scope->__pyx_v_y, 2) == 1) != 0);
     if (__pyx_t_8) {
 
-      /* "cptv/reader.pyx":161
+      /* "cptv/reader.pyx":168
  *             # second row.
  *             if y % 2 == 1:
  *                 x = x_res - x - 1             # <<<<<<<<<<<<<<
@@ -3470,7 +3539,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
  */
       __pyx_cur_scope->__pyx_v_x = ((__pyx_cur_scope->__pyx_v_x_res - __pyx_cur_scope->__pyx_v_x) - 1);
 
-      /* "cptv/reader.pyx":160
+      /* "cptv/reader.pyx":167
  *             # Deltas are "snaked" so work backwards through every
  *             # second row.
  *             if y % 2 == 1:             # <<<<<<<<<<<<<<
@@ -3479,18 +3548,18 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
  */
     }
 
-    /* "cptv/reader.pyx":162
+    /* "cptv/reader.pyx":169
  *             if y % 2 == 1:
  *                 x = x_res - x - 1
  *             walk_coords.append((y, x))             # <<<<<<<<<<<<<<
  * 
  *         while True:
  */
-    __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_y); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 169, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_x); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_cur_scope->__pyx_v_x); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 169, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 169, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_GIVEREF(__pyx_t_3);
     PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_t_3);
@@ -3498,11 +3567,11 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
     PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_t_4);
     __pyx_t_3 = 0;
     __pyx_t_4 = 0;
-    __pyx_t_9 = __Pyx_PyList_Append(__pyx_cur_scope->__pyx_v_walk_coords, __pyx_t_2); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 162, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyList_Append(__pyx_cur_scope->__pyx_v_walk_coords, __pyx_t_2); if (unlikely(__pyx_t_9 == ((int)-1))) __PYX_ERR(0, 169, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
 
-  /* "cptv/reader.pyx":164
+  /* "cptv/reader.pyx":171
  *             walk_coords.append((y, x))
  * 
  *         while True:             # <<<<<<<<<<<<<<
@@ -3511,7 +3580,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
  */
   while (1) {
 
-    /* "cptv/reader.pyx":165
+    /* "cptv/reader.pyx":172
  * 
  *         while True:
  *             try:             # <<<<<<<<<<<<<<
@@ -3525,14 +3594,14 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
       __Pyx_XGOTREF(__pyx_t_12);
       /*try:*/ {
 
-        /* "cptv/reader.pyx":166
+        /* "cptv/reader.pyx":173
  *         while True:
  *             try:
  *                 section_type, fields = self._read_section()             # <<<<<<<<<<<<<<
  *             except EOFError:
  *                 return
  */
-        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_self), __pyx_n_s_read_section); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 166, __pyx_L9_error)
+        __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_cur_scope->__pyx_v_self), __pyx_n_s_read_section); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 173, __pyx_L9_error)
         __Pyx_GOTREF(__pyx_t_4);
         __pyx_t_3 = NULL;
         if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -3546,7 +3615,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
         }
         __pyx_t_2 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_4);
         __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 166, __pyx_L9_error)
+        if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 173, __pyx_L9_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         if ((likely(PyTuple_CheckExact(__pyx_t_2))) || (PyList_CheckExact(__pyx_t_2))) {
@@ -3555,7 +3624,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
           if (unlikely(size != 2)) {
             if (size > 2) __Pyx_RaiseTooManyValuesError(2);
             else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-            __PYX_ERR(0, 166, __pyx_L9_error)
+            __PYX_ERR(0, 173, __pyx_L9_error)
           }
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
           if (likely(PyTuple_CheckExact(sequence))) {
@@ -3568,15 +3637,15 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
           __Pyx_INCREF(__pyx_t_4);
           __Pyx_INCREF(__pyx_t_3);
           #else
-          __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 166, __pyx_L9_error)
+          __pyx_t_4 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 173, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_4);
-          __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 166, __pyx_L9_error)
+          __pyx_t_3 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 173, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_3);
           #endif
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         } else {
           Py_ssize_t index = -1;
-          __pyx_t_1 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 166, __pyx_L9_error)
+          __pyx_t_1 = PyObject_GetIter(__pyx_t_2); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 173, __pyx_L9_error)
           __Pyx_GOTREF(__pyx_t_1);
           __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
           __pyx_t_13 = Py_TYPE(__pyx_t_1)->tp_iternext;
@@ -3584,7 +3653,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
           __Pyx_GOTREF(__pyx_t_4);
           index = 1; __pyx_t_3 = __pyx_t_13(__pyx_t_1); if (unlikely(!__pyx_t_3)) goto __pyx_L17_unpacking_failed;
           __Pyx_GOTREF(__pyx_t_3);
-          if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_1), 2) < 0) __PYX_ERR(0, 166, __pyx_L9_error)
+          if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_1), 2) < 0) __PYX_ERR(0, 173, __pyx_L9_error)
           __pyx_t_13 = NULL;
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           goto __pyx_L18_unpacking_done;
@@ -3592,7 +3661,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
           __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
           __pyx_t_13 = NULL;
           if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-          __PYX_ERR(0, 166, __pyx_L9_error)
+          __PYX_ERR(0, 173, __pyx_L9_error)
           __pyx_L18_unpacking_done:;
         }
         __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_section_type);
@@ -3604,7 +3673,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
         __Pyx_GIVEREF(__pyx_t_3);
         __pyx_t_3 = 0;
 
-        /* "cptv/reader.pyx":165
+        /* "cptv/reader.pyx":172
  * 
  *         while True:
  *             try:             # <<<<<<<<<<<<<<
@@ -3622,7 +3691,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "cptv/reader.pyx":167
+      /* "cptv/reader.pyx":174
  *             try:
  *                 section_type, fields = self._read_section()
  *             except EOFError:             # <<<<<<<<<<<<<<
@@ -3632,12 +3701,12 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
       __pyx_t_5 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_EOFError);
       if (__pyx_t_5) {
         __Pyx_AddTraceback("cptv.reader.CPTVReader.__iter__", __pyx_clineno, __pyx_lineno, __pyx_filename);
-        if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_3, &__pyx_t_4) < 0) __PYX_ERR(0, 167, __pyx_L11_except_error)
+        if (__Pyx_GetException(&__pyx_t_2, &__pyx_t_3, &__pyx_t_4) < 0) __PYX_ERR(0, 174, __pyx_L11_except_error)
         __Pyx_GOTREF(__pyx_t_2);
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_GOTREF(__pyx_t_4);
 
-        /* "cptv/reader.pyx":168
+        /* "cptv/reader.pyx":175
  *                 section_type, fields = self._read_section()
  *             except EOFError:
  *                 return             # <<<<<<<<<<<<<<
@@ -3654,7 +3723,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
       goto __pyx_L11_except_error;
       __pyx_L11_except_error:;
 
-      /* "cptv/reader.pyx":165
+      /* "cptv/reader.pyx":172
  * 
  *         while True:
  *             try:             # <<<<<<<<<<<<<<
@@ -3675,29 +3744,29 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
       __pyx_L16_try_end:;
     }
 
-    /* "cptv/reader.pyx":169
+    /* "cptv/reader.pyx":176
  *             except EOFError:
  *                 return
  *             if section_type != Section.FRAME:             # <<<<<<<<<<<<<<
  *                 raise IOError("unexpected section: {}".format(section_type))
  * 
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Section), __pyx_n_s_FRAME); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 169, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Section), __pyx_n_s_FRAME); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 176, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = PyObject_RichCompare(__pyx_cur_scope->__pyx_v_section_type, __pyx_t_4, Py_NE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 169, __pyx_L1_error)
+    __pyx_t_3 = PyObject_RichCompare(__pyx_cur_scope->__pyx_v_section_type, __pyx_t_4, Py_NE); __Pyx_XGOTREF(__pyx_t_3); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 176, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 169, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_PyObject_IsTrue(__pyx_t_3); if (unlikely(__pyx_t_8 < 0)) __PYX_ERR(0, 176, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (unlikely(__pyx_t_8)) {
 
-      /* "cptv/reader.pyx":170
+      /* "cptv/reader.pyx":177
  *                 return
  *             if section_type != Section.FRAME:
  *                 raise IOError("unexpected section: {}".format(section_type))             # <<<<<<<<<<<<<<
  * 
  *             v = self.s.int32()  # read starting value
  */
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_unexpected_section, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 170, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_kp_u_unexpected_section, __pyx_n_s_format); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 177, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __pyx_t_2 = NULL;
       if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_4))) {
@@ -3711,17 +3780,17 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
       }
       __pyx_t_3 = (__pyx_t_2) ? __Pyx_PyObject_Call2Args(__pyx_t_4, __pyx_t_2, __pyx_cur_scope->__pyx_v_section_type) : __Pyx_PyObject_CallOneArg(__pyx_t_4, __pyx_cur_scope->__pyx_v_section_type);
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 170, __pyx_L1_error)
+      if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 177, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_IOError, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 170, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_IOError, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 177, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_Raise(__pyx_t_4, 0, 0, 0);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __PYX_ERR(0, 170, __pyx_L1_error)
+      __PYX_ERR(0, 177, __pyx_L1_error)
 
-      /* "cptv/reader.pyx":169
+      /* "cptv/reader.pyx":176
  *             except EOFError:
  *                 return
  *             if section_type != Section.FRAME:             # <<<<<<<<<<<<<<
@@ -3730,14 +3799,14 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
  */
     }
 
-    /* "cptv/reader.pyx":172
+    /* "cptv/reader.pyx":179
  *                 raise IOError("unexpected section: {}".format(section_type))
  * 
  *             v = self.s.int32()  # read starting value             # <<<<<<<<<<<<<<
  *             delta_pix[0][0] = v
  * 
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self->s, __pyx_n_s_int32); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 172, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self->s, __pyx_n_s_int32); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 179, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_2 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
@@ -3751,41 +3820,41 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
     }
     __pyx_t_4 = (__pyx_t_2) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_2) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 172, __pyx_L1_error)
+    if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 179, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-    __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_4); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 172, __pyx_L1_error)
+    __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_4); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 179, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_cur_scope->__pyx_v_v = __pyx_t_6;
 
-    /* "cptv/reader.pyx":173
+    /* "cptv/reader.pyx":180
  * 
  *             v = self.s.int32()  # read starting value
  *             delta_pix[0][0] = v             # <<<<<<<<<<<<<<
  * 
  *             # ... then apply deltas
  */
-    __pyx_t_4 = __Pyx_PyInt_From_long(__pyx_cur_scope->__pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 173, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_From_long(__pyx_cur_scope->__pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_delta_pix, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 173, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_delta_pix, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    if (unlikely(__Pyx_SetItemInt(__pyx_t_3, 0, __pyx_t_4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 173, __pyx_L1_error)
+    if (unlikely(__Pyx_SetItemInt(__pyx_t_3, 0, __pyx_t_4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1) < 0)) __PYX_ERR(0, 180, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "cptv/reader.pyx":178
+    /* "cptv/reader.pyx":185
  * 
  *             # sub 4 to account for uint32 just read
  *             frame_size = fields[Field.FRAME_SIZE] - 4             # <<<<<<<<<<<<<<
  *             bit_width = fields[Field.BIT_WIDTH]
  *             deltas = self.s.iter_int(frame_size, bit_width)
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_FRAME_SIZE); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 178, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_FRAME_SIZE); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 185, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_cur_scope->__pyx_v_fields, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 178, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_cur_scope->__pyx_v_fields, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 185, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyInt_SubtractObjC(__pyx_t_3, __pyx_int_4, 4, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 178, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyInt_SubtractObjC(__pyx_t_3, __pyx_int_4, 4, 0, 0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 185, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_frame_size);
@@ -3793,16 +3862,16 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
     __Pyx_GIVEREF(__pyx_t_4);
     __pyx_t_4 = 0;
 
-    /* "cptv/reader.pyx":179
+    /* "cptv/reader.pyx":186
  *             # sub 4 to account for uint32 just read
  *             frame_size = fields[Field.FRAME_SIZE] - 4
  *             bit_width = fields[Field.BIT_WIDTH]             # <<<<<<<<<<<<<<
  *             deltas = self.s.iter_int(frame_size, bit_width)
  *             for (y, x), d in zip(walk_coords, deltas):
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_BIT_WIDTH); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 179, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_BIT_WIDTH); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 186, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_cur_scope->__pyx_v_fields, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 179, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_cur_scope->__pyx_v_fields, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 186, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_bit_width);
@@ -3810,14 +3879,14 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
     __Pyx_GIVEREF(__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "cptv/reader.pyx":180
+    /* "cptv/reader.pyx":187
  *             frame_size = fields[Field.FRAME_SIZE] - 4
  *             bit_width = fields[Field.BIT_WIDTH]
  *             deltas = self.s.iter_int(frame_size, bit_width)             # <<<<<<<<<<<<<<
  *             for (y, x), d in zip(walk_coords, deltas):
  *                 v += d
  */
-    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self->s, __pyx_n_s_iter_int); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 180, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_self->s, __pyx_n_s_iter_int); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 187, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __pyx_t_2 = NULL;
     __pyx_t_5 = 0;
@@ -3834,7 +3903,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_cur_scope->__pyx_v_frame_size, __pyx_cur_scope->__pyx_v_bit_width};
-      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 180, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 187, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else
@@ -3842,13 +3911,13 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_4)) {
       PyObject *__pyx_temp[3] = {__pyx_t_2, __pyx_cur_scope->__pyx_v_frame_size, __pyx_cur_scope->__pyx_v_bit_width};
-      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 180, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_4, __pyx_temp+1-__pyx_t_5, 2+__pyx_t_5); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 187, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else
     #endif
     {
-      __pyx_t_1 = PyTuple_New(2+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 180, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(2+__pyx_t_5); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 187, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       if (__pyx_t_2) {
         __Pyx_GIVEREF(__pyx_t_2); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_2); __pyx_t_2 = NULL;
@@ -3859,7 +3928,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
       __Pyx_INCREF(__pyx_cur_scope->__pyx_v_bit_width);
       __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_bit_width);
       PyTuple_SET_ITEM(__pyx_t_1, 1+__pyx_t_5, __pyx_cur_scope->__pyx_v_bit_width);
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 180, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 187, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
@@ -3869,14 +3938,14 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
     __Pyx_GIVEREF(__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "cptv/reader.pyx":181
+    /* "cptv/reader.pyx":188
  *             bit_width = fields[Field.BIT_WIDTH]
  *             deltas = self.s.iter_int(frame_size, bit_width)
  *             for (y, x), d in zip(walk_coords, deltas):             # <<<<<<<<<<<<<<
  *                 v += d
  *                 delta_pix[y][x] = v
  */
-    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __pyx_t_3 = PyTuple_New(2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_INCREF(__pyx_cur_scope->__pyx_v_walk_coords);
     __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_walk_coords);
@@ -3884,16 +3953,16 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
     __Pyx_INCREF(__pyx_cur_scope->__pyx_v_deltas);
     __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_deltas);
     PyTuple_SET_ITEM(__pyx_t_3, 1, __pyx_cur_scope->__pyx_v_deltas);
-    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_zip, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 181, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_zip, __pyx_t_3, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 188, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if (likely(PyList_CheckExact(__pyx_t_4)) || PyTuple_CheckExact(__pyx_t_4)) {
       __pyx_t_3 = __pyx_t_4; __Pyx_INCREF(__pyx_t_3); __pyx_t_14 = 0;
       __pyx_t_15 = NULL;
     } else {
-      __pyx_t_14 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 181, __pyx_L1_error)
+      __pyx_t_14 = -1; __pyx_t_3 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 188, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_15 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 181, __pyx_L1_error)
+      __pyx_t_15 = Py_TYPE(__pyx_t_3)->tp_iternext; if (unlikely(!__pyx_t_15)) __PYX_ERR(0, 188, __pyx_L1_error)
     }
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     for (;;) {
@@ -3901,17 +3970,17 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
         if (likely(PyList_CheckExact(__pyx_t_3))) {
           if (__pyx_t_14 >= PyList_GET_SIZE(__pyx_t_3)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_14); __Pyx_INCREF(__pyx_t_4); __pyx_t_14++; if (unlikely(0 < 0)) __PYX_ERR(0, 181, __pyx_L1_error)
+          __pyx_t_4 = PyList_GET_ITEM(__pyx_t_3, __pyx_t_14); __Pyx_INCREF(__pyx_t_4); __pyx_t_14++; if (unlikely(0 < 0)) __PYX_ERR(0, 188, __pyx_L1_error)
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_14); __pyx_t_14++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 181, __pyx_L1_error)
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_14); __pyx_t_14++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 188, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         } else {
           if (__pyx_t_14 >= PyTuple_GET_SIZE(__pyx_t_3)) break;
           #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_14); __Pyx_INCREF(__pyx_t_4); __pyx_t_14++; if (unlikely(0 < 0)) __PYX_ERR(0, 181, __pyx_L1_error)
+          __pyx_t_4 = PyTuple_GET_ITEM(__pyx_t_3, __pyx_t_14); __Pyx_INCREF(__pyx_t_4); __pyx_t_14++; if (unlikely(0 < 0)) __PYX_ERR(0, 188, __pyx_L1_error)
           #else
-          __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_14); __pyx_t_14++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 181, __pyx_L1_error)
+          __pyx_t_4 = PySequence_ITEM(__pyx_t_3, __pyx_t_14); __pyx_t_14++; if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 188, __pyx_L1_error)
           __Pyx_GOTREF(__pyx_t_4);
           #endif
         }
@@ -3921,7 +3990,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
           PyObject* exc_type = PyErr_Occurred();
           if (exc_type) {
             if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-            else __PYX_ERR(0, 181, __pyx_L1_error)
+            else __PYX_ERR(0, 188, __pyx_L1_error)
           }
           break;
         }
@@ -3933,7 +4002,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
         if (unlikely(size != 2)) {
           if (size > 2) __Pyx_RaiseTooManyValuesError(2);
           else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-          __PYX_ERR(0, 181, __pyx_L1_error)
+          __PYX_ERR(0, 188, __pyx_L1_error)
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
         if (likely(PyTuple_CheckExact(sequence))) {
@@ -3946,15 +4015,15 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
         __Pyx_INCREF(__pyx_t_1);
         __Pyx_INCREF(__pyx_t_2);
         #else
-        __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 181, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 188, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_2 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 181, __pyx_L1_error)
+        __pyx_t_2 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 188, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_2);
         #endif
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       } else {
         Py_ssize_t index = -1;
-        __pyx_t_16 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 181, __pyx_L1_error)
+        __pyx_t_16 = PyObject_GetIter(__pyx_t_4); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 188, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
         __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
         __pyx_t_13 = Py_TYPE(__pyx_t_16)->tp_iternext;
@@ -3962,7 +4031,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
         __Pyx_GOTREF(__pyx_t_1);
         index = 1; __pyx_t_2 = __pyx_t_13(__pyx_t_16); if (unlikely(!__pyx_t_2)) goto __pyx_L24_unpacking_failed;
         __Pyx_GOTREF(__pyx_t_2);
-        if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_16), 2) < 0) __PYX_ERR(0, 181, __pyx_L1_error)
+        if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_16), 2) < 0) __PYX_ERR(0, 188, __pyx_L1_error)
         __pyx_t_13 = NULL;
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
         goto __pyx_L25_unpacking_done;
@@ -3970,10 +4039,10 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
         __pyx_t_13 = NULL;
         if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-        __PYX_ERR(0, 181, __pyx_L1_error)
+        __PYX_ERR(0, 188, __pyx_L1_error)
         __pyx_L25_unpacking_done:;
       }
-      __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_2); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 181, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyInt_As_long(__pyx_t_2); if (unlikely((__pyx_t_6 == (long)-1) && PyErr_Occurred())) __PYX_ERR(0, 188, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
         PyObject* sequence = __pyx_t_1;
@@ -3981,7 +4050,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
         if (unlikely(size != 2)) {
           if (size > 2) __Pyx_RaiseTooManyValuesError(2);
           else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-          __PYX_ERR(0, 181, __pyx_L1_error)
+          __PYX_ERR(0, 188, __pyx_L1_error)
         }
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
         if (likely(PyTuple_CheckExact(sequence))) {
@@ -3994,15 +4063,15 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
         __Pyx_INCREF(__pyx_t_16);
         __Pyx_INCREF(__pyx_t_17);
         #else
-        __pyx_t_16 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 181, __pyx_L1_error)
+        __pyx_t_16 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 188, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
-        __pyx_t_17 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 181, __pyx_L1_error)
+        __pyx_t_17 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 188, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_17);
         #endif
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       } else {
         Py_ssize_t index = -1;
-        __pyx_t_18 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 181, __pyx_L1_error)
+        __pyx_t_18 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 188, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_18);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __pyx_t_13 = Py_TYPE(__pyx_t_18)->tp_iternext;
@@ -4010,7 +4079,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
         __Pyx_GOTREF(__pyx_t_16);
         index = 1; __pyx_t_17 = __pyx_t_13(__pyx_t_18); if (unlikely(!__pyx_t_17)) goto __pyx_L26_unpacking_failed;
         __Pyx_GOTREF(__pyx_t_17);
-        if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_18), 2) < 0) __PYX_ERR(0, 181, __pyx_L1_error)
+        if (__Pyx_IternextUnpackEndCheck(__pyx_t_13(__pyx_t_18), 2) < 0) __PYX_ERR(0, 188, __pyx_L1_error)
         __pyx_t_13 = NULL;
         __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
         goto __pyx_L27_unpacking_done;
@@ -4018,18 +4087,18 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
         __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
         __pyx_t_13 = NULL;
         if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-        __PYX_ERR(0, 181, __pyx_L1_error)
+        __PYX_ERR(0, 188, __pyx_L1_error)
         __pyx_L27_unpacking_done:;
       }
-      __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_16); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 181, __pyx_L1_error)
+      __pyx_t_5 = __Pyx_PyInt_As_int(__pyx_t_16); if (unlikely((__pyx_t_5 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 188, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
-      __pyx_t_19 = __Pyx_PyInt_As_int(__pyx_t_17); if (unlikely((__pyx_t_19 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 181, __pyx_L1_error)
+      __pyx_t_19 = __Pyx_PyInt_As_int(__pyx_t_17); if (unlikely((__pyx_t_19 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 188, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
       __pyx_cur_scope->__pyx_v_y = __pyx_t_5;
       __pyx_cur_scope->__pyx_v_x = __pyx_t_19;
       __pyx_cur_scope->__pyx_v_d = __pyx_t_6;
 
-      /* "cptv/reader.pyx":182
+      /* "cptv/reader.pyx":189
  *             deltas = self.s.iter_int(frame_size, bit_width)
  *             for (y, x), d in zip(walk_coords, deltas):
  *                 v += d             # <<<<<<<<<<<<<<
@@ -4038,22 +4107,22 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
  */
       __pyx_cur_scope->__pyx_v_v = (__pyx_cur_scope->__pyx_v_v + __pyx_cur_scope->__pyx_v_d);
 
-      /* "cptv/reader.pyx":183
+      /* "cptv/reader.pyx":190
  *             for (y, x), d in zip(walk_coords, deltas):
  *                 v += d
  *                 delta_pix[y][x] = v             # <<<<<<<<<<<<<<
  * 
  *             # Calculate the frame by applying the delta frame to the
  */
-      __pyx_t_4 = __Pyx_PyInt_From_long(__pyx_cur_scope->__pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 183, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyInt_From_long(__pyx_cur_scope->__pyx_v_v); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 190, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_delta_pix, __pyx_cur_scope->__pyx_v_y, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 183, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_GetItemInt(__pyx_cur_scope->__pyx_v_delta_pix, __pyx_cur_scope->__pyx_v_y, int, 1, __Pyx_PyInt_From_int, 0, 1, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 190, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      if (unlikely(__Pyx_SetItemInt(__pyx_t_2, __pyx_cur_scope->__pyx_v_x, __pyx_t_4, int, 1, __Pyx_PyInt_From_int, 0, 1, 1) < 0)) __PYX_ERR(0, 183, __pyx_L1_error)
+      if (unlikely(__Pyx_SetItemInt(__pyx_t_2, __pyx_cur_scope->__pyx_v_x, __pyx_t_4, int, 1, __Pyx_PyInt_From_int, 0, 1, 1) < 0)) __PYX_ERR(0, 190, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-      /* "cptv/reader.pyx":181
+      /* "cptv/reader.pyx":188
  *             bit_width = fields[Field.BIT_WIDTH]
  *             deltas = self.s.iter_int(frame_size, bit_width)
  *             for (y, x), d in zip(walk_coords, deltas):             # <<<<<<<<<<<<<<
@@ -4063,16 +4132,16 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
     }
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-    /* "cptv/reader.pyx":187
+    /* "cptv/reader.pyx":194
  *             # Calculate the frame by applying the delta frame to the
  *             # previously decompressed frame.
  *             pix = (prev_pix + delta_pix).astype('uint16')             # <<<<<<<<<<<<<<
  * 
  *             if self.version >= 2:
  */
-    __pyx_t_4 = PyNumber_Add(__pyx_cur_scope->__pyx_v_prev_pix, __pyx_cur_scope->__pyx_v_delta_pix); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_4 = PyNumber_Add(__pyx_cur_scope->__pyx_v_prev_pix, __pyx_cur_scope->__pyx_v_delta_pix); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_astype); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 187, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_astype); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
     __pyx_t_4 = NULL;
@@ -4087,7 +4156,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
     }
     __pyx_t_3 = (__pyx_t_4) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_4, __pyx_n_u_uint16) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_n_u_uint16);
     __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 187, __pyx_L1_error)
+    if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 194, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_XGOTREF(__pyx_cur_scope->__pyx_v_pix);
@@ -4095,7 +4164,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
     __Pyx_GIVEREF(__pyx_t_3);
     __pyx_t_3 = 0;
 
-    /* "cptv/reader.pyx":189
+    /* "cptv/reader.pyx":196
  *             pix = (prev_pix + delta_pix).astype('uint16')
  * 
  *             if self.version >= 2:             # <<<<<<<<<<<<<<
@@ -4105,20 +4174,20 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
     __pyx_t_8 = ((__pyx_cur_scope->__pyx_v_self->version >= 2) != 0);
     if (__pyx_t_8) {
 
-      /* "cptv/reader.pyx":190
+      /* "cptv/reader.pyx":197
  * 
  *             if self.version >= 2:
  *                 time_on = timedelta(milliseconds=fields.get(Field.TIME_ON, 0))             # <<<<<<<<<<<<<<
  *                 last_ffc_time = timedelta(milliseconds=fields.get(Field.LAST_FFC_TIME, 0))
  * 
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_timedelta); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 190, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_3, __pyx_n_s_timedelta); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 197, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 190, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 197, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_fields, __pyx_n_s_get); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 190, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_fields, __pyx_n_s_get); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_TIME_ON); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 190, __pyx_L1_error)
+      __pyx_t_17 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_TIME_ON); if (unlikely(!__pyx_t_17)) __PYX_ERR(0, 197, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_17);
       __pyx_t_16 = NULL;
       __pyx_t_19 = 0;
@@ -4135,7 +4204,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[3] = {__pyx_t_16, __pyx_t_17, __pyx_int_0};
-        __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_19, 2+__pyx_t_19); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 190, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_19, 2+__pyx_t_19); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 197, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
@@ -4144,14 +4213,14 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[3] = {__pyx_t_16, __pyx_t_17, __pyx_int_0};
-        __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_19, 2+__pyx_t_19); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 190, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_19, 2+__pyx_t_19); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 197, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_16); __pyx_t_16 = 0;
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_17); __pyx_t_17 = 0;
       } else
       #endif
       {
-        __pyx_t_18 = PyTuple_New(2+__pyx_t_19); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 190, __pyx_L1_error)
+        __pyx_t_18 = PyTuple_New(2+__pyx_t_19); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 197, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_18);
         if (__pyx_t_16) {
           __Pyx_GIVEREF(__pyx_t_16); PyTuple_SET_ITEM(__pyx_t_18, 0, __pyx_t_16); __pyx_t_16 = NULL;
@@ -4162,14 +4231,14 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
         __Pyx_GIVEREF(__pyx_int_0);
         PyTuple_SET_ITEM(__pyx_t_18, 1+__pyx_t_19, __pyx_int_0);
         __pyx_t_17 = 0;
-        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_18, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 190, __pyx_L1_error)
+        __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_18, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 197, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_4);
         __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_milliseconds, __pyx_t_4) < 0) __PYX_ERR(0, 190, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_milliseconds, __pyx_t_4) < 0) __PYX_ERR(0, 197, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 190, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_3, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 197, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -4178,20 +4247,20 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
       __Pyx_GIVEREF(__pyx_t_4);
       __pyx_t_4 = 0;
 
-      /* "cptv/reader.pyx":191
+      /* "cptv/reader.pyx":198
  *             if self.version >= 2:
  *                 time_on = timedelta(milliseconds=fields.get(Field.TIME_ON, 0))
  *                 last_ffc_time = timedelta(milliseconds=fields.get(Field.LAST_FFC_TIME, 0))             # <<<<<<<<<<<<<<
  * 
  *             yield Frame(pix, time_on, last_ffc_time)
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_timedelta); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 191, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_timedelta); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 198, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 191, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 198, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_fields, __pyx_n_s_get); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 191, __pyx_L1_error)
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_cur_scope->__pyx_v_fields, __pyx_n_s_get); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_LAST_FFC_TIME); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 191, __pyx_L1_error)
+      __pyx_t_18 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_LAST_FFC_TIME); if (unlikely(!__pyx_t_18)) __PYX_ERR(0, 198, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_18);
       __pyx_t_17 = NULL;
       __pyx_t_19 = 0;
@@ -4208,7 +4277,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
       #if CYTHON_FAST_PYCALL
       if (PyFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[3] = {__pyx_t_17, __pyx_t_18, __pyx_int_0};
-        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_19, 2+__pyx_t_19); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 191, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_19, 2+__pyx_t_19); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 198, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
@@ -4217,14 +4286,14 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
       #if CYTHON_FAST_PYCCALL
       if (__Pyx_PyFastCFunction_Check(__pyx_t_1)) {
         PyObject *__pyx_temp[3] = {__pyx_t_17, __pyx_t_18, __pyx_int_0};
-        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_19, 2+__pyx_t_19); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 191, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_1, __pyx_temp+1-__pyx_t_19, 2+__pyx_t_19); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 198, __pyx_L1_error)
         __Pyx_XDECREF(__pyx_t_17); __pyx_t_17 = 0;
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_18); __pyx_t_18 = 0;
       } else
       #endif
       {
-        __pyx_t_16 = PyTuple_New(2+__pyx_t_19); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 191, __pyx_L1_error)
+        __pyx_t_16 = PyTuple_New(2+__pyx_t_19); if (unlikely(!__pyx_t_16)) __PYX_ERR(0, 198, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_16);
         if (__pyx_t_17) {
           __Pyx_GIVEREF(__pyx_t_17); PyTuple_SET_ITEM(__pyx_t_16, 0, __pyx_t_17); __pyx_t_17 = NULL;
@@ -4235,14 +4304,14 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
         __Pyx_GIVEREF(__pyx_int_0);
         PyTuple_SET_ITEM(__pyx_t_16, 1+__pyx_t_19, __pyx_int_0);
         __pyx_t_18 = 0;
-        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_16, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 191, __pyx_L1_error)
+        __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_t_16, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 198, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_16); __pyx_t_16 = 0;
       }
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_milliseconds, __pyx_t_3) < 0) __PYX_ERR(0, 191, __pyx_L1_error)
+      if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_milliseconds, __pyx_t_3) < 0) __PYX_ERR(0, 198, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 191, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_empty_tuple, __pyx_t_2); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 198, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -4251,7 +4320,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
       __Pyx_GIVEREF(__pyx_t_3);
       __pyx_t_3 = 0;
 
-      /* "cptv/reader.pyx":189
+      /* "cptv/reader.pyx":196
  *             pix = (prev_pix + delta_pix).astype('uint16')
  * 
  *             if self.version >= 2:             # <<<<<<<<<<<<<<
@@ -4260,14 +4329,14 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
  */
     }
 
-    /* "cptv/reader.pyx":193
+    /* "cptv/reader.pyx":200
  *                 last_ffc_time = timedelta(milliseconds=fields.get(Field.LAST_FFC_TIME, 0))
  * 
  *             yield Frame(pix, time_on, last_ffc_time)             # <<<<<<<<<<<<<<
  *             prev_pix = pix
  * 
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_Frame); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 193, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_Frame); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 200, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_4 = NULL;
     __pyx_t_19 = 0;
@@ -4284,7 +4353,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
     #if CYTHON_FAST_PYCALL
     if (PyFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[4] = {__pyx_t_4, __pyx_cur_scope->__pyx_v_pix, __pyx_cur_scope->__pyx_v_time_on, __pyx_cur_scope->__pyx_v_last_ffc_time};
-      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_19, 3+__pyx_t_19); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 193, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_19, 3+__pyx_t_19); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 200, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else
@@ -4292,13 +4361,13 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
     #if CYTHON_FAST_PYCCALL
     if (__Pyx_PyFastCFunction_Check(__pyx_t_2)) {
       PyObject *__pyx_temp[4] = {__pyx_t_4, __pyx_cur_scope->__pyx_v_pix, __pyx_cur_scope->__pyx_v_time_on, __pyx_cur_scope->__pyx_v_last_ffc_time};
-      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_19, 3+__pyx_t_19); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 193, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyCFunction_FastCall(__pyx_t_2, __pyx_temp+1-__pyx_t_19, 3+__pyx_t_19); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 200, __pyx_L1_error)
       __Pyx_XDECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_GOTREF(__pyx_t_3);
     } else
     #endif
     {
-      __pyx_t_1 = PyTuple_New(3+__pyx_t_19); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 193, __pyx_L1_error)
+      __pyx_t_1 = PyTuple_New(3+__pyx_t_19); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 200, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
       if (__pyx_t_4) {
         __Pyx_GIVEREF(__pyx_t_4); PyTuple_SET_ITEM(__pyx_t_1, 0, __pyx_t_4); __pyx_t_4 = NULL;
@@ -4312,7 +4381,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
       __Pyx_INCREF(__pyx_cur_scope->__pyx_v_last_ffc_time);
       __Pyx_GIVEREF(__pyx_cur_scope->__pyx_v_last_ffc_time);
       PyTuple_SET_ITEM(__pyx_t_1, 2+__pyx_t_19, __pyx_cur_scope->__pyx_v_last_ffc_time);
-      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 193, __pyx_L1_error)
+      __pyx_t_3 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_1, NULL); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 200, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     }
@@ -4326,9 +4395,9 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
     __pyx_generator->resume_label = 1;
     return __pyx_r;
     __pyx_L29_resume_from_yield:;
-    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 193, __pyx_L1_error)
+    if (unlikely(!__pyx_sent_value)) __PYX_ERR(0, 200, __pyx_L1_error)
 
-    /* "cptv/reader.pyx":194
+    /* "cptv/reader.pyx":201
  * 
  *             yield Frame(pix, time_on, last_ffc_time)
  *             prev_pix = pix             # <<<<<<<<<<<<<<
@@ -4342,7 +4411,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
   }
   CYTHON_MAYBE_UNUSED_VAR(__pyx_cur_scope);
 
-  /* "cptv/reader.pyx":137
+  /* "cptv/reader.pyx":144
  *         self.longitude = fields.get(Field.LONGITUDE, 0.0)
  * 
  *     def __iter__(self):             # <<<<<<<<<<<<<<
@@ -4373,7 +4442,7 @@ static PyObject *__pyx_gb_4cptv_6reader_10CPTVReader_4generator(__pyx_CoroutineO
   return __pyx_r;
 }
 
-/* "cptv/reader.pyx":196
+/* "cptv/reader.pyx":203
  *             prev_pix = pix
  * 
  *     def _read_section(self):             # <<<<<<<<<<<<<<
@@ -4413,14 +4482,14 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_5_read_section(struct __pyx
   PyObject *(*__pyx_t_8)(PyObject *);
   __Pyx_RefNannySetupContext("_read_section", 0);
 
-  /* "cptv/reader.pyx":197
+  /* "cptv/reader.pyx":204
  * 
  *     def _read_section(self):
  *         section_type = self.s.bytes(1)             # <<<<<<<<<<<<<<
  *         field_count = self.s.uint8()
  *         fields = {}
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_bytes); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 197, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_bytes); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 204, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -4434,20 +4503,20 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_5_read_section(struct __pyx
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_int_1) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_int_1);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 197, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 204, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_section_type = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "cptv/reader.pyx":198
+  /* "cptv/reader.pyx":205
  *     def _read_section(self):
  *         section_type = self.s.bytes(1)
  *         field_count = self.s.uint8()             # <<<<<<<<<<<<<<
  *         fields = {}
  *         for _ in range(field_count):
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_uint8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 198, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_uint8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 205, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -4461,40 +4530,40 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_5_read_section(struct __pyx
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 198, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 205, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_field_count = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "cptv/reader.pyx":199
+  /* "cptv/reader.pyx":206
  *         section_type = self.s.bytes(1)
  *         field_count = self.s.uint8()
  *         fields = {}             # <<<<<<<<<<<<<<
  *         for _ in range(field_count):
  *             ftype, value = self._read_field()
  */
-  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 199, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 206, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_v_fields = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
 
-  /* "cptv/reader.pyx":200
+  /* "cptv/reader.pyx":207
  *         field_count = self.s.uint8()
  *         fields = {}
  *         for _ in range(field_count):             # <<<<<<<<<<<<<<
  *             ftype, value = self._read_field()
  *             fields[ftype] = value
  */
-  __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_v_field_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 200, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_CallOneArg(__pyx_builtin_range, __pyx_v_field_count); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 207, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (likely(PyList_CheckExact(__pyx_t_1)) || PyTuple_CheckExact(__pyx_t_1)) {
     __pyx_t_2 = __pyx_t_1; __Pyx_INCREF(__pyx_t_2); __pyx_t_4 = 0;
     __pyx_t_5 = NULL;
   } else {
-    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __pyx_t_4 = -1; __pyx_t_2 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 207, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 200, __pyx_L1_error)
+    __pyx_t_5 = Py_TYPE(__pyx_t_2)->tp_iternext; if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 207, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   for (;;) {
@@ -4502,17 +4571,17 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_5_read_section(struct __pyx
       if (likely(PyList_CheckExact(__pyx_t_2))) {
         if (__pyx_t_4 >= PyList_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 200, __pyx_L1_error)
+        __pyx_t_1 = PyList_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 207, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 200, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 207, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       } else {
         if (__pyx_t_4 >= PyTuple_GET_SIZE(__pyx_t_2)) break;
         #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
-        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 200, __pyx_L1_error)
+        __pyx_t_1 = PyTuple_GET_ITEM(__pyx_t_2, __pyx_t_4); __Pyx_INCREF(__pyx_t_1); __pyx_t_4++; if (unlikely(0 < 0)) __PYX_ERR(0, 207, __pyx_L1_error)
         #else
-        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 200, __pyx_L1_error)
+        __pyx_t_1 = PySequence_ITEM(__pyx_t_2, __pyx_t_4); __pyx_t_4++; if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 207, __pyx_L1_error)
         __Pyx_GOTREF(__pyx_t_1);
         #endif
       }
@@ -4522,7 +4591,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_5_read_section(struct __pyx
         PyObject* exc_type = PyErr_Occurred();
         if (exc_type) {
           if (likely(__Pyx_PyErr_GivenExceptionMatches(exc_type, PyExc_StopIteration))) PyErr_Clear();
-          else __PYX_ERR(0, 200, __pyx_L1_error)
+          else __PYX_ERR(0, 207, __pyx_L1_error)
         }
         break;
       }
@@ -4531,14 +4600,14 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_5_read_section(struct __pyx
     __Pyx_XDECREF_SET(__pyx_v__, __pyx_t_1);
     __pyx_t_1 = 0;
 
-    /* "cptv/reader.pyx":201
+    /* "cptv/reader.pyx":208
  *         fields = {}
  *         for _ in range(field_count):
  *             ftype, value = self._read_field()             # <<<<<<<<<<<<<<
  *             fields[ftype] = value
  *         return section_type, fields
  */
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_read_field); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 201, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v_self), __pyx_n_s_read_field); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 208, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_6 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
@@ -4552,7 +4621,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_5_read_section(struct __pyx
     }
     __pyx_t_1 = (__pyx_t_6) ? __Pyx_PyObject_CallOneArg(__pyx_t_3, __pyx_t_6) : __Pyx_PyObject_CallNoArg(__pyx_t_3);
     __Pyx_XDECREF(__pyx_t_6); __pyx_t_6 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 201, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 208, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     if ((likely(PyTuple_CheckExact(__pyx_t_1))) || (PyList_CheckExact(__pyx_t_1))) {
@@ -4561,7 +4630,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_5_read_section(struct __pyx
       if (unlikely(size != 2)) {
         if (size > 2) __Pyx_RaiseTooManyValuesError(2);
         else if (size >= 0) __Pyx_RaiseNeedMoreValuesError(size);
-        __PYX_ERR(0, 201, __pyx_L1_error)
+        __PYX_ERR(0, 208, __pyx_L1_error)
       }
       #if CYTHON_ASSUME_SAFE_MACROS && !CYTHON_AVOID_BORROWED_REFS
       if (likely(PyTuple_CheckExact(sequence))) {
@@ -4574,15 +4643,15 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_5_read_section(struct __pyx
       __Pyx_INCREF(__pyx_t_3);
       __Pyx_INCREF(__pyx_t_6);
       #else
-      __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 201, __pyx_L1_error)
+      __pyx_t_3 = PySequence_ITEM(sequence, 0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 208, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_3);
-      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 201, __pyx_L1_error)
+      __pyx_t_6 = PySequence_ITEM(sequence, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 208, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       #endif
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     } else {
       Py_ssize_t index = -1;
-      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 201, __pyx_L1_error)
+      __pyx_t_7 = PyObject_GetIter(__pyx_t_1); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 208, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_7);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
       __pyx_t_8 = Py_TYPE(__pyx_t_7)->tp_iternext;
@@ -4590,7 +4659,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_5_read_section(struct __pyx
       __Pyx_GOTREF(__pyx_t_3);
       index = 1; __pyx_t_6 = __pyx_t_8(__pyx_t_7); if (unlikely(!__pyx_t_6)) goto __pyx_L5_unpacking_failed;
       __Pyx_GOTREF(__pyx_t_6);
-      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 201, __pyx_L1_error)
+      if (__Pyx_IternextUnpackEndCheck(__pyx_t_8(__pyx_t_7), 2) < 0) __PYX_ERR(0, 208, __pyx_L1_error)
       __pyx_t_8 = NULL;
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       goto __pyx_L6_unpacking_done;
@@ -4598,7 +4667,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_5_read_section(struct __pyx
       __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
       __pyx_t_8 = NULL;
       if (__Pyx_IterFinish() == 0) __Pyx_RaiseNeedMoreValuesError(index);
-      __PYX_ERR(0, 201, __pyx_L1_error)
+      __PYX_ERR(0, 208, __pyx_L1_error)
       __pyx_L6_unpacking_done:;
     }
     __Pyx_XDECREF_SET(__pyx_v_ftype, __pyx_t_3);
@@ -4606,16 +4675,16 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_5_read_section(struct __pyx
     __Pyx_XDECREF_SET(__pyx_v_value, __pyx_t_6);
     __pyx_t_6 = 0;
 
-    /* "cptv/reader.pyx":202
+    /* "cptv/reader.pyx":209
  *         for _ in range(field_count):
  *             ftype, value = self._read_field()
  *             fields[ftype] = value             # <<<<<<<<<<<<<<
  *         return section_type, fields
  * 
  */
-    if (unlikely(PyDict_SetItem(__pyx_v_fields, __pyx_v_ftype, __pyx_v_value) < 0)) __PYX_ERR(0, 202, __pyx_L1_error)
+    if (unlikely(PyDict_SetItem(__pyx_v_fields, __pyx_v_ftype, __pyx_v_value) < 0)) __PYX_ERR(0, 209, __pyx_L1_error)
 
-    /* "cptv/reader.pyx":200
+    /* "cptv/reader.pyx":207
  *         field_count = self.s.uint8()
  *         fields = {}
  *         for _ in range(field_count):             # <<<<<<<<<<<<<<
@@ -4625,7 +4694,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_5_read_section(struct __pyx
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "cptv/reader.pyx":203
+  /* "cptv/reader.pyx":210
  *             ftype, value = self._read_field()
  *             fields[ftype] = value
  *         return section_type, fields             # <<<<<<<<<<<<<<
@@ -4633,7 +4702,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_5_read_section(struct __pyx
  *     def _read_field(self):
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 203, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 210, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_section_type);
   __Pyx_GIVEREF(__pyx_v_section_type);
@@ -4645,7 +4714,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_5_read_section(struct __pyx
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "cptv/reader.pyx":196
+  /* "cptv/reader.pyx":203
  *             prev_pix = pix
  * 
  *     def _read_section(self):             # <<<<<<<<<<<<<<
@@ -4674,7 +4743,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_5_read_section(struct __pyx
   return __pyx_r;
 }
 
-/* "cptv/reader.pyx":205
+/* "cptv/reader.pyx":212
  *         return section_type, fields
  * 
  *     def _read_field(self):             # <<<<<<<<<<<<<<
@@ -4714,14 +4783,14 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
   int __pyx_t_10;
   __Pyx_RefNannySetupContext("_read_field", 0);
 
-  /* "cptv/reader.pyx":206
+  /* "cptv/reader.pyx":213
  * 
  *     def _read_field(self):
  *         data_len = self.s.uint8()             # <<<<<<<<<<<<<<
  *         ftype = self.s.bytes(1)
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_uint8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 206, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_uint8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -4735,20 +4804,20 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 206, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_data_len = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "cptv/reader.pyx":207
+  /* "cptv/reader.pyx":214
  *     def _read_field(self):
  *         data_len = self.s.uint8()
  *         ftype = self.s.bytes(1)             # <<<<<<<<<<<<<<
  * 
  *         if ftype in UINT8_FIELDS:
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_bytes); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 207, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_bytes); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 214, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -4762,34 +4831,34 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
   }
   __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_int_1) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_int_1);
   __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 207, __pyx_L1_error)
+  if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 214, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_v_ftype = __pyx_t_1;
   __pyx_t_1 = 0;
 
-  /* "cptv/reader.pyx":209
+  /* "cptv/reader.pyx":216
  *         ftype = self.s.bytes(1)
  * 
  *         if ftype in UINT8_FIELDS:             # <<<<<<<<<<<<<<
  *             val = self.s.uint8()
  *         elif ftype in UINT32_FIELDS:
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_UINT8_FIELDS); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_UINT8_FIELDS); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = (__Pyx_PySequence_ContainsTF(__pyx_v_ftype, __pyx_t_1, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 209, __pyx_L1_error)
+  __pyx_t_4 = (__Pyx_PySequence_ContainsTF(__pyx_v_ftype, __pyx_t_1, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 216, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_5 = (__pyx_t_4 != 0);
   if (__pyx_t_5) {
 
-    /* "cptv/reader.pyx":210
+    /* "cptv/reader.pyx":217
  * 
  *         if ftype in UINT8_FIELDS:
  *             val = self.s.uint8()             # <<<<<<<<<<<<<<
  *         elif ftype in UINT32_FIELDS:
  *             val = self.s.uint32()
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_uint8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 210, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_uint8); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 217, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -4803,13 +4872,13 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
     }
     __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 210, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_v_val = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "cptv/reader.pyx":209
+    /* "cptv/reader.pyx":216
  *         ftype = self.s.bytes(1)
  * 
  *         if ftype in UINT8_FIELDS:             # <<<<<<<<<<<<<<
@@ -4819,28 +4888,28 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
     goto __pyx_L3;
   }
 
-  /* "cptv/reader.pyx":211
+  /* "cptv/reader.pyx":218
  *         if ftype in UINT8_FIELDS:
  *             val = self.s.uint8()
  *         elif ftype in UINT32_FIELDS:             # <<<<<<<<<<<<<<
  *             val = self.s.uint32()
  *         elif ftype in STRING_FIELDS:
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_UINT32_FIELDS); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 211, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_UINT32_FIELDS); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = (__Pyx_PySequence_ContainsTF(__pyx_v_ftype, __pyx_t_1, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 211, __pyx_L1_error)
+  __pyx_t_5 = (__Pyx_PySequence_ContainsTF(__pyx_v_ftype, __pyx_t_1, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 218, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_4 = (__pyx_t_5 != 0);
   if (__pyx_t_4) {
 
-    /* "cptv/reader.pyx":212
+    /* "cptv/reader.pyx":219
  *             val = self.s.uint8()
  *         elif ftype in UINT32_FIELDS:
  *             val = self.s.uint32()             # <<<<<<<<<<<<<<
  *         elif ftype in STRING_FIELDS:
  *             val = self.s.string(data_len)
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_uint32); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 212, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_uint32); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 219, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -4854,13 +4923,13 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
     }
     __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 212, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 219, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_v_val = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "cptv/reader.pyx":211
+    /* "cptv/reader.pyx":218
  *         if ftype in UINT8_FIELDS:
  *             val = self.s.uint8()
  *         elif ftype in UINT32_FIELDS:             # <<<<<<<<<<<<<<
@@ -4870,28 +4939,28 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
     goto __pyx_L3;
   }
 
-  /* "cptv/reader.pyx":213
+  /* "cptv/reader.pyx":220
  *         elif ftype in UINT32_FIELDS:
  *             val = self.s.uint32()
  *         elif ftype in STRING_FIELDS:             # <<<<<<<<<<<<<<
  *             val = self.s.string(data_len)
  *         elif ftype in FLOAT_FIELDS:
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_STRING_FIELDS); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 213, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_STRING_FIELDS); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_4 = (__Pyx_PySequence_ContainsTF(__pyx_v_ftype, __pyx_t_1, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 213, __pyx_L1_error)
+  __pyx_t_4 = (__Pyx_PySequence_ContainsTF(__pyx_v_ftype, __pyx_t_1, Py_EQ)); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 220, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_5 = (__pyx_t_4 != 0);
   if (__pyx_t_5) {
 
-    /* "cptv/reader.pyx":214
+    /* "cptv/reader.pyx":221
  *             val = self.s.uint32()
  *         elif ftype in STRING_FIELDS:
  *             val = self.s.string(data_len)             # <<<<<<<<<<<<<<
  *         elif ftype in FLOAT_FIELDS:
  *             val = self.s.float32()
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_string); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 214, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_string); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 221, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -4905,13 +4974,13 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
     }
     __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_2, __pyx_t_3, __pyx_v_data_len) : __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_v_data_len);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 214, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 221, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_v_val = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "cptv/reader.pyx":213
+    /* "cptv/reader.pyx":220
  *         elif ftype in UINT32_FIELDS:
  *             val = self.s.uint32()
  *         elif ftype in STRING_FIELDS:             # <<<<<<<<<<<<<<
@@ -4921,28 +4990,28 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
     goto __pyx_L3;
   }
 
-  /* "cptv/reader.pyx":215
+  /* "cptv/reader.pyx":222
  *         elif ftype in STRING_FIELDS:
  *             val = self.s.string(data_len)
  *         elif ftype in FLOAT_FIELDS:             # <<<<<<<<<<<<<<
  *             val = self.s.float32()
  *         elif ftype == Field.TIMESTAMP:
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_FLOAT_FIELDS); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 215, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_FLOAT_FIELDS); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_5 = (__Pyx_PySequence_ContainsTF(__pyx_v_ftype, __pyx_t_1, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 215, __pyx_L1_error)
+  __pyx_t_5 = (__Pyx_PySequence_ContainsTF(__pyx_v_ftype, __pyx_t_1, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 222, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_t_4 = (__pyx_t_5 != 0);
   if (__pyx_t_4) {
 
-    /* "cptv/reader.pyx":216
+    /* "cptv/reader.pyx":223
  *             val = self.s.string(data_len)
  *         elif ftype in FLOAT_FIELDS:
  *             val = self.s.float32()             # <<<<<<<<<<<<<<
  *         elif ftype == Field.TIMESTAMP:
  *             micros = self.s.uint64()
  */
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 216, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_float32); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
@@ -4956,13 +5025,13 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
     }
     __pyx_t_1 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_2, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_2);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 216, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 223, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_v_val = __pyx_t_1;
     __pyx_t_1 = 0;
 
-    /* "cptv/reader.pyx":215
+    /* "cptv/reader.pyx":222
  *         elif ftype in STRING_FIELDS:
  *             val = self.s.string(data_len)
  *         elif ftype in FLOAT_FIELDS:             # <<<<<<<<<<<<<<
@@ -4972,29 +5041,29 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
     goto __pyx_L3;
   }
 
-  /* "cptv/reader.pyx":217
+  /* "cptv/reader.pyx":224
  *         elif ftype in FLOAT_FIELDS:
  *             val = self.s.float32()
  *         elif ftype == Field.TIMESTAMP:             # <<<<<<<<<<<<<<
  *             micros = self.s.uint64()
  *             try:
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_TIMESTAMP); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_TIMESTAMP); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 224, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyObject_RichCompare(__pyx_v_ftype, __pyx_t_1, Py_EQ); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __pyx_t_2 = PyObject_RichCompare(__pyx_v_ftype, __pyx_t_1, Py_EQ); __Pyx_XGOTREF(__pyx_t_2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 224, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 217, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_IsTrue(__pyx_t_2); if (unlikely(__pyx_t_4 < 0)) __PYX_ERR(0, 224, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   if (__pyx_t_4) {
 
-    /* "cptv/reader.pyx":218
+    /* "cptv/reader.pyx":225
  *             val = self.s.float32()
  *         elif ftype == Field.TIMESTAMP:
  *             micros = self.s.uint64()             # <<<<<<<<<<<<<<
  *             try:
  *                 val = epoch + timedelta(microseconds=micros)
  */
-    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_uint64); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 218, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_uint64); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 225, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_1))) {
@@ -5008,13 +5077,13 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
     }
     __pyx_t_2 = (__pyx_t_3) ? __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_3) : __Pyx_PyObject_CallNoArg(__pyx_t_1);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 218, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 225, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __pyx_v_micros = __pyx_t_2;
     __pyx_t_2 = 0;
 
-    /* "cptv/reader.pyx":219
+    /* "cptv/reader.pyx":226
  *         elif ftype == Field.TIMESTAMP:
  *             micros = self.s.uint64()
  *             try:             # <<<<<<<<<<<<<<
@@ -5030,32 +5099,32 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
       __Pyx_XGOTREF(__pyx_t_8);
       /*try:*/ {
 
-        /* "cptv/reader.pyx":220
+        /* "cptv/reader.pyx":227
  *             micros = self.s.uint64()
  *             try:
  *                 val = epoch + timedelta(microseconds=micros)             # <<<<<<<<<<<<<<
  *             except OverflowError:
  *                 print("timestamp is broken - using default")
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_epoch); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 220, __pyx_L4_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_epoch); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 227, __pyx_L4_error)
         __Pyx_GOTREF(__pyx_t_2);
-        __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_timedelta); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 220, __pyx_L4_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_timedelta); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 227, __pyx_L4_error)
         __Pyx_GOTREF(__pyx_t_1);
-        __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 220, __pyx_L4_error)
+        __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 227, __pyx_L4_error)
         __Pyx_GOTREF(__pyx_t_3);
-        if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_microseconds, __pyx_v_micros) < 0) __PYX_ERR(0, 220, __pyx_L4_error)
-        __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 220, __pyx_L4_error)
+        if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_microseconds, __pyx_v_micros) < 0) __PYX_ERR(0, 227, __pyx_L4_error)
+        __pyx_t_9 = __Pyx_PyObject_Call(__pyx_t_1, __pyx_empty_tuple, __pyx_t_3); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 227, __pyx_L4_error)
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
         __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-        __pyx_t_3 = PyNumber_Add(__pyx_t_2, __pyx_t_9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 220, __pyx_L4_error)
+        __pyx_t_3 = PyNumber_Add(__pyx_t_2, __pyx_t_9); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 227, __pyx_L4_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
         __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
         __pyx_v_val = __pyx_t_3;
         __pyx_t_3 = 0;
 
-        /* "cptv/reader.pyx":219
+        /* "cptv/reader.pyx":226
  *         elif ftype == Field.TIMESTAMP:
  *             micros = self.s.uint64()
  *             try:             # <<<<<<<<<<<<<<
@@ -5073,7 +5142,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
       __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
       __Pyx_XDECREF(__pyx_t_9); __pyx_t_9 = 0;
 
-      /* "cptv/reader.pyx":221
+      /* "cptv/reader.pyx":228
  *             try:
  *                 val = epoch + timedelta(microseconds=micros)
  *             except OverflowError:             # <<<<<<<<<<<<<<
@@ -5083,30 +5152,30 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
       __pyx_t_10 = __Pyx_PyErr_ExceptionMatches(__pyx_builtin_OverflowError);
       if (__pyx_t_10) {
         __Pyx_AddTraceback("cptv.reader.CPTVReader._read_field", __pyx_clineno, __pyx_lineno, __pyx_filename);
-        if (__Pyx_GetException(&__pyx_t_3, &__pyx_t_9, &__pyx_t_2) < 0) __PYX_ERR(0, 221, __pyx_L6_except_error)
+        if (__Pyx_GetException(&__pyx_t_3, &__pyx_t_9, &__pyx_t_2) < 0) __PYX_ERR(0, 228, __pyx_L6_except_error)
         __Pyx_GOTREF(__pyx_t_3);
         __Pyx_GOTREF(__pyx_t_9);
         __Pyx_GOTREF(__pyx_t_2);
 
-        /* "cptv/reader.pyx":222
+        /* "cptv/reader.pyx":229
  *                 val = epoch + timedelta(microseconds=micros)
  *             except OverflowError:
  *                 print("timestamp is broken - using default")             # <<<<<<<<<<<<<<
  *                 val = epoch
  *         else:
  */
-        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 222, __pyx_L6_except_error)
+        __pyx_t_1 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__5, NULL); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 229, __pyx_L6_except_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-        /* "cptv/reader.pyx":223
+        /* "cptv/reader.pyx":230
  *             except OverflowError:
  *                 print("timestamp is broken - using default")
  *                 val = epoch             # <<<<<<<<<<<<<<
  *         else:
  *             # Unknown field, just slurp up the bytes
  */
-        __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_epoch); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 223, __pyx_L6_except_error)
+        __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_epoch); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 230, __pyx_L6_except_error)
         __Pyx_GOTREF(__pyx_t_1);
         __Pyx_XDECREF_SET(__pyx_v_val, __pyx_t_1);
         __pyx_t_1 = 0;
@@ -5118,7 +5187,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
       goto __pyx_L6_except_error;
       __pyx_L6_except_error:;
 
-      /* "cptv/reader.pyx":219
+      /* "cptv/reader.pyx":226
  *         elif ftype == Field.TIMESTAMP:
  *             micros = self.s.uint64()
  *             try:             # <<<<<<<<<<<<<<
@@ -5138,7 +5207,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
       __pyx_L9_try_end:;
     }
 
-    /* "cptv/reader.pyx":217
+    /* "cptv/reader.pyx":224
  *         elif ftype in FLOAT_FIELDS:
  *             val = self.s.float32()
  *         elif ftype == Field.TIMESTAMP:             # <<<<<<<<<<<<<<
@@ -5148,7 +5217,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
     goto __pyx_L3;
   }
 
-  /* "cptv/reader.pyx":226
+  /* "cptv/reader.pyx":233
  *         else:
  *             # Unknown field, just slurp up the bytes
  *             val = self.s.bytes(data_len)             # <<<<<<<<<<<<<<
@@ -5156,7 +5225,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
  *         return ftype, val
  */
   /*else*/ {
-    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_bytes); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 226, __pyx_L1_error)
+    __pyx_t_9 = __Pyx_PyObject_GetAttrStr(__pyx_v_self->s, __pyx_n_s_bytes); if (unlikely(!__pyx_t_9)) __PYX_ERR(0, 233, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_9);
     __pyx_t_3 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_9))) {
@@ -5170,7 +5239,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
     }
     __pyx_t_2 = (__pyx_t_3) ? __Pyx_PyObject_Call2Args(__pyx_t_9, __pyx_t_3, __pyx_v_data_len) : __Pyx_PyObject_CallOneArg(__pyx_t_9, __pyx_v_data_len);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 226, __pyx_L1_error)
+    if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 233, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
     __pyx_v_val = __pyx_t_2;
@@ -5178,13 +5247,13 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
   }
   __pyx_L3:;
 
-  /* "cptv/reader.pyx":228
+  /* "cptv/reader.pyx":235
  *             val = self.s.bytes(data_len)
  * 
  *         return ftype, val             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_t_2 = PyTuple_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 235, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_INCREF(__pyx_v_ftype);
   __Pyx_GIVEREF(__pyx_v_ftype);
@@ -5196,7 +5265,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "cptv/reader.pyx":205
+  /* "cptv/reader.pyx":212
  *         return section_type, fields
  * 
  *     def _read_field(self):             # <<<<<<<<<<<<<<
@@ -5222,7 +5291,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7_read_field(struct __pyx_o
   return __pyx_r;
 }
 
-/* "cptv/reader.pyx":93
+/* "cptv/reader.pyx":96
  *     """
  * 
  *     cdef public int version             # <<<<<<<<<<<<<<
@@ -5249,7 +5318,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_7version___get__(struct __p
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->version); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->version); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5284,7 +5353,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_7version_2__set__(struct __pyx_ob
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 93, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 96, __pyx_L1_error)
   __pyx_v_self->version = __pyx_t_1;
 
   /* function exit code */
@@ -5298,7 +5367,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_7version_2__set__(struct __pyx_ob
   return __pyx_r;
 }
 
-/* "cptv/reader.pyx":94
+/* "cptv/reader.pyx":97
  * 
  *     cdef public int version
  *     cdef public int compression             # <<<<<<<<<<<<<<
@@ -5325,7 +5394,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_11compression___get__(struc
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->compression); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->compression); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5360,7 +5429,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_11compression_2__set__(struct __p
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 97, __pyx_L1_error)
   __pyx_v_self->compression = __pyx_t_1;
 
   /* function exit code */
@@ -5374,7 +5443,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_11compression_2__set__(struct __p
   return __pyx_r;
 }
 
-/* "cptv/reader.pyx":95
+/* "cptv/reader.pyx":98
  *     cdef public int version
  *     cdef public int compression
  *     cdef public object timestamp             # <<<<<<<<<<<<<<
@@ -5469,7 +5538,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_9timestamp_4__del__(struct __pyx_
   return __pyx_r;
 }
 
-/* "cptv/reader.pyx":96
+/* "cptv/reader.pyx":99
  *     cdef public int compression
  *     cdef public object timestamp
  *     cdef public int x_resolution             # <<<<<<<<<<<<<<
@@ -5496,7 +5565,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_12x_resolution___get__(stru
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->x_resolution); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->x_resolution); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 99, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5531,7 +5600,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_12x_resolution_2__set__(struct __
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 96, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 99, __pyx_L1_error)
   __pyx_v_self->x_resolution = __pyx_t_1;
 
   /* function exit code */
@@ -5545,7 +5614,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_12x_resolution_2__set__(struct __
   return __pyx_r;
 }
 
-/* "cptv/reader.pyx":97
+/* "cptv/reader.pyx":100
  *     cdef public object timestamp
  *     cdef public int x_resolution
  *     cdef public int y_resolution             # <<<<<<<<<<<<<<
@@ -5572,7 +5641,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_12y_resolution___get__(stru
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->y_resolution); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->y_resolution); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5607,7 +5676,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_12y_resolution_2__set__(struct __
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 97, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 100, __pyx_L1_error)
   __pyx_v_self->y_resolution = __pyx_t_1;
 
   /* function exit code */
@@ -5621,12 +5690,12 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_12y_resolution_2__set__(struct __
   return __pyx_r;
 }
 
-/* "cptv/reader.pyx":98
+/* "cptv/reader.pyx":101
  *     cdef public int x_resolution
  *     cdef public int y_resolution
  *     cdef public object frame_dim             # <<<<<<<<<<<<<<
  *     cdef public object device_name
- *     cdef public float latitude
+ *     cdef public int device_id
  */
 
 /* Python wrapper */
@@ -5716,12 +5785,12 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_9frame_dim_4__del__(struct __pyx_
   return __pyx_r;
 }
 
-/* "cptv/reader.pyx":99
+/* "cptv/reader.pyx":102
  *     cdef public int y_resolution
  *     cdef public object frame_dim
  *     cdef public object device_name             # <<<<<<<<<<<<<<
- *     cdef public float latitude
- *     cdef public float longitude
+ *     cdef public int device_id
+ * 
  */
 
 /* Python wrapper */
@@ -5811,9 +5880,85 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_11device_name_4__del__(struct __p
   return __pyx_r;
 }
 
-/* "cptv/reader.pyx":100
+/* "cptv/reader.pyx":103
  *     cdef public object frame_dim
  *     cdef public object device_name
+ *     cdef public int device_id             # <<<<<<<<<<<<<<
+ * 
+ *     cdef public float latitude
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_4cptv_6reader_10CPTVReader_9device_id_1__get__(PyObject *__pyx_v_self); /*proto*/
+static PyObject *__pyx_pw_4cptv_6reader_10CPTVReader_9device_id_1__get__(PyObject *__pyx_v_self) {
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__get__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4cptv_6reader_10CPTVReader_9device_id___get__(((struct __pyx_obj_4cptv_6reader_CPTVReader *)__pyx_v_self));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_9device_id___get__(struct __pyx_obj_4cptv_6reader_CPTVReader *__pyx_v_self) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  __Pyx_RefNannySetupContext("__get__", 0);
+  __Pyx_XDECREF(__pyx_r);
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->device_id); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 103, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
+  __pyx_r = __pyx_t_1;
+  __pyx_t_1 = 0;
+  goto __pyx_L0;
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_AddTraceback("cptv.reader.CPTVReader.device_id.__get__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* Python wrapper */
+static int __pyx_pw_4cptv_6reader_10CPTVReader_9device_id_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value); /*proto*/
+static int __pyx_pw_4cptv_6reader_10CPTVReader_9device_id_3__set__(PyObject *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__set__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_4cptv_6reader_10CPTVReader_9device_id_2__set__(((struct __pyx_obj_4cptv_6reader_CPTVReader *)__pyx_v_self), ((PyObject *)__pyx_v_value));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_4cptv_6reader_10CPTVReader_9device_id_2__set__(struct __pyx_obj_4cptv_6reader_CPTVReader *__pyx_v_self, PyObject *__pyx_v_value) {
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  __Pyx_RefNannySetupContext("__set__", 0);
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 103, __pyx_L1_error)
+  __pyx_v_self->device_id = __pyx_t_1;
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("cptv.reader.CPTVReader.device_id.__set__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "cptv/reader.pyx":105
+ *     cdef public int device_id
+ * 
  *     cdef public float latitude             # <<<<<<<<<<<<<<
  *     cdef public float longitude
  *     cdef public int preview_secs
@@ -5838,7 +5983,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_8latitude___get__(struct __
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->latitude); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->latitude); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 105, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5873,7 +6018,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_8latitude_2__set__(struct __pyx_o
   __Pyx_RefNannyDeclarations
   float __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_value); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 100, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_value); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 105, __pyx_L1_error)
   __pyx_v_self->latitude = __pyx_t_1;
 
   /* function exit code */
@@ -5887,8 +6032,8 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_8latitude_2__set__(struct __pyx_o
   return __pyx_r;
 }
 
-/* "cptv/reader.pyx":101
- *     cdef public object device_name
+/* "cptv/reader.pyx":106
+ * 
  *     cdef public float latitude
  *     cdef public float longitude             # <<<<<<<<<<<<<<
  *     cdef public int preview_secs
@@ -5914,7 +6059,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_9longitude___get__(struct _
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->longitude); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_t_1 = PyFloat_FromDouble(__pyx_v_self->longitude); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 106, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -5949,7 +6094,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_9longitude_2__set__(struct __pyx_
   __Pyx_RefNannyDeclarations
   float __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_value); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 101, __pyx_L1_error)
+  __pyx_t_1 = __pyx_PyFloat_AsFloat(__pyx_v_value); if (unlikely((__pyx_t_1 == (float)-1) && PyErr_Occurred())) __PYX_ERR(0, 106, __pyx_L1_error)
   __pyx_v_self->longitude = __pyx_t_1;
 
   /* function exit code */
@@ -5963,7 +6108,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_9longitude_2__set__(struct __pyx_
   return __pyx_r;
 }
 
-/* "cptv/reader.pyx":102
+/* "cptv/reader.pyx":107
  *     cdef public float latitude
  *     cdef public float longitude
  *     cdef public int preview_secs             # <<<<<<<<<<<<<<
@@ -5990,7 +6135,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_12preview_secs___get__(stru
   PyObject *__pyx_t_1 = NULL;
   __Pyx_RefNannySetupContext("__get__", 0);
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->preview_secs); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->preview_secs); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 107, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
@@ -6025,7 +6170,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_12preview_secs_2__set__(struct __
   __Pyx_RefNannyDeclarations
   int __pyx_t_1;
   __Pyx_RefNannySetupContext("__set__", 0);
-  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 102, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyInt_As_int(__pyx_v_value); if (unlikely((__pyx_t_1 == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 107, __pyx_L1_error)
   __pyx_v_self->preview_secs = __pyx_t_1;
 
   /* function exit code */
@@ -6039,7 +6184,7 @@ static int __pyx_pf_4cptv_6reader_10CPTVReader_12preview_secs_2__set__(struct __
   return __pyx_r;
 }
 
-/* "cptv/reader.pyx":103
+/* "cptv/reader.pyx":108
  *     cdef public float longitude
  *     cdef public int preview_secs
  *     cdef public object motion_config             # <<<<<<<<<<<<<<
@@ -6167,63 +6312,68 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_9__reduce_cython__(struct _
   PyObject *__pyx_t_6 = NULL;
   PyObject *__pyx_t_7 = NULL;
   PyObject *__pyx_t_8 = NULL;
-  int __pyx_t_9;
+  PyObject *__pyx_t_9 = NULL;
   int __pyx_t_10;
   int __pyx_t_11;
+  int __pyx_t_12;
   __Pyx_RefNannySetupContext("__reduce_cython__", 0);
 
   /* "(tree fragment)":5
  *     cdef object _dict
  *     cdef bint use_setstate
- *     state = (self.compression, self.device_name, self.frame_dim, self.latitude, self.longitude, self.motion_config, self.preview_secs, self.s, self.timestamp, self.version, self.x_resolution, self.y_resolution)             # <<<<<<<<<<<<<<
+ *     state = (self.compression, self.device_id, self.device_name, self.frame_dim, self.latitude, self.longitude, self.motion_config, self.preview_secs, self.s, self.timestamp, self.version, self.x_resolution, self.y_resolution)             # <<<<<<<<<<<<<<
  *     _dict = getattr(self, '__dict__', None)
  *     if _dict is not None:
  */
   __pyx_t_1 = __Pyx_PyInt_From_int(__pyx_v_self->compression); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = PyFloat_FromDouble(__pyx_v_self->latitude); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 5, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyInt_From_int(__pyx_v_self->device_id); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_self->longitude); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 5, __pyx_L1_error)
+  __pyx_t_3 = PyFloat_FromDouble(__pyx_v_self->latitude); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyInt_From_int(__pyx_v_self->preview_secs); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 5, __pyx_L1_error)
+  __pyx_t_4 = PyFloat_FromDouble(__pyx_v_self->longitude); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_self->version); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 5, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyInt_From_int(__pyx_v_self->preview_secs); if (unlikely(!__pyx_t_5)) __PYX_ERR(1, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_self->x_resolution); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 5, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyInt_From_int(__pyx_v_self->version); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_self->y_resolution); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 5, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_PyInt_From_int(__pyx_v_self->x_resolution); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
-  __pyx_t_8 = PyTuple_New(12); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 5, __pyx_L1_error)
+  __pyx_t_8 = __Pyx_PyInt_From_int(__pyx_v_self->y_resolution); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 5, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_8);
+  __pyx_t_9 = PyTuple_New(13); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 5, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
   __Pyx_GIVEREF(__pyx_t_1);
-  PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_1);
+  PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_t_1);
+  __Pyx_GIVEREF(__pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_9, 1, __pyx_t_2);
   __Pyx_INCREF(__pyx_v_self->device_name);
   __Pyx_GIVEREF(__pyx_v_self->device_name);
-  PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_v_self->device_name);
+  PyTuple_SET_ITEM(__pyx_t_9, 2, __pyx_v_self->device_name);
   __Pyx_INCREF(__pyx_v_self->frame_dim);
   __Pyx_GIVEREF(__pyx_v_self->frame_dim);
-  PyTuple_SET_ITEM(__pyx_t_8, 2, __pyx_v_self->frame_dim);
-  __Pyx_GIVEREF(__pyx_t_2);
-  PyTuple_SET_ITEM(__pyx_t_8, 3, __pyx_t_2);
+  PyTuple_SET_ITEM(__pyx_t_9, 3, __pyx_v_self->frame_dim);
   __Pyx_GIVEREF(__pyx_t_3);
-  PyTuple_SET_ITEM(__pyx_t_8, 4, __pyx_t_3);
+  PyTuple_SET_ITEM(__pyx_t_9, 4, __pyx_t_3);
+  __Pyx_GIVEREF(__pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_9, 5, __pyx_t_4);
   __Pyx_INCREF(__pyx_v_self->motion_config);
   __Pyx_GIVEREF(__pyx_v_self->motion_config);
-  PyTuple_SET_ITEM(__pyx_t_8, 5, __pyx_v_self->motion_config);
-  __Pyx_GIVEREF(__pyx_t_4);
-  PyTuple_SET_ITEM(__pyx_t_8, 6, __pyx_t_4);
+  PyTuple_SET_ITEM(__pyx_t_9, 6, __pyx_v_self->motion_config);
+  __Pyx_GIVEREF(__pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_9, 7, __pyx_t_5);
   __Pyx_INCREF(__pyx_v_self->s);
   __Pyx_GIVEREF(__pyx_v_self->s);
-  PyTuple_SET_ITEM(__pyx_t_8, 7, __pyx_v_self->s);
+  PyTuple_SET_ITEM(__pyx_t_9, 8, __pyx_v_self->s);
   __Pyx_INCREF(__pyx_v_self->timestamp);
   __Pyx_GIVEREF(__pyx_v_self->timestamp);
-  PyTuple_SET_ITEM(__pyx_t_8, 8, __pyx_v_self->timestamp);
-  __Pyx_GIVEREF(__pyx_t_5);
-  PyTuple_SET_ITEM(__pyx_t_8, 9, __pyx_t_5);
+  PyTuple_SET_ITEM(__pyx_t_9, 9, __pyx_v_self->timestamp);
   __Pyx_GIVEREF(__pyx_t_6);
-  PyTuple_SET_ITEM(__pyx_t_8, 10, __pyx_t_6);
+  PyTuple_SET_ITEM(__pyx_t_9, 10, __pyx_t_6);
   __Pyx_GIVEREF(__pyx_t_7);
-  PyTuple_SET_ITEM(__pyx_t_8, 11, __pyx_t_7);
+  PyTuple_SET_ITEM(__pyx_t_9, 11, __pyx_t_7);
+  __Pyx_GIVEREF(__pyx_t_8);
+  PyTuple_SET_ITEM(__pyx_t_9, 12, __pyx_t_8);
   __pyx_t_1 = 0;
   __pyx_t_2 = 0;
   __pyx_t_3 = 0;
@@ -6231,31 +6381,32 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_9__reduce_cython__(struct _
   __pyx_t_5 = 0;
   __pyx_t_6 = 0;
   __pyx_t_7 = 0;
-  __pyx_v_state = ((PyObject*)__pyx_t_8);
   __pyx_t_8 = 0;
+  __pyx_v_state = ((PyObject*)__pyx_t_9);
+  __pyx_t_9 = 0;
 
   /* "(tree fragment)":6
  *     cdef bint use_setstate
- *     state = (self.compression, self.device_name, self.frame_dim, self.latitude, self.longitude, self.motion_config, self.preview_secs, self.s, self.timestamp, self.version, self.x_resolution, self.y_resolution)
+ *     state = (self.compression, self.device_id, self.device_name, self.frame_dim, self.latitude, self.longitude, self.motion_config, self.preview_secs, self.s, self.timestamp, self.version, self.x_resolution, self.y_resolution)
  *     _dict = getattr(self, '__dict__', None)             # <<<<<<<<<<<<<<
  *     if _dict is not None:
  *         state += (_dict,)
  */
-  __pyx_t_8 = __Pyx_GetAttr3(((PyObject *)__pyx_v_self), __pyx_n_s_dict, Py_None); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 6, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_8);
-  __pyx_v__dict = __pyx_t_8;
-  __pyx_t_8 = 0;
+  __pyx_t_9 = __Pyx_GetAttr3(((PyObject *)__pyx_v_self), __pyx_n_s_dict, Py_None); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 6, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_9);
+  __pyx_v__dict = __pyx_t_9;
+  __pyx_t_9 = 0;
 
   /* "(tree fragment)":7
- *     state = (self.compression, self.device_name, self.frame_dim, self.latitude, self.longitude, self.motion_config, self.preview_secs, self.s, self.timestamp, self.version, self.x_resolution, self.y_resolution)
+ *     state = (self.compression, self.device_id, self.device_name, self.frame_dim, self.latitude, self.longitude, self.motion_config, self.preview_secs, self.s, self.timestamp, self.version, self.x_resolution, self.y_resolution)
  *     _dict = getattr(self, '__dict__', None)
  *     if _dict is not None:             # <<<<<<<<<<<<<<
  *         state += (_dict,)
  *         use_setstate = True
  */
-  __pyx_t_9 = (__pyx_v__dict != Py_None);
-  __pyx_t_10 = (__pyx_t_9 != 0);
-  if (__pyx_t_10) {
+  __pyx_t_10 = (__pyx_v__dict != Py_None);
+  __pyx_t_11 = (__pyx_t_10 != 0);
+  if (__pyx_t_11) {
 
     /* "(tree fragment)":8
  *     _dict = getattr(self, '__dict__', None)
@@ -6264,16 +6415,16 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_9__reduce_cython__(struct _
  *         use_setstate = True
  *     else:
  */
-    __pyx_t_8 = PyTuple_New(1); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 8, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_9 = PyTuple_New(1); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 8, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
     __Pyx_INCREF(__pyx_v__dict);
     __Pyx_GIVEREF(__pyx_v__dict);
-    PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_v__dict);
-    __pyx_t_7 = PyNumber_InPlaceAdd(__pyx_v_state, __pyx_t_8); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 8, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_DECREF(__pyx_t_8); __pyx_t_8 = 0;
-    __Pyx_DECREF_SET(__pyx_v_state, ((PyObject*)__pyx_t_7));
-    __pyx_t_7 = 0;
+    PyTuple_SET_ITEM(__pyx_t_9, 0, __pyx_v__dict);
+    __pyx_t_8 = PyNumber_InPlaceAdd(__pyx_v_state, __pyx_t_9); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 8, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __Pyx_DECREF(__pyx_t_9); __pyx_t_9 = 0;
+    __Pyx_DECREF_SET(__pyx_v_state, ((PyObject*)__pyx_t_8));
+    __pyx_t_8 = 0;
 
     /* "(tree fragment)":9
  *     if _dict is not None:
@@ -6285,7 +6436,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_9__reduce_cython__(struct _
     __pyx_v_use_setstate = 1;
 
     /* "(tree fragment)":7
- *     state = (self.compression, self.device_name, self.frame_dim, self.latitude, self.longitude, self.motion_config, self.preview_secs, self.s, self.timestamp, self.version, self.x_resolution, self.y_resolution)
+ *     state = (self.compression, self.device_id, self.device_name, self.frame_dim, self.latitude, self.longitude, self.motion_config, self.preview_secs, self.s, self.timestamp, self.version, self.x_resolution, self.y_resolution)
  *     _dict = getattr(self, '__dict__', None)
  *     if _dict is not None:             # <<<<<<<<<<<<<<
  *         state += (_dict,)
@@ -6299,42 +6450,42 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_9__reduce_cython__(struct _
  *     else:
  *         use_setstate = self.device_name is not None or self.frame_dim is not None or self.motion_config is not None or self.s is not None or self.timestamp is not None             # <<<<<<<<<<<<<<
  *     if use_setstate:
- *         return __pyx_unpickle_CPTVReader, (type(self), 0xd364525, None), state
+ *         return __pyx_unpickle_CPTVReader, (type(self), 0x40bec20, None), state
  */
   /*else*/ {
-    __pyx_t_9 = (__pyx_v_self->device_name != Py_None);
-    __pyx_t_11 = (__pyx_t_9 != 0);
-    if (!__pyx_t_11) {
+    __pyx_t_10 = (__pyx_v_self->device_name != Py_None);
+    __pyx_t_12 = (__pyx_t_10 != 0);
+    if (!__pyx_t_12) {
     } else {
-      __pyx_t_10 = __pyx_t_11;
+      __pyx_t_11 = __pyx_t_12;
       goto __pyx_L4_bool_binop_done;
     }
-    __pyx_t_11 = (__pyx_v_self->frame_dim != Py_None);
-    __pyx_t_9 = (__pyx_t_11 != 0);
-    if (!__pyx_t_9) {
+    __pyx_t_12 = (__pyx_v_self->frame_dim != Py_None);
+    __pyx_t_10 = (__pyx_t_12 != 0);
+    if (!__pyx_t_10) {
     } else {
-      __pyx_t_10 = __pyx_t_9;
+      __pyx_t_11 = __pyx_t_10;
       goto __pyx_L4_bool_binop_done;
     }
-    __pyx_t_9 = (__pyx_v_self->motion_config != Py_None);
-    __pyx_t_11 = (__pyx_t_9 != 0);
-    if (!__pyx_t_11) {
+    __pyx_t_10 = (__pyx_v_self->motion_config != Py_None);
+    __pyx_t_12 = (__pyx_t_10 != 0);
+    if (!__pyx_t_12) {
     } else {
-      __pyx_t_10 = __pyx_t_11;
+      __pyx_t_11 = __pyx_t_12;
       goto __pyx_L4_bool_binop_done;
     }
-    __pyx_t_11 = (__pyx_v_self->s != Py_None);
-    __pyx_t_9 = (__pyx_t_11 != 0);
-    if (!__pyx_t_9) {
+    __pyx_t_12 = (__pyx_v_self->s != Py_None);
+    __pyx_t_10 = (__pyx_t_12 != 0);
+    if (!__pyx_t_10) {
     } else {
-      __pyx_t_10 = __pyx_t_9;
+      __pyx_t_11 = __pyx_t_10;
       goto __pyx_L4_bool_binop_done;
     }
-    __pyx_t_9 = (__pyx_v_self->timestamp != Py_None);
-    __pyx_t_11 = (__pyx_t_9 != 0);
-    __pyx_t_10 = __pyx_t_11;
+    __pyx_t_10 = (__pyx_v_self->timestamp != Py_None);
+    __pyx_t_12 = (__pyx_t_10 != 0);
+    __pyx_t_11 = __pyx_t_12;
     __pyx_L4_bool_binop_done:;
-    __pyx_v_use_setstate = __pyx_t_10;
+    __pyx_v_use_setstate = __pyx_t_11;
   }
   __pyx_L3:;
 
@@ -6342,89 +6493,89 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_9__reduce_cython__(struct _
  *     else:
  *         use_setstate = self.device_name is not None or self.frame_dim is not None or self.motion_config is not None or self.s is not None or self.timestamp is not None
  *     if use_setstate:             # <<<<<<<<<<<<<<
- *         return __pyx_unpickle_CPTVReader, (type(self), 0xd364525, None), state
+ *         return __pyx_unpickle_CPTVReader, (type(self), 0x40bec20, None), state
  *     else:
  */
-  __pyx_t_10 = (__pyx_v_use_setstate != 0);
-  if (__pyx_t_10) {
+  __pyx_t_11 = (__pyx_v_use_setstate != 0);
+  if (__pyx_t_11) {
 
     /* "(tree fragment)":13
  *         use_setstate = self.device_name is not None or self.frame_dim is not None or self.motion_config is not None or self.s is not None or self.timestamp is not None
  *     if use_setstate:
- *         return __pyx_unpickle_CPTVReader, (type(self), 0xd364525, None), state             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_CPTVReader, (type(self), 0x40bec20, None), state             # <<<<<<<<<<<<<<
  *     else:
- *         return __pyx_unpickle_CPTVReader, (type(self), 0xd364525, state)
+ *         return __pyx_unpickle_CPTVReader, (type(self), 0x40bec20, state)
  */
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_pyx_unpickle_CPTVReader); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 13, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 13, __pyx_L1_error)
+    __Pyx_GetModuleGlobalName(__pyx_t_8, __pyx_n_s_pyx_unpickle_CPTVReader); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 13, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
+    __pyx_t_9 = PyTuple_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
     __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
     __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
-    PyTuple_SET_ITEM(__pyx_t_8, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
-    __Pyx_INCREF(__pyx_int_221660453);
-    __Pyx_GIVEREF(__pyx_int_221660453);
-    PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_int_221660453);
+    PyTuple_SET_ITEM(__pyx_t_9, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_INCREF(__pyx_int_67890208);
+    __Pyx_GIVEREF(__pyx_int_67890208);
+    PyTuple_SET_ITEM(__pyx_t_9, 1, __pyx_int_67890208);
     __Pyx_INCREF(Py_None);
     __Pyx_GIVEREF(Py_None);
-    PyTuple_SET_ITEM(__pyx_t_8, 2, Py_None);
-    __pyx_t_6 = PyTuple_New(3); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 13, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __Pyx_GIVEREF(__pyx_t_7);
-    PyTuple_SET_ITEM(__pyx_t_6, 0, __pyx_t_7);
+    PyTuple_SET_ITEM(__pyx_t_9, 2, Py_None);
+    __pyx_t_7 = PyTuple_New(3); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 13, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
     __Pyx_GIVEREF(__pyx_t_8);
-    PyTuple_SET_ITEM(__pyx_t_6, 1, __pyx_t_8);
+    PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_8);
+    __Pyx_GIVEREF(__pyx_t_9);
+    PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_9);
     __Pyx_INCREF(__pyx_v_state);
     __Pyx_GIVEREF(__pyx_v_state);
-    PyTuple_SET_ITEM(__pyx_t_6, 2, __pyx_v_state);
-    __pyx_t_7 = 0;
+    PyTuple_SET_ITEM(__pyx_t_7, 2, __pyx_v_state);
     __pyx_t_8 = 0;
-    __pyx_r = __pyx_t_6;
-    __pyx_t_6 = 0;
+    __pyx_t_9 = 0;
+    __pyx_r = __pyx_t_7;
+    __pyx_t_7 = 0;
     goto __pyx_L0;
 
     /* "(tree fragment)":12
  *     else:
  *         use_setstate = self.device_name is not None or self.frame_dim is not None or self.motion_config is not None or self.s is not None or self.timestamp is not None
  *     if use_setstate:             # <<<<<<<<<<<<<<
- *         return __pyx_unpickle_CPTVReader, (type(self), 0xd364525, None), state
+ *         return __pyx_unpickle_CPTVReader, (type(self), 0x40bec20, None), state
  *     else:
  */
   }
 
   /* "(tree fragment)":15
- *         return __pyx_unpickle_CPTVReader, (type(self), 0xd364525, None), state
+ *         return __pyx_unpickle_CPTVReader, (type(self), 0x40bec20, None), state
  *     else:
- *         return __pyx_unpickle_CPTVReader, (type(self), 0xd364525, state)             # <<<<<<<<<<<<<<
+ *         return __pyx_unpickle_CPTVReader, (type(self), 0x40bec20, state)             # <<<<<<<<<<<<<<
  * def __setstate_cython__(self, __pyx_state):
  *     __pyx_unpickle_CPTVReader__set_state(self, __pyx_state)
  */
   /*else*/ {
     __Pyx_XDECREF(__pyx_r);
-    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_pyx_unpickle_CPTVReader); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 15, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_6);
-    __pyx_t_8 = PyTuple_New(3); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 15, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_8);
+    __Pyx_GetModuleGlobalName(__pyx_t_7, __pyx_n_s_pyx_unpickle_CPTVReader); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_7);
+    __pyx_t_9 = PyTuple_New(3); if (unlikely(!__pyx_t_9)) __PYX_ERR(1, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_9);
     __Pyx_INCREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
     __Pyx_GIVEREF(((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
-    PyTuple_SET_ITEM(__pyx_t_8, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
-    __Pyx_INCREF(__pyx_int_221660453);
-    __Pyx_GIVEREF(__pyx_int_221660453);
-    PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_int_221660453);
+    PyTuple_SET_ITEM(__pyx_t_9, 0, ((PyObject *)Py_TYPE(((PyObject *)__pyx_v_self))));
+    __Pyx_INCREF(__pyx_int_67890208);
+    __Pyx_GIVEREF(__pyx_int_67890208);
+    PyTuple_SET_ITEM(__pyx_t_9, 1, __pyx_int_67890208);
     __Pyx_INCREF(__pyx_v_state);
     __Pyx_GIVEREF(__pyx_v_state);
-    PyTuple_SET_ITEM(__pyx_t_8, 2, __pyx_v_state);
-    __pyx_t_7 = PyTuple_New(2); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 15, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_7);
-    __Pyx_GIVEREF(__pyx_t_6);
-    PyTuple_SET_ITEM(__pyx_t_7, 0, __pyx_t_6);
-    __Pyx_GIVEREF(__pyx_t_8);
-    PyTuple_SET_ITEM(__pyx_t_7, 1, __pyx_t_8);
-    __pyx_t_6 = 0;
-    __pyx_t_8 = 0;
-    __pyx_r = __pyx_t_7;
+    PyTuple_SET_ITEM(__pyx_t_9, 2, __pyx_v_state);
+    __pyx_t_8 = PyTuple_New(2); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 15, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_8);
+    __Pyx_GIVEREF(__pyx_t_7);
+    PyTuple_SET_ITEM(__pyx_t_8, 0, __pyx_t_7);
+    __Pyx_GIVEREF(__pyx_t_9);
+    PyTuple_SET_ITEM(__pyx_t_8, 1, __pyx_t_9);
     __pyx_t_7 = 0;
+    __pyx_t_9 = 0;
+    __pyx_r = __pyx_t_8;
+    __pyx_t_8 = 0;
     goto __pyx_L0;
   }
 
@@ -6444,6 +6595,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_9__reduce_cython__(struct _
   __Pyx_XDECREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_8);
+  __Pyx_XDECREF(__pyx_t_9);
   __Pyx_AddTraceback("cptv.reader.CPTVReader.__reduce_cython__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = NULL;
   __pyx_L0:;
@@ -6456,7 +6608,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_9__reduce_cython__(struct _
 
 /* "(tree fragment)":16
  *     else:
- *         return __pyx_unpickle_CPTVReader, (type(self), 0xd364525, state)
+ *         return __pyx_unpickle_CPTVReader, (type(self), 0x40bec20, state)
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
  *     __pyx_unpickle_CPTVReader__set_state(self, __pyx_state)
  */
@@ -6481,7 +6633,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_11__setstate_cython__(struc
   __Pyx_RefNannySetupContext("__setstate_cython__", 0);
 
   /* "(tree fragment)":17
- *         return __pyx_unpickle_CPTVReader, (type(self), 0xd364525, state)
+ *         return __pyx_unpickle_CPTVReader, (type(self), 0x40bec20, state)
  * def __setstate_cython__(self, __pyx_state):
  *     __pyx_unpickle_CPTVReader__set_state(self, __pyx_state)             # <<<<<<<<<<<<<<
  */
@@ -6492,7 +6644,7 @@ static PyObject *__pyx_pf_4cptv_6reader_10CPTVReader_11__setstate_cython__(struc
 
   /* "(tree fragment)":16
  *     else:
- *         return __pyx_unpickle_CPTVReader, (type(self), 0xd364525, state)
+ *         return __pyx_unpickle_CPTVReader, (type(self), 0x40bec20, state)
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
  *     __pyx_unpickle_CPTVReader__set_state(self, __pyx_state)
  */
@@ -7343,18 +7495,18 @@ static PyObject *__pyx_pf_4cptv_6reader_4__pyx_unpickle_CPTVReader(CYTHON_UNUSED
   /* "(tree fragment)":4
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
- *     if __pyx_checksum != 0xd364525:             # <<<<<<<<<<<<<<
+ *     if __pyx_checksum != 0x40bec20:             # <<<<<<<<<<<<<<
  *         from pickle import PickleError as __pyx_PickleError
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd364525 = (compression, device_name, frame_dim, latitude, longitude, motion_config, preview_secs, s, timestamp, version, x_resolution, y_resolution))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x40bec20 = (compression, device_id, device_name, frame_dim, latitude, longitude, motion_config, preview_secs, s, timestamp, version, x_resolution, y_resolution))" % __pyx_checksum)
  */
-  __pyx_t_1 = ((__pyx_v___pyx_checksum != 0xd364525) != 0);
+  __pyx_t_1 = ((__pyx_v___pyx_checksum != 0x40bec20) != 0);
   if (__pyx_t_1) {
 
     /* "(tree fragment)":5
  *     cdef object __pyx_result
- *     if __pyx_checksum != 0xd364525:
+ *     if __pyx_checksum != 0x40bec20:
  *         from pickle import PickleError as __pyx_PickleError             # <<<<<<<<<<<<<<
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd364525 = (compression, device_name, frame_dim, latitude, longitude, motion_config, preview_secs, s, timestamp, version, x_resolution, y_resolution))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x40bec20 = (compression, device_id, device_name, frame_dim, latitude, longitude, motion_config, preview_secs, s, timestamp, version, x_resolution, y_resolution))" % __pyx_checksum)
  *     __pyx_result = CPTVReader.__new__(__pyx_type)
  */
     __pyx_t_2 = PyList_New(1); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 5, __pyx_L1_error)
@@ -7373,15 +7525,15 @@ static PyObject *__pyx_pf_4cptv_6reader_4__pyx_unpickle_CPTVReader(CYTHON_UNUSED
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
     /* "(tree fragment)":6
- *     if __pyx_checksum != 0xd364525:
+ *     if __pyx_checksum != 0x40bec20:
  *         from pickle import PickleError as __pyx_PickleError
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd364525 = (compression, device_name, frame_dim, latitude, longitude, motion_config, preview_secs, s, timestamp, version, x_resolution, y_resolution))" % __pyx_checksum)             # <<<<<<<<<<<<<<
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x40bec20 = (compression, device_id, device_name, frame_dim, latitude, longitude, motion_config, preview_secs, s, timestamp, version, x_resolution, y_resolution))" % __pyx_checksum)             # <<<<<<<<<<<<<<
  *     __pyx_result = CPTVReader.__new__(__pyx_type)
  *     if __pyx_state is not None:
  */
     __pyx_t_2 = __Pyx_PyInt_From_long(__pyx_v___pyx_checksum); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 6, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
-    __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Incompatible_checksums_s_vs_0xd3, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 6, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyString_Format(__pyx_kp_s_Incompatible_checksums_s_vs_0x40, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(1, 6, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __Pyx_INCREF(__pyx_v___pyx_PickleError);
@@ -7408,15 +7560,15 @@ static PyObject *__pyx_pf_4cptv_6reader_4__pyx_unpickle_CPTVReader(CYTHON_UNUSED
     /* "(tree fragment)":4
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
- *     if __pyx_checksum != 0xd364525:             # <<<<<<<<<<<<<<
+ *     if __pyx_checksum != 0x40bec20:             # <<<<<<<<<<<<<<
  *         from pickle import PickleError as __pyx_PickleError
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd364525 = (compression, device_name, frame_dim, latitude, longitude, motion_config, preview_secs, s, timestamp, version, x_resolution, y_resolution))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x40bec20 = (compression, device_id, device_name, frame_dim, latitude, longitude, motion_config, preview_secs, s, timestamp, version, x_resolution, y_resolution))" % __pyx_checksum)
  */
   }
 
   /* "(tree fragment)":7
  *         from pickle import PickleError as __pyx_PickleError
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd364525 = (compression, device_name, frame_dim, latitude, longitude, motion_config, preview_secs, s, timestamp, version, x_resolution, y_resolution))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x40bec20 = (compression, device_id, device_name, frame_dim, latitude, longitude, motion_config, preview_secs, s, timestamp, version, x_resolution, y_resolution))" % __pyx_checksum)
  *     __pyx_result = CPTVReader.__new__(__pyx_type)             # <<<<<<<<<<<<<<
  *     if __pyx_state is not None:
  *         __pyx_unpickle_CPTVReader__set_state(<CPTVReader> __pyx_result, __pyx_state)
@@ -7442,7 +7594,7 @@ static PyObject *__pyx_pf_4cptv_6reader_4__pyx_unpickle_CPTVReader(CYTHON_UNUSED
   __pyx_t_3 = 0;
 
   /* "(tree fragment)":8
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd364525 = (compression, device_name, frame_dim, latitude, longitude, motion_config, preview_secs, s, timestamp, version, x_resolution, y_resolution))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x40bec20 = (compression, device_id, device_name, frame_dim, latitude, longitude, motion_config, preview_secs, s, timestamp, version, x_resolution, y_resolution))" % __pyx_checksum)
  *     __pyx_result = CPTVReader.__new__(__pyx_type)
  *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
  *         __pyx_unpickle_CPTVReader__set_state(<CPTVReader> __pyx_result, __pyx_state)
@@ -7465,7 +7617,7 @@ static PyObject *__pyx_pf_4cptv_6reader_4__pyx_unpickle_CPTVReader(CYTHON_UNUSED
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
     /* "(tree fragment)":8
- *         raise __pyx_PickleError("Incompatible checksums (%s vs 0xd364525 = (compression, device_name, frame_dim, latitude, longitude, motion_config, preview_secs, s, timestamp, version, x_resolution, y_resolution))" % __pyx_checksum)
+ *         raise __pyx_PickleError("Incompatible checksums (%s vs 0x40bec20 = (compression, device_id, device_name, frame_dim, latitude, longitude, motion_config, preview_secs, s, timestamp, version, x_resolution, y_resolution))" % __pyx_checksum)
  *     __pyx_result = CPTVReader.__new__(__pyx_type)
  *     if __pyx_state is not None:             # <<<<<<<<<<<<<<
  *         __pyx_unpickle_CPTVReader__set_state(<CPTVReader> __pyx_result, __pyx_state)
@@ -7478,7 +7630,7 @@ static PyObject *__pyx_pf_4cptv_6reader_4__pyx_unpickle_CPTVReader(CYTHON_UNUSED
  *         __pyx_unpickle_CPTVReader__set_state(<CPTVReader> __pyx_result, __pyx_state)
  *     return __pyx_result             # <<<<<<<<<<<<<<
  * cdef __pyx_unpickle_CPTVReader__set_state(CPTVReader __pyx_result, tuple __pyx_state):
- *     __pyx_result.compression = __pyx_state[0]; __pyx_result.device_name = __pyx_state[1]; __pyx_result.frame_dim = __pyx_state[2]; __pyx_result.latitude = __pyx_state[3]; __pyx_result.longitude = __pyx_state[4]; __pyx_result.motion_config = __pyx_state[5]; __pyx_result.preview_secs = __pyx_state[6]; __pyx_result.s = __pyx_state[7]; __pyx_result.timestamp = __pyx_state[8]; __pyx_result.version = __pyx_state[9]; __pyx_result.x_resolution = __pyx_state[10]; __pyx_result.y_resolution = __pyx_state[11]
+ *     __pyx_result.compression = __pyx_state[0]; __pyx_result.device_id = __pyx_state[1]; __pyx_result.device_name = __pyx_state[2]; __pyx_result.frame_dim = __pyx_state[3]; __pyx_result.latitude = __pyx_state[4]; __pyx_result.longitude = __pyx_state[5]; __pyx_result.motion_config = __pyx_state[6]; __pyx_result.preview_secs = __pyx_state[7]; __pyx_result.s = __pyx_state[8]; __pyx_result.timestamp = __pyx_state[9]; __pyx_result.version = __pyx_state[10]; __pyx_result.x_resolution = __pyx_state[11]; __pyx_result.y_resolution = __pyx_state[12]
  */
   __Pyx_XDECREF(__pyx_r);
   __Pyx_INCREF(__pyx_v___pyx_result);
@@ -7511,8 +7663,8 @@ static PyObject *__pyx_pf_4cptv_6reader_4__pyx_unpickle_CPTVReader(CYTHON_UNUSED
  *         __pyx_unpickle_CPTVReader__set_state(<CPTVReader> __pyx_result, __pyx_state)
  *     return __pyx_result
  * cdef __pyx_unpickle_CPTVReader__set_state(CPTVReader __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
- *     __pyx_result.compression = __pyx_state[0]; __pyx_result.device_name = __pyx_state[1]; __pyx_result.frame_dim = __pyx_state[2]; __pyx_result.latitude = __pyx_state[3]; __pyx_result.longitude = __pyx_state[4]; __pyx_result.motion_config = __pyx_state[5]; __pyx_result.preview_secs = __pyx_state[6]; __pyx_result.s = __pyx_state[7]; __pyx_result.timestamp = __pyx_state[8]; __pyx_result.version = __pyx_state[9]; __pyx_result.x_resolution = __pyx_state[10]; __pyx_result.y_resolution = __pyx_state[11]
- *     if len(__pyx_state) > 12 and hasattr(__pyx_result, '__dict__'):
+ *     __pyx_result.compression = __pyx_state[0]; __pyx_result.device_id = __pyx_state[1]; __pyx_result.device_name = __pyx_state[2]; __pyx_result.frame_dim = __pyx_state[3]; __pyx_result.latitude = __pyx_state[4]; __pyx_result.longitude = __pyx_state[5]; __pyx_result.motion_config = __pyx_state[6]; __pyx_result.preview_secs = __pyx_state[7]; __pyx_result.s = __pyx_state[8]; __pyx_result.timestamp = __pyx_state[9]; __pyx_result.version = __pyx_state[10]; __pyx_result.x_resolution = __pyx_state[11]; __pyx_result.y_resolution = __pyx_state[12]
+ *     if len(__pyx_state) > 13 and hasattr(__pyx_result, '__dict__'):
  */
 
 static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(struct __pyx_obj_4cptv_6reader_CPTVReader *__pyx_v___pyx_result, PyObject *__pyx_v___pyx_state) {
@@ -7533,9 +7685,9 @@ static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(stru
   /* "(tree fragment)":12
  *     return __pyx_result
  * cdef __pyx_unpickle_CPTVReader__set_state(CPTVReader __pyx_result, tuple __pyx_state):
- *     __pyx_result.compression = __pyx_state[0]; __pyx_result.device_name = __pyx_state[1]; __pyx_result.frame_dim = __pyx_state[2]; __pyx_result.latitude = __pyx_state[3]; __pyx_result.longitude = __pyx_state[4]; __pyx_result.motion_config = __pyx_state[5]; __pyx_result.preview_secs = __pyx_state[6]; __pyx_result.s = __pyx_state[7]; __pyx_result.timestamp = __pyx_state[8]; __pyx_result.version = __pyx_state[9]; __pyx_result.x_resolution = __pyx_state[10]; __pyx_result.y_resolution = __pyx_state[11]             # <<<<<<<<<<<<<<
- *     if len(__pyx_state) > 12 and hasattr(__pyx_result, '__dict__'):
- *         __pyx_result.__dict__.update(__pyx_state[12])
+ *     __pyx_result.compression = __pyx_state[0]; __pyx_result.device_id = __pyx_state[1]; __pyx_result.device_name = __pyx_state[2]; __pyx_result.frame_dim = __pyx_state[3]; __pyx_result.latitude = __pyx_state[4]; __pyx_result.longitude = __pyx_state[5]; __pyx_result.motion_config = __pyx_state[6]; __pyx_result.preview_secs = __pyx_state[7]; __pyx_result.s = __pyx_state[8]; __pyx_result.timestamp = __pyx_state[9]; __pyx_result.version = __pyx_state[10]; __pyx_result.x_resolution = __pyx_state[11]; __pyx_result.y_resolution = __pyx_state[12]             # <<<<<<<<<<<<<<
+ *     if len(__pyx_state) > 13 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[13])
  */
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
@@ -7552,6 +7704,15 @@ static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(stru
   }
   __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
+  __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 12, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v___pyx_result->device_id = __pyx_t_2;
+  if (unlikely(__pyx_v___pyx_state == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
+    __PYX_ERR(1, 12, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v___pyx_result->device_name);
   __Pyx_DECREF(__pyx_v___pyx_result->device_name);
@@ -7561,7 +7722,7 @@ static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(stru
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(1, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v___pyx_result->frame_dim);
@@ -7572,7 +7733,7 @@ static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(stru
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(1, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 3, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -7581,7 +7742,7 @@ static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(stru
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(1, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 4, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_3 = __pyx_PyFloat_AsFloat(__pyx_t_1); if (unlikely((__pyx_t_3 == (float)-1) && PyErr_Occurred())) __PYX_ERR(1, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -7590,7 +7751,7 @@ static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(stru
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(1, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 5, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v___pyx_result->motion_config);
@@ -7601,7 +7762,7 @@ static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(stru
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(1, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 6, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -7610,7 +7771,7 @@ static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(stru
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(1, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 7, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v___pyx_result->s);
@@ -7621,7 +7782,7 @@ static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(stru
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(1, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 8, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_GIVEREF(__pyx_t_1);
   __Pyx_GOTREF(__pyx_v___pyx_result->timestamp);
@@ -7632,7 +7793,7 @@ static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(stru
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(1, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 9, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 10, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -7641,7 +7802,7 @@ static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(stru
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(1, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 10, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 11, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -7650,7 +7811,7 @@ static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(stru
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
     __PYX_ERR(1, 12, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 11, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 12, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(1, 12, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_t_2 = __Pyx_PyInt_As_int(__pyx_t_1); if (unlikely((__pyx_t_2 == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 12, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
@@ -7658,16 +7819,16 @@ static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(stru
 
   /* "(tree fragment)":13
  * cdef __pyx_unpickle_CPTVReader__set_state(CPTVReader __pyx_result, tuple __pyx_state):
- *     __pyx_result.compression = __pyx_state[0]; __pyx_result.device_name = __pyx_state[1]; __pyx_result.frame_dim = __pyx_state[2]; __pyx_result.latitude = __pyx_state[3]; __pyx_result.longitude = __pyx_state[4]; __pyx_result.motion_config = __pyx_state[5]; __pyx_result.preview_secs = __pyx_state[6]; __pyx_result.s = __pyx_state[7]; __pyx_result.timestamp = __pyx_state[8]; __pyx_result.version = __pyx_state[9]; __pyx_result.x_resolution = __pyx_state[10]; __pyx_result.y_resolution = __pyx_state[11]
- *     if len(__pyx_state) > 12 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
- *         __pyx_result.__dict__.update(__pyx_state[12])
+ *     __pyx_result.compression = __pyx_state[0]; __pyx_result.device_id = __pyx_state[1]; __pyx_result.device_name = __pyx_state[2]; __pyx_result.frame_dim = __pyx_state[3]; __pyx_result.latitude = __pyx_state[4]; __pyx_result.longitude = __pyx_state[5]; __pyx_result.motion_config = __pyx_state[6]; __pyx_result.preview_secs = __pyx_state[7]; __pyx_result.s = __pyx_state[8]; __pyx_result.timestamp = __pyx_state[9]; __pyx_result.version = __pyx_state[10]; __pyx_result.x_resolution = __pyx_state[11]; __pyx_result.y_resolution = __pyx_state[12]
+ *     if len(__pyx_state) > 13 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[13])
  */
   if (unlikely(__pyx_v___pyx_state == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "object of type 'NoneType' has no len()");
     __PYX_ERR(1, 13, __pyx_L1_error)
   }
   __pyx_t_5 = PyTuple_GET_SIZE(__pyx_v___pyx_state); if (unlikely(__pyx_t_5 == ((Py_ssize_t)-1))) __PYX_ERR(1, 13, __pyx_L1_error)
-  __pyx_t_6 = ((__pyx_t_5 > 12) != 0);
+  __pyx_t_6 = ((__pyx_t_5 > 13) != 0);
   if (__pyx_t_6) {
   } else {
     __pyx_t_4 = __pyx_t_6;
@@ -7680,9 +7841,9 @@ static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(stru
   if (__pyx_t_4) {
 
     /* "(tree fragment)":14
- *     __pyx_result.compression = __pyx_state[0]; __pyx_result.device_name = __pyx_state[1]; __pyx_result.frame_dim = __pyx_state[2]; __pyx_result.latitude = __pyx_state[3]; __pyx_result.longitude = __pyx_state[4]; __pyx_result.motion_config = __pyx_state[5]; __pyx_result.preview_secs = __pyx_state[6]; __pyx_result.s = __pyx_state[7]; __pyx_result.timestamp = __pyx_state[8]; __pyx_result.version = __pyx_state[9]; __pyx_result.x_resolution = __pyx_state[10]; __pyx_result.y_resolution = __pyx_state[11]
- *     if len(__pyx_state) > 12 and hasattr(__pyx_result, '__dict__'):
- *         __pyx_result.__dict__.update(__pyx_state[12])             # <<<<<<<<<<<<<<
+ *     __pyx_result.compression = __pyx_state[0]; __pyx_result.device_id = __pyx_state[1]; __pyx_result.device_name = __pyx_state[2]; __pyx_result.frame_dim = __pyx_state[3]; __pyx_result.latitude = __pyx_state[4]; __pyx_result.longitude = __pyx_state[5]; __pyx_result.motion_config = __pyx_state[6]; __pyx_result.preview_secs = __pyx_state[7]; __pyx_result.s = __pyx_state[8]; __pyx_result.timestamp = __pyx_state[9]; __pyx_result.version = __pyx_state[10]; __pyx_result.x_resolution = __pyx_state[11]; __pyx_result.y_resolution = __pyx_state[12]
+ *     if len(__pyx_state) > 13 and hasattr(__pyx_result, '__dict__'):
+ *         __pyx_result.__dict__.update(__pyx_state[13])             # <<<<<<<<<<<<<<
  */
     __pyx_t_8 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_v___pyx_result), __pyx_n_s_dict); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 14, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
@@ -7693,7 +7854,7 @@ static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(stru
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
       __PYX_ERR(1, 14, __pyx_L1_error)
     }
-    __pyx_t_8 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 12, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 14, __pyx_L1_error)
+    __pyx_t_8 = __Pyx_GetItemInt_Tuple(__pyx_v___pyx_state, 13, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_8)) __PYX_ERR(1, 14, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_8);
     __pyx_t_10 = NULL;
     if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_9))) {
@@ -7715,9 +7876,9 @@ static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(stru
 
     /* "(tree fragment)":13
  * cdef __pyx_unpickle_CPTVReader__set_state(CPTVReader __pyx_result, tuple __pyx_state):
- *     __pyx_result.compression = __pyx_state[0]; __pyx_result.device_name = __pyx_state[1]; __pyx_result.frame_dim = __pyx_state[2]; __pyx_result.latitude = __pyx_state[3]; __pyx_result.longitude = __pyx_state[4]; __pyx_result.motion_config = __pyx_state[5]; __pyx_result.preview_secs = __pyx_state[6]; __pyx_result.s = __pyx_state[7]; __pyx_result.timestamp = __pyx_state[8]; __pyx_result.version = __pyx_state[9]; __pyx_result.x_resolution = __pyx_state[10]; __pyx_result.y_resolution = __pyx_state[11]
- *     if len(__pyx_state) > 12 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
- *         __pyx_result.__dict__.update(__pyx_state[12])
+ *     __pyx_result.compression = __pyx_state[0]; __pyx_result.device_id = __pyx_state[1]; __pyx_result.device_name = __pyx_state[2]; __pyx_result.frame_dim = __pyx_state[3]; __pyx_result.latitude = __pyx_state[4]; __pyx_result.longitude = __pyx_state[5]; __pyx_result.motion_config = __pyx_state[6]; __pyx_result.preview_secs = __pyx_state[7]; __pyx_result.s = __pyx_state[8]; __pyx_result.timestamp = __pyx_state[9]; __pyx_result.version = __pyx_state[10]; __pyx_result.x_resolution = __pyx_state[11]; __pyx_result.y_resolution = __pyx_state[12]
+ *     if len(__pyx_state) > 13 and hasattr(__pyx_result, '__dict__'):             # <<<<<<<<<<<<<<
+ *         __pyx_result.__dict__.update(__pyx_state[13])
  */
   }
 
@@ -7725,8 +7886,8 @@ static PyObject *__pyx_f_4cptv_6reader___pyx_unpickle_CPTVReader__set_state(stru
  *         __pyx_unpickle_CPTVReader__set_state(<CPTVReader> __pyx_result, __pyx_state)
  *     return __pyx_result
  * cdef __pyx_unpickle_CPTVReader__set_state(CPTVReader __pyx_result, tuple __pyx_state):             # <<<<<<<<<<<<<<
- *     __pyx_result.compression = __pyx_state[0]; __pyx_result.device_name = __pyx_state[1]; __pyx_result.frame_dim = __pyx_state[2]; __pyx_result.latitude = __pyx_state[3]; __pyx_result.longitude = __pyx_state[4]; __pyx_result.motion_config = __pyx_state[5]; __pyx_result.preview_secs = __pyx_state[6]; __pyx_result.s = __pyx_state[7]; __pyx_result.timestamp = __pyx_state[8]; __pyx_result.version = __pyx_state[9]; __pyx_result.x_resolution = __pyx_state[10]; __pyx_result.y_resolution = __pyx_state[11]
- *     if len(__pyx_state) > 12 and hasattr(__pyx_result, '__dict__'):
+ *     __pyx_result.compression = __pyx_state[0]; __pyx_result.device_id = __pyx_state[1]; __pyx_result.device_name = __pyx_state[2]; __pyx_result.frame_dim = __pyx_state[3]; __pyx_result.latitude = __pyx_state[4]; __pyx_result.longitude = __pyx_state[5]; __pyx_result.motion_config = __pyx_state[6]; __pyx_result.preview_secs = __pyx_state[7]; __pyx_result.s = __pyx_state[8]; __pyx_result.timestamp = __pyx_state[9]; __pyx_result.version = __pyx_state[10]; __pyx_result.x_resolution = __pyx_state[11]; __pyx_result.y_resolution = __pyx_state[12]
+ *     if len(__pyx_state) > 13 and hasattr(__pyx_result, '__dict__'):
  */
 
   /* function exit code */
@@ -8090,6 +8251,20 @@ static int __pyx_setprop_4cptv_6reader_10CPTVReader_device_name(PyObject *o, PyO
   }
 }
 
+static PyObject *__pyx_getprop_4cptv_6reader_10CPTVReader_device_id(PyObject *o, CYTHON_UNUSED void *x) {
+  return __pyx_pw_4cptv_6reader_10CPTVReader_9device_id_1__get__(o);
+}
+
+static int __pyx_setprop_4cptv_6reader_10CPTVReader_device_id(PyObject *o, PyObject *v, CYTHON_UNUSED void *x) {
+  if (v) {
+    return __pyx_pw_4cptv_6reader_10CPTVReader_9device_id_3__set__(o, v);
+  }
+  else {
+    PyErr_SetString(PyExc_NotImplementedError, "__del__");
+    return -1;
+  }
+}
+
 static PyObject *__pyx_getprop_4cptv_6reader_10CPTVReader_latitude(PyObject *o, CYTHON_UNUSED void *x) {
   return __pyx_pw_4cptv_6reader_10CPTVReader_8latitude_1__get__(o);
 }
@@ -8161,6 +8336,7 @@ static struct PyGetSetDef __pyx_getsets_4cptv_6reader_CPTVReader[] = {
   {(char *)"y_resolution", __pyx_getprop_4cptv_6reader_10CPTVReader_y_resolution, __pyx_setprop_4cptv_6reader_10CPTVReader_y_resolution, (char *)0, 0},
   {(char *)"frame_dim", __pyx_getprop_4cptv_6reader_10CPTVReader_frame_dim, __pyx_setprop_4cptv_6reader_10CPTVReader_frame_dim, (char *)0, 0},
   {(char *)"device_name", __pyx_getprop_4cptv_6reader_10CPTVReader_device_name, __pyx_setprop_4cptv_6reader_10CPTVReader_device_name, (char *)0, 0},
+  {(char *)"device_id", __pyx_getprop_4cptv_6reader_10CPTVReader_device_id, __pyx_setprop_4cptv_6reader_10CPTVReader_device_id, (char *)0, 0},
   {(char *)"latitude", __pyx_getprop_4cptv_6reader_10CPTVReader_latitude, __pyx_setprop_4cptv_6reader_10CPTVReader_latitude, (char *)0, 0},
   {(char *)"longitude", __pyx_getprop_4cptv_6reader_10CPTVReader_longitude, __pyx_setprop_4cptv_6reader_10CPTVReader_longitude, (char *)0, 0},
   {(char *)"preview_secs", __pyx_getprop_4cptv_6reader_10CPTVReader_preview_secs, __pyx_setprop_4cptv_6reader_10CPTVReader_preview_secs, (char *)0, 0},
@@ -8433,6 +8609,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_CPTVReader, __pyx_k_CPTVReader, sizeof(__pyx_k_CPTVReader), 0, 0, 1, 1},
   {&__pyx_n_s_CPTVReader___iter, __pyx_k_CPTVReader___iter, sizeof(__pyx_k_CPTVReader___iter), 0, 0, 1, 1},
   {&__pyx_n_b_D, __pyx_k_D, sizeof(__pyx_k_D), 0, 0, 0, 1},
+  {&__pyx_n_s_DEVICEID, __pyx_k_DEVICEID, sizeof(__pyx_k_DEVICEID), 0, 0, 1, 1},
   {&__pyx_n_s_DEVICENAME, __pyx_k_DEVICENAME, sizeof(__pyx_k_DEVICENAME), 0, 0, 1, 1},
   {&__pyx_n_s_EOFError, __pyx_k_EOFError, sizeof(__pyx_k_EOFError), 0, 0, 1, 1},
   {&__pyx_n_b_F, __pyx_k_F, sizeof(__pyx_k_F), 0, 0, 0, 1},
@@ -8444,8 +8621,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_GzipFile, __pyx_k_GzipFile, sizeof(__pyx_k_GzipFile), 0, 0, 1, 1},
   {&__pyx_n_b_H, __pyx_k_H, sizeof(__pyx_k_H), 0, 0, 0, 1},
   {&__pyx_n_s_HEADER, __pyx_k_HEADER, sizeof(__pyx_k_HEADER), 0, 0, 1, 1},
+  {&__pyx_n_b_I, __pyx_k_I, sizeof(__pyx_k_I), 0, 0, 0, 1},
   {&__pyx_n_s_IOError, __pyx_k_IOError, sizeof(__pyx_k_IOError), 0, 0, 1, 1},
-  {&__pyx_kp_s_Incompatible_checksums_s_vs_0xd3, __pyx_k_Incompatible_checksums_s_vs_0xd3, sizeof(__pyx_k_Incompatible_checksums_s_vs_0xd3), 0, 0, 1, 0},
+  {&__pyx_kp_s_Incompatible_checksums_s_vs_0x40, __pyx_k_Incompatible_checksums_s_vs_0x40, sizeof(__pyx_k_Incompatible_checksums_s_vs_0x40), 0, 0, 1, 0},
   {&__pyx_kp_s_Incompatible_checksums_s_vs_0xd4, __pyx_k_Incompatible_checksums_s_vs_0xd4, sizeof(__pyx_k_Incompatible_checksums_s_vs_0xd4), 0, 0, 1, 0},
   {&__pyx_n_b_L, __pyx_k_L, sizeof(__pyx_k_L), 0, 0, 0, 1},
   {&__pyx_n_s_LAST_FFC_TIME, __pyx_k_LAST_FFC_TIME, sizeof(__pyx_k_LAST_FFC_TIME), 0, 0, 1, 1},
@@ -8550,13 +8728,13 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_IOError = __Pyx_GetBuiltinName(__pyx_n_s_IOError); if (!__pyx_builtin_IOError) __PYX_ERR(0, 112, __pyx_L1_error)
-  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 124, __pyx_L1_error)
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 155, __pyx_L1_error)
-  __pyx_builtin_EOFError = __Pyx_GetBuiltinName(__pyx_n_s_EOFError); if (!__pyx_builtin_EOFError) __PYX_ERR(0, 167, __pyx_L1_error)
-  __pyx_builtin_zip = __Pyx_GetBuiltinName(__pyx_n_s_zip); if (!__pyx_builtin_zip) __PYX_ERR(0, 181, __pyx_L1_error)
-  __pyx_builtin_OverflowError = __Pyx_GetBuiltinName(__pyx_n_s_OverflowError); if (!__pyx_builtin_OverflowError) __PYX_ERR(0, 221, __pyx_L1_error)
-  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_builtin_IOError = __Pyx_GetBuiltinName(__pyx_n_s_IOError); if (!__pyx_builtin_IOError) __PYX_ERR(0, 117, __pyx_L1_error)
+  __pyx_builtin_ValueError = __Pyx_GetBuiltinName(__pyx_n_s_ValueError); if (!__pyx_builtin_ValueError) __PYX_ERR(0, 129, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 162, __pyx_L1_error)
+  __pyx_builtin_EOFError = __Pyx_GetBuiltinName(__pyx_n_s_EOFError); if (!__pyx_builtin_EOFError) __PYX_ERR(0, 174, __pyx_L1_error)
+  __pyx_builtin_zip = __Pyx_GetBuiltinName(__pyx_n_s_zip); if (!__pyx_builtin_zip) __PYX_ERR(0, 188, __pyx_L1_error)
+  __pyx_builtin_OverflowError = __Pyx_GetBuiltinName(__pyx_n_s_OverflowError); if (!__pyx_builtin_OverflowError) __PYX_ERR(0, 228, __pyx_L1_error)
+  __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 229, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -8566,58 +8744,58 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "cptv/reader.pyx":112
+  /* "cptv/reader.pyx":117
  *         # check magic and version
  *         if self.s.bytes(4) != b"CPTV":
  *             raise IOError("magic not found")             # <<<<<<<<<<<<<<
  * 
  *         self.version = self.s.uint8()
  */
-  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_u_magic_not_found); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(1, __pyx_kp_u_magic_not_found); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 117, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "cptv/reader.pyx":116
+  /* "cptv/reader.pyx":121
  *         self.version = self.s.uint8()
  *         if self.version not in (1, 2):
  *             raise IOError("unsupported version")             # <<<<<<<<<<<<<<
  * 
  *         section_type, fields = self._read_section()
  */
-  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_u_unsupported_version); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 116, __pyx_L1_error)
+  __pyx_tuple__2 = PyTuple_Pack(1, __pyx_kp_u_unsupported_version); if (unlikely(!__pyx_tuple__2)) __PYX_ERR(0, 121, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__2);
   __Pyx_GIVEREF(__pyx_tuple__2);
 
-  /* "cptv/reader.pyx":120
+  /* "cptv/reader.pyx":125
  *         section_type, fields = self._read_section()
  *         if section_type != Section.HEADER:
  *             raise IOError("header not found")             # <<<<<<<<<<<<<<
  * 
  *         self.compression = fields[Field.COMPRESSION]
  */
-  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_header_not_found); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 120, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(1, __pyx_kp_u_header_not_found); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 125, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
 
-  /* "cptv/reader.pyx":222
+  /* "cptv/reader.pyx":229
  *                 val = epoch + timedelta(microseconds=micros)
  *             except OverflowError:
  *                 print("timestamp is broken - using default")             # <<<<<<<<<<<<<<
  *                 val = epoch
  *         else:
  */
-  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_u_timestamp_is_broken_using_defaul); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 222, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(1, __pyx_kp_u_timestamp_is_broken_using_defaul); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 229, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
 
-  /* "cptv/reader.pyx":73
+  /* "cptv/reader.pyx":76
  *     }
  * 
  * epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __pyx_tuple__6 = PyTuple_Pack(3, __pyx_int_1970, __pyx_int_1, __pyx_int_1); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 73, __pyx_L1_error)
+  __pyx_tuple__6 = PyTuple_Pack(3, __pyx_int_1970, __pyx_int_1, __pyx_int_1); if (unlikely(!__pyx_tuple__6)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__6);
   __Pyx_GIVEREF(__pyx_tuple__6);
 
@@ -8652,7 +8830,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitGlobals(void) {
   __pyx_int_1 = PyInt_FromLong(1); if (unlikely(!__pyx_int_1)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_4 = PyInt_FromLong(4); if (unlikely(!__pyx_int_4)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_1970 = PyInt_FromLong(1970); if (unlikely(!__pyx_int_1970)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __pyx_int_221660453 = PyInt_FromLong(221660453L); if (unlikely(!__pyx_int_221660453)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __pyx_int_67890208 = PyInt_FromLong(67890208L); if (unlikely(!__pyx_int_67890208)) __PYX_ERR(0, 1, __pyx_L1_error)
   __pyx_int_222419149 = PyInt_FromLong(222419149L); if (unlikely(!__pyx_int_222419149)) __PYX_ERR(0, 1, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
@@ -8715,17 +8893,17 @@ static int __Pyx_modinit_type_init_code(void) {
   if (PyObject_SetAttr(__pyx_m, __pyx_n_s_Field, (PyObject *)&__pyx_type_4cptv_6reader_Field) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
   if (__Pyx_setup_reduce((PyObject*)&__pyx_type_4cptv_6reader_Field) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
   __pyx_ptype_4cptv_6reader_Field = &__pyx_type_4cptv_6reader_Field;
-  if (PyType_Ready(&__pyx_type_4cptv_6reader_CPTVReader) < 0) __PYX_ERR(0, 76, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_4cptv_6reader_CPTVReader) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_4cptv_6reader_CPTVReader.tp_print = 0;
   #endif
   if ((CYTHON_USE_TYPE_SLOTS && CYTHON_USE_PYTYPE_LOOKUP) && likely(!__pyx_type_4cptv_6reader_CPTVReader.tp_dictoffset && __pyx_type_4cptv_6reader_CPTVReader.tp_getattro == PyObject_GenericGetAttr)) {
     __pyx_type_4cptv_6reader_CPTVReader.tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_CPTVReader, (PyObject *)&__pyx_type_4cptv_6reader_CPTVReader) < 0) __PYX_ERR(0, 76, __pyx_L1_error)
-  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_4cptv_6reader_CPTVReader) < 0) __PYX_ERR(0, 76, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_CPTVReader, (PyObject *)&__pyx_type_4cptv_6reader_CPTVReader) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject*)&__pyx_type_4cptv_6reader_CPTVReader) < 0) __PYX_ERR(0, 79, __pyx_L1_error)
   __pyx_ptype_4cptv_6reader_CPTVReader = &__pyx_type_4cptv_6reader_CPTVReader;
-  if (PyType_Ready(&__pyx_type_4cptv_6reader___pyx_scope_struct____iter__) < 0) __PYX_ERR(0, 137, __pyx_L1_error)
+  if (PyType_Ready(&__pyx_type_4cptv_6reader___pyx_scope_struct____iter__) < 0) __PYX_ERR(0, 144, __pyx_L1_error)
   #if PY_VERSION_HEX < 0x030800B1
   __pyx_type_4cptv_6reader___pyx_scope_struct____iter__.tp_print = 0;
   #endif
@@ -8862,6 +9040,7 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_reader(PyObject *__pyx_pyinit_modu
   PyObject *__pyx_t_4 = NULL;
   PyObject *__pyx_t_5 = NULL;
   PyObject *__pyx_t_6 = NULL;
+  PyObject *__pyx_t_7 = NULL;
   __Pyx_RefNannyDeclarations
   #if CYTHON_PEP489_MULTI_PHASE_INIT
   if (__pyx_m) {
@@ -9122,7 +9301,7 @@ if (!__Pyx_RefNanny) {
  *     Y_RESOLUTION = b'Y'
  *     COMPRESSION = b'C'             # <<<<<<<<<<<<<<
  *     DEVICENAME = b'D'
- *     PREVIEW_SECS = b'P'
+ *     DEVICEID = b'I'
  */
   if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_COMPRESSION, __pyx_n_b_C) < 0) __PYX_ERR(0, 36, __pyx_L1_error)
   PyType_Modified(__pyx_ptype_4cptv_6reader_Field);
@@ -9131,8 +9310,8 @@ if (!__Pyx_RefNanny) {
  *     Y_RESOLUTION = b'Y'
  *     COMPRESSION = b'C'
  *     DEVICENAME = b'D'             # <<<<<<<<<<<<<<
- *     PREVIEW_SECS = b'P'
- *     MOTION_CONFIG = b'M'
+ *     DEVICEID = b'I'
+ * 
  */
   if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_DEVICENAME, __pyx_n_b_D) < 0) __PYX_ERR(0, 37, __pyx_L1_error)
   PyType_Modified(__pyx_ptype_4cptv_6reader_Field);
@@ -9140,265 +9319,287 @@ if (!__Pyx_RefNanny) {
   /* "cptv/reader.pyx":38
  *     COMPRESSION = b'C'
  *     DEVICENAME = b'D'
+ *     DEVICEID = b'I'             # <<<<<<<<<<<<<<
+ * 
+ *     PREVIEW_SECS = b'P'
+ */
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_DEVICEID, __pyx_n_b_I) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
+  PyType_Modified(__pyx_ptype_4cptv_6reader_Field);
+
+  /* "cptv/reader.pyx":40
+ *     DEVICEID = b'I'
+ * 
  *     PREVIEW_SECS = b'P'             # <<<<<<<<<<<<<<
  *     MOTION_CONFIG = b'M'
  *     LATITUDE = b'L'
  */
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_PREVIEW_SECS, __pyx_n_b_P) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_PREVIEW_SECS, __pyx_n_b_P) < 0) __PYX_ERR(0, 40, __pyx_L1_error)
   PyType_Modified(__pyx_ptype_4cptv_6reader_Field);
 
-  /* "cptv/reader.pyx":39
- *     DEVICENAME = b'D'
+  /* "cptv/reader.pyx":41
+ * 
  *     PREVIEW_SECS = b'P'
  *     MOTION_CONFIG = b'M'             # <<<<<<<<<<<<<<
  *     LATITUDE = b'L'
  *     LONGITUDE = b'O'
  */
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_MOTION_CONFIG, __pyx_n_b_M) < 0) __PYX_ERR(0, 39, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_MOTION_CONFIG, __pyx_n_b_M) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
   PyType_Modified(__pyx_ptype_4cptv_6reader_Field);
 
-  /* "cptv/reader.pyx":40
+  /* "cptv/reader.pyx":42
  *     PREVIEW_SECS = b'P'
  *     MOTION_CONFIG = b'M'
  *     LATITUDE = b'L'             # <<<<<<<<<<<<<<
  *     LONGITUDE = b'O'
  * 
  */
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_LATITUDE, __pyx_n_b_L) < 0) __PYX_ERR(0, 40, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_LATITUDE, __pyx_n_b_L) < 0) __PYX_ERR(0, 42, __pyx_L1_error)
   PyType_Modified(__pyx_ptype_4cptv_6reader_Field);
 
-  /* "cptv/reader.pyx":41
+  /* "cptv/reader.pyx":43
  *     MOTION_CONFIG = b'M'
  *     LATITUDE = b'L'
  *     LONGITUDE = b'O'             # <<<<<<<<<<<<<<
  * 
  *     # Frame fields
  */
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_LONGITUDE, __pyx_n_b_O) < 0) __PYX_ERR(0, 41, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_LONGITUDE, __pyx_n_b_O) < 0) __PYX_ERR(0, 43, __pyx_L1_error)
   PyType_Modified(__pyx_ptype_4cptv_6reader_Field);
 
-  /* "cptv/reader.pyx":44
+  /* "cptv/reader.pyx":46
  * 
  *     # Frame fields
  *     BIT_WIDTH = b'w'             # <<<<<<<<<<<<<<
  *     FRAME_SIZE = b'f'
  *     TIME_ON = b't'
  */
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_BIT_WIDTH, __pyx_n_b_w) < 0) __PYX_ERR(0, 44, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_BIT_WIDTH, __pyx_n_b_w) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
   PyType_Modified(__pyx_ptype_4cptv_6reader_Field);
 
-  /* "cptv/reader.pyx":45
+  /* "cptv/reader.pyx":47
  *     # Frame fields
  *     BIT_WIDTH = b'w'
  *     FRAME_SIZE = b'f'             # <<<<<<<<<<<<<<
  *     TIME_ON = b't'
  *     LAST_FFC_TIME = b'c'
  */
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_FRAME_SIZE, __pyx_n_b_f) < 0) __PYX_ERR(0, 45, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_FRAME_SIZE, __pyx_n_b_f) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
   PyType_Modified(__pyx_ptype_4cptv_6reader_Field);
 
-  /* "cptv/reader.pyx":46
+  /* "cptv/reader.pyx":48
  *     BIT_WIDTH = b'w'
  *     FRAME_SIZE = b'f'
  *     TIME_ON = b't'             # <<<<<<<<<<<<<<
  *     LAST_FFC_TIME = b'c'
  * 
  */
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_TIME_ON, __pyx_n_b_t) < 0) __PYX_ERR(0, 46, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_TIME_ON, __pyx_n_b_t) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
   PyType_Modified(__pyx_ptype_4cptv_6reader_Field);
 
-  /* "cptv/reader.pyx":47
+  /* "cptv/reader.pyx":49
  *     FRAME_SIZE = b'f'
  *     TIME_ON = b't'
  *     LAST_FFC_TIME = b'c'             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_LAST_FFC_TIME, __pyx_n_b_c) < 0) __PYX_ERR(0, 47, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_4cptv_6reader_Field->tp_dict, __pyx_n_s_LAST_FFC_TIME, __pyx_n_b_c) < 0) __PYX_ERR(0, 49, __pyx_L1_error)
   PyType_Modified(__pyx_ptype_4cptv_6reader_Field);
 
-  /* "cptv/reader.pyx":51
+  /* "cptv/reader.pyx":53
  * 
  * UINT32_FIELDS = {
  *     Field.X_RESOLUTION,             # <<<<<<<<<<<<<<
  *     Field.Y_RESOLUTION,
  *     Field.FRAME_SIZE,
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_X_RESOLUTION); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_X_RESOLUTION); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
 
-  /* "cptv/reader.pyx":52
+  /* "cptv/reader.pyx":54
  * UINT32_FIELDS = {
  *     Field.X_RESOLUTION,
  *     Field.Y_RESOLUTION,             # <<<<<<<<<<<<<<
  *     Field.FRAME_SIZE,
  *     Field.TIME_ON,
  */
-  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_Y_RESOLUTION); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 52, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_Y_RESOLUTION); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 54, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
 
-  /* "cptv/reader.pyx":53
+  /* "cptv/reader.pyx":55
  *     Field.X_RESOLUTION,
  *     Field.Y_RESOLUTION,
  *     Field.FRAME_SIZE,             # <<<<<<<<<<<<<<
  *     Field.TIME_ON,
  *     Field.LAST_FFC_TIME,
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_FRAME_SIZE); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_FRAME_SIZE); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 55, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
 
-  /* "cptv/reader.pyx":54
+  /* "cptv/reader.pyx":56
  *     Field.Y_RESOLUTION,
  *     Field.FRAME_SIZE,
  *     Field.TIME_ON,             # <<<<<<<<<<<<<<
  *     Field.LAST_FFC_TIME,
- *     }
+ *     Field.DEVICEID,
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_TIME_ON); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 54, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_TIME_ON); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 56, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
 
-  /* "cptv/reader.pyx":55
+  /* "cptv/reader.pyx":57
  *     Field.FRAME_SIZE,
  *     Field.TIME_ON,
  *     Field.LAST_FFC_TIME,             # <<<<<<<<<<<<<<
+ *     Field.DEVICEID,
+ *     }
+ */
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_LAST_FFC_TIME); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 57, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+
+  /* "cptv/reader.pyx":58
+ *     Field.TIME_ON,
+ *     Field.LAST_FFC_TIME,
+ *     Field.DEVICEID,             # <<<<<<<<<<<<<<
  *     }
  * 
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_LAST_FFC_TIME); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 55, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_6 = PySet_New(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_DEVICEID); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 58, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
-  if (PySet_Add(__pyx_t_6, __pyx_t_2) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
+  __pyx_t_7 = PySet_New(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 53, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  if (PySet_Add(__pyx_t_7, __pyx_t_2) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  if (PySet_Add(__pyx_t_6, __pyx_t_1) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
+  if (PySet_Add(__pyx_t_7, __pyx_t_1) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-  if (PySet_Add(__pyx_t_6, __pyx_t_3) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
+  if (PySet_Add(__pyx_t_7, __pyx_t_3) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PySet_Add(__pyx_t_6, __pyx_t_4) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
+  if (PySet_Add(__pyx_t_7, __pyx_t_4) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PySet_Add(__pyx_t_6, __pyx_t_5) < 0) __PYX_ERR(0, 51, __pyx_L1_error)
+  if (PySet_Add(__pyx_t_7, __pyx_t_5) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_UINT32_FIELDS, __pyx_t_6) < 0) __PYX_ERR(0, 50, __pyx_L1_error)
+  if (PySet_Add(__pyx_t_7, __pyx_t_6) < 0) __PYX_ERR(0, 53, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_UINT32_FIELDS, __pyx_t_7) < 0) __PYX_ERR(0, 52, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
-  /* "cptv/reader.pyx":59
+  /* "cptv/reader.pyx":62
  * 
  * UINT8_FIELDS = {
  *     Field.COMPRESSION,             # <<<<<<<<<<<<<<
  *     Field.BIT_WIDTH,
  *     Field.PREVIEW_SECS,
  */
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_COMPRESSION); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 59, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_COMPRESSION); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 62, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
 
-  /* "cptv/reader.pyx":60
+  /* "cptv/reader.pyx":63
  * UINT8_FIELDS = {
  *     Field.COMPRESSION,
  *     Field.BIT_WIDTH,             # <<<<<<<<<<<<<<
  *     Field.PREVIEW_SECS,
  *     }
  */
-  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_BIT_WIDTH); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 60, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_BIT_WIDTH); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 63, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
 
-  /* "cptv/reader.pyx":61
+  /* "cptv/reader.pyx":64
  *     Field.COMPRESSION,
  *     Field.BIT_WIDTH,
  *     Field.PREVIEW_SECS,             # <<<<<<<<<<<<<<
  *     }
  * 
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_PREVIEW_SECS); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_PREVIEW_SECS); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 64, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_4 = PySet_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = PySet_New(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 59, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  if (PySet_Add(__pyx_t_3, __pyx_t_6) < 0) __PYX_ERR(0, 59, __pyx_L1_error)
+  if (PySet_Add(__pyx_t_4, __pyx_t_7) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  if (PySet_Add(__pyx_t_4, __pyx_t_6) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  if (PySet_Add(__pyx_t_3, __pyx_t_5) < 0) __PYX_ERR(0, 59, __pyx_L1_error)
+  if (PySet_Add(__pyx_t_4, __pyx_t_5) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  if (PySet_Add(__pyx_t_3, __pyx_t_4) < 0) __PYX_ERR(0, 59, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_UINT8_FIELDS, __pyx_t_4) < 0) __PYX_ERR(0, 61, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_UINT8_FIELDS, __pyx_t_3) < 0) __PYX_ERR(0, 58, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "cptv/reader.pyx":65
+  /* "cptv/reader.pyx":68
  * 
  * STRING_FIELDS = {
  *     Field.DEVICENAME             # <<<<<<<<<<<<<<
  *     }
  * 
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_DEVICENAME); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = PySet_New(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 65, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_DEVICENAME); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 68, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (PySet_Add(__pyx_t_4, __pyx_t_3) < 0) __PYX_ERR(0, 65, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_STRING_FIELDS, __pyx_t_4) < 0) __PYX_ERR(0, 64, __pyx_L1_error)
+  __pyx_t_5 = PySet_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  if (PySet_Add(__pyx_t_5, __pyx_t_4) < 0) __PYX_ERR(0, 68, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_STRING_FIELDS, __pyx_t_5) < 0) __PYX_ERR(0, 67, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
 
-  /* "cptv/reader.pyx":69
+  /* "cptv/reader.pyx":72
  * 
  * FLOAT_FIELDS = {
  *     Field.LATITUDE,             # <<<<<<<<<<<<<<
  *     Field.LONGITUDE
  *     }
  */
-  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_LATITUDE); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 69, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_5 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_LATITUDE); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
 
-  /* "cptv/reader.pyx":70
+  /* "cptv/reader.pyx":73
  * FLOAT_FIELDS = {
  *     Field.LATITUDE,
  *     Field.LONGITUDE             # <<<<<<<<<<<<<<
  *     }
  * 
  */
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_LONGITUDE); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 70, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_5 = PySet_New(0); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 69, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  if (PySet_Add(__pyx_t_5, __pyx_t_4) < 0) __PYX_ERR(0, 69, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PySet_Add(__pyx_t_5, __pyx_t_3) < 0) __PYX_ERR(0, 69, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_FLOAT_FIELDS, __pyx_t_5) < 0) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyObject_GetAttrStr(((PyObject *)__pyx_ptype_4cptv_6reader_Field), __pyx_n_s_LONGITUDE); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 73, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_4);
+  __pyx_t_6 = PySet_New(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  if (PySet_Add(__pyx_t_6, __pyx_t_5) < 0) __PYX_ERR(0, 72, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
+  if (PySet_Add(__pyx_t_6, __pyx_t_4) < 0) __PYX_ERR(0, 72, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_FLOAT_FIELDS, __pyx_t_6) < 0) __PYX_ERR(0, 71, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
-  /* "cptv/reader.pyx":73
+  /* "cptv/reader.pyx":76
  *     }
  * 
  * epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)             # <<<<<<<<<<<<<<
  * 
  * 
  */
-  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_datetime); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 73, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_5);
-  __pyx_t_3 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 73, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_3);
-  __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_timezone); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 73, __pyx_L1_error)
+  __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_datetime); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_6);
+  __pyx_t_4 = __Pyx_PyDict_NewPresized(1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 76, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_utc); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 73, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-  if (PyDict_SetItem(__pyx_t_3, __pyx_n_s_tzinfo, __pyx_t_6) < 0) __PYX_ERR(0, 73, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-  __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_5, __pyx_tuple__6, __pyx_t_3); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 73, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
+  __Pyx_GetModuleGlobalName(__pyx_t_5, __pyx_n_s_timezone); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_5);
+  __pyx_t_7 = __Pyx_PyObject_GetAttrStr(__pyx_t_5, __pyx_n_s_utc); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
-  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_epoch, __pyx_t_6) < 0) __PYX_ERR(0, 73, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_4, __pyx_n_s_tzinfo, __pyx_t_7) < 0) __PYX_ERR(0, 76, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
+  __pyx_t_7 = __Pyx_PyObject_Call(__pyx_t_6, __pyx_tuple__6, __pyx_t_4); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 76, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
   __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_epoch, __pyx_t_7) < 0) __PYX_ERR(0, 76, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
   /* "(tree fragment)":1
  * def __pyx_unpickle_Section(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_t_6 = PyCFunction_NewEx(&__pyx_mdef_4cptv_6reader_1__pyx_unpickle_Section, NULL, __pyx_n_s_cptv_reader); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_Section, __pyx_t_6) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_7 = PyCFunction_NewEx(&__pyx_mdef_4cptv_6reader_1__pyx_unpickle_Section, NULL, __pyx_n_s_cptv_reader); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_Section, __pyx_t_7) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
   /* "(tree fragment)":11
  *         __pyx_unpickle_Section__set_state(<Section> __pyx_result, __pyx_state)
@@ -9407,30 +9608,30 @@ if (!__Pyx_RefNanny) {
  *     if len(__pyx_state) > 0 and hasattr(__pyx_result, '__dict__'):
  *         __pyx_result.__dict__.update(__pyx_state[0])
  */
-  __pyx_t_6 = PyCFunction_NewEx(&__pyx_mdef_4cptv_6reader_3__pyx_unpickle_Field, NULL, __pyx_n_s_cptv_reader); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_Field, __pyx_t_6) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_7 = PyCFunction_NewEx(&__pyx_mdef_4cptv_6reader_3__pyx_unpickle_Field, NULL, __pyx_n_s_cptv_reader); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_Field, __pyx_t_7) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
   /* "(tree fragment)":1
  * def __pyx_unpickle_CPTVReader(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_t_6 = PyCFunction_NewEx(&__pyx_mdef_4cptv_6reader_5__pyx_unpickle_CPTVReader, NULL, __pyx_n_s_cptv_reader); if (unlikely(!__pyx_t_6)) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_CPTVReader, __pyx_t_6) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_7 = PyCFunction_NewEx(&__pyx_mdef_4cptv_6reader_5__pyx_unpickle_CPTVReader, NULL, __pyx_n_s_cptv_reader); if (unlikely(!__pyx_t_7)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_CPTVReader, __pyx_t_7) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
   /* "cptv/reader.pyx":1
  * # Copyright 2018 The Cacophony Project             # <<<<<<<<<<<<<<
  * #
  * # Licensed under the Apache License, Version 2.0 (the "License");
  */
-  __pyx_t_6 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_6);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_6) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+  __pyx_t_7 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_7);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_7) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_7); __pyx_t_7 = 0;
 
   /*--- Wrapped vars code ---*/
 
@@ -9442,6 +9643,7 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_4);
   __Pyx_XDECREF(__pyx_t_5);
   __Pyx_XDECREF(__pyx_t_6);
+  __Pyx_XDECREF(__pyx_t_7);
   if (__pyx_m) {
     if (__pyx_d) {
       __Pyx_AddTraceback("init cptv.reader", __pyx_clineno, __pyx_lineno, __pyx_filename);

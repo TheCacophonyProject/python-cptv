@@ -35,7 +35,7 @@ def test_round_trip_header_defaults():
     assert r.x_resolution == 160
     assert r.y_resolution == 120
     assert not r.device_name
-    # assert not r.device_id
+    assert not r.device_id
     assert (datetime.now(tz=timezone.utc) - r.timestamp) < timedelta(minutes=1)
     assert r.latitude == 0
     assert r.longitude == 0
@@ -47,7 +47,7 @@ def test_round_trip_header():
     w = CPTVWriter(buf)
     w.timestamp = datetime(2018, 7, 6, 5, 4, 3, tzinfo=timezone.utc)
     w.device_name = b"hello"
-    # TODO w.device_id = 42
+    w.device_id = 42
     w.latitude = 142.2
     w.longitude = -39.2
     w.preview_secs = 3
@@ -63,7 +63,7 @@ def test_round_trip_header():
     assert r.y_resolution == 120
     assert r.timestamp == w.timestamp
     assert r.device_name == w.device_name
-    # assert r.device_id == w.device_id
+    assert r.device_id == w.device_id
     assert r.latitude == w.latitude
     assert r.longitude == w.longitude
     assert r.preview_secs == w.preview_secs
