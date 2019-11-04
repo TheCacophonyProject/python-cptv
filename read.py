@@ -7,7 +7,8 @@ filename = sys.argv[1]
 with open(filename, "rb") as f:
     reader = CPTVReader(f)
     print("version:", reader.version)
-    print("device:", reader.device_name)
+    print("device name:", reader.device_name)
+    print("device id:", reader.device_id)
     print("time:", reader.timestamp)
     print("dims:", reader.x_resolution, reader.y_resolution)
     print("location:", reader.latitude, reader.longitude)
