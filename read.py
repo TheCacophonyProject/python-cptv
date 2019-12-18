@@ -15,14 +15,9 @@ with open(filename, "rb") as f:
     print("preview secs:", reader.preview_secs)
     print("motion config:", reader.motion_config)
 
+    t0 = None
+
     for frame in reader:
-        print(
-            "t:",
-            frame.time_on,
-            "ffc:",
-            frame.last_ffc_time,
-            "min:",
-            frame.pix.min(),
-            "max:",
-            frame.pix.max(),
-        )
+        if t0 is None:
+            t0 = frame.time_on
+        print(f"{frame.time_on - t0} ({frame.time_on}) - ffc: {frame.time_on - frame.last_ffc_time}, min: {frame.pix.min()}, max: {frame.pix.max()}")
