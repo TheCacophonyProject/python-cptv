@@ -7,7 +7,9 @@ class Frame:
     some associated metadata.
     """
 
-    __slots__ = "pix", "time_on", "last_ffc_time"
+    pix = None
+    time_on = None
+    last_ffc_time = None
 
     def __init__(self, pix, time_on, last_ffc_time):
         self.pix = pix
