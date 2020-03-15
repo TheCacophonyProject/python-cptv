@@ -16,6 +16,8 @@ from io import BytesIO
 from datetime import datetime, timedelta, timezone
 
 import numpy as np
+from pytest import approx
+
 
 from cptv import CPTVWriter, CPTVReader
 from cptv.frame import Frame
@@ -48,7 +50,7 @@ def test_round_trip_header():
     w.timestamp = datetime(2018, 7, 6, 5, 4, 3, tzinfo=timezone.utc)
     w.device_name = b"hello"
     w.device_id = 42
-    w.latitude = 142.2
+    w.latitude = 142.3
     w.longitude = -39.2
     w.preview_secs = 3
     w.motion_config = b"blob"
@@ -64,8 +66,8 @@ def test_round_trip_header():
     assert r.timestamp == w.timestamp
     assert r.device_name == w.device_name
     assert r.device_id == w.device_id
-    assert r.latitude == w.latitude
-    assert r.longitude == w.longitude
+    assert r.latitude == approx(w.latitude, 0.000001)
+    assert r.longitude == approx(w.longitude, 0.000001)
     assert r.preview_secs == w.preview_secs
     assert r.motion_config == w.motion_config
 
