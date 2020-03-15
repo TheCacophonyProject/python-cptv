@@ -112,7 +112,7 @@ class FieldWriter:
         dest.write(self.s.getbuffer())
 
     def timestamp(self, code, t):
-        micros = int(t.timestamp() * 1_000_000)
+        micros = int(t.timestamp() * 1e6)
         self.uint64(code, micros)
 
     def uint8(self, code, val):
@@ -128,7 +128,7 @@ class FieldWriter:
         self.count += 1
 
     def float32(self, code, fval):
-        self.s.write(struct.pack("<BBf", 4, code, val))
+        self.s.write(struct.pack("<BBf", 4, code, fval))
         self.count += 1
 
     def string(self, code, val):

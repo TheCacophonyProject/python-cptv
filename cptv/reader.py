@@ -134,11 +134,11 @@ class CPTVReader:
         self.x_resolution = fields[Field.X_RESOLUTION]
         self.y_resolution = fields[Field.Y_RESOLUTION]
         self.frame_dim = (self.y_resolution, self.x_resolution)
-        self.device_name = fields.get(Field.DEVICENAME, '').encode('utf-8')
+        self.device_name = fields.get(Field.DEVICENAME)
         self.device_id = fields.get(Field.DEVICEID, 0)
 
         self.preview_secs = fields.get(Field.PREVIEW_SECS, 0)
-        self.motion_config = fields.get(Field.MOTION_CONFIG, '').encode('utf-8')
+        self.motion_config = fields.get(Field.MOTION_CONFIG)
         self.latitude = fields.get(Field.LATITUDE, 0.0)
         self.longitude = fields.get(Field.LONGITUDE, 0.0)
 
@@ -174,6 +174,9 @@ class CPTVReader:
                 last_ffc_time = timedelta(
                     milliseconds=fields.get(
                         Field.LAST_FFC_TIME, 0))
+            else:
+                time_on = None
+                last_ffc_time = None
 
             yield Frame(pix, time_on, last_ffc_time)
 
@@ -232,7 +235,7 @@ class CPTVReader:
         return struct.unpack('<f', s.read(4))[0]
 
     def _read_string(self, s, length):
-        return str(s.read(length), 'utf-8')
+        return s.read(length)
 
     def _decompress_frame(self, current_frame, source, packed_bit_width):
         s = np.empty(self.x_resolution * self.y_resolution, dtype='h')
