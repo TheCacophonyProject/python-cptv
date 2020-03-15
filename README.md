@@ -38,7 +38,9 @@ This software is licensed under the Apache License 2.0.
 * Update the version in setup.py and commit.
 * Ensure a Python 3 virtualenv is active.
 * Build the source distribution: `python setup.py sdist --formats=zip`
-* Build Linux binary wheels: `./build-wheels.sh`
+* Build the generic Python 3 wheel: `python setup.py bdist_wheel`
 * Tag the release, for example: `git tag -a v0.2.1 -m "0.2.1 release"`
 * Push the tag to Github, for example: `git push origin v0.2.1`
 * Push the release to PyPI, for example: `twine upload dist/cptv-0.2.1.zip wheelhouse/cptv-0.2.1*.whl`
+
+**TODO**: automate most of the above in CI
