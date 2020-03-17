@@ -149,8 +149,6 @@ class Compressor:
         return self.twisted
 
     def _next_frame(self, pix):
-        linear_pix = np.empty(COLS * ROWS, dtype='h')
-
         twisted = self._get_twisted()
         linear_pix = pix.ravel().astype('h')[twisted]
 
