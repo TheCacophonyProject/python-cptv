@@ -29,6 +29,8 @@ def test_read_v1():
             count += 1
             assert frame.time_on is None
             assert frame.last_ffc_time is None
+            assert frame.pix.min() > 2500
+            assert frame.pix.max() < 3200
         assert count == 100
 
 
@@ -52,6 +54,8 @@ def test_read_v2():
             count += 1
             assert frame.time_on is not None
             assert frame.last_ffc_time is not None
+            assert frame.pix.min() > 2500
+            assert frame.pix.max() < 3200
         assert count == 100
 
 def test_lat_lon():
