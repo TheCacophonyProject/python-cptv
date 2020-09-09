@@ -62,6 +62,7 @@ class Field:
 
 
 TIMESTAMP_FIELDS = {Field.TIMESTAMP, Field.LOC_TIMESTAMP}
+
 UINT32_FIELDS = {
     Field.X_RESOLUTION,
     Field.Y_RESOLUTION,

@@ -14,7 +14,6 @@ For more details on the internals of CPTV files, see the specifications:
 
 * [version 1](https://github.com/TheCacophonyProject/go-cptv/blob/master/SPECv1.md).
 * [version 2](https://github.com/TheCacophonyProject/go-cptv/blob/master/SPECv2.md).
-
 ## Installation
 
 Installation from PyPI:
