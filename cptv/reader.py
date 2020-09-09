@@ -42,11 +42,23 @@ class Field:
     LATITUDE = b"L"
     LONGITUDE = b"O"
 
+    LOC_TIMESTAMP = b"S"
+    ALTITUDE = b"A"
+    ACCURACY = b"U"
+    FPS = b"Z"
+    MODEL = b"E"
+    BRAND = b"B"
+    FIRMWARE = b"V"
+    CAMERA_SERIAL = b"N"
+
     # Frame fields
     BIT_WIDTH = b"w"
     FRAME_SIZE = b"f"
     TIME_ON = b"t"
     LAST_FFC_TIME = b"c"
+
+    TEMP_C = b"a"
+    LAST_FFC_TEMP_C = b"b"
 
 
 UINT32_FIELDS = {
@@ -56,13 +68,27 @@ UINT32_FIELDS = {
     Field.TIME_ON,
     Field.LAST_FFC_TIME,
     Field.DEVICEID,
+    Field.CAMERA_SERIAL,
 }
 
-UINT8_FIELDS = {Field.COMPRESSION, Field.BIT_WIDTH, Field.PREVIEW_SECS}
+UINT8_FIELDS = {Field.COMPRESSION, Field.BIT_WIDTH, Field.PREVIEW_SECS, Field.FPS}
 
-STRING_FIELDS = {Field.DEVICENAME, Field.MOTION_CONFIG}
+STRING_FIELDS = {
+    Field.DEVICENAME,
+    Field.MOTION_CONFIG,
+    Field.MODEL,
+    Field.BRAND,
+    Field.FIRMWARE,
+}
 
-FLOAT_FIELDS = {Field.LATITUDE, Field.LONGITUDE}
+FLOAT_FIELDS = {
+    Field.LATITUDE,
+    Field.LONGITUDE,
+    Field.ALTITUDE,
+    Field.ACCURACY,
+    Field.LAST_FFC_TEMP_C,
+    Field.TEMP_C,
+}
 
 
 epoch = datetime(1970, 1, 1, tzinfo=timezone.utc)
@@ -99,6 +125,14 @@ class CPTVReader:
     preview_secs = None
     motion_config = None
 
+    altitude = None
+    accuracy = None
+    fps = None
+    model = None
+    brand = None
+    firmward = None
+    camera_serial = None
+
     def __init__(self, fileobj):
         self.s = gzip.GzipFile(fileobj=fileobj, mode="rb")
         self.header = self._read_header(self.s)
@@ -111,7 +145,7 @@ class CPTVReader:
 
         # check version
         self.version = s.read(1)[0]
-        if self.version not in (1, 2):
+        if self.version not in (1, 2, 3):
             raise IOError("unsupported version")
 
         section_type, fields = self._read_section(s)
@@ -135,6 +169,14 @@ class CPTVReader:
         self.motion_config = fields.get(Field.MOTION_CONFIG)
         self.latitude = fields.get(Field.LATITUDE, 0.0)
         self.longitude = fields.get(Field.LONGITUDE, 0.0)
+
+        self.altitude = fields.get(Field.ALTITUDE, 0)
+        self.accuracy = fields.get(Field.ACCURACY, 0)
+        self.fps = fields.get(Field.FPS, 0)
+        self.model = fields.get(Field.MODEL)
+        self.brand = fields.get(Field.BRAND)
+        self.firmware = fields.get(Field.FIRMWARE)
+        self.camera_serial = fields.get(Field.CAMERA_SERIAL, 0)
 
     def __iter__(self):
         s = self.s
@@ -172,17 +214,24 @@ class CPTVReader:
             else:
                 time_on = None
                 last_ffc_time = None
-
-            yield Frame(pix, time_on, last_ffc_time)
+            if self.version >= 3:
+                temp_c = fields.get(Field.TEMP_C, 0)
+                last_ffc_temp_c = fields.get(Field.LAST_FFC_TEMP_C, 0)
+            else:
+                temp_c = 0
+                last_ffc_temp_c = 0
+            yield Frame(pix, time_on, last_ffc_time, temp_c, last_ffc_temp_c)
 
     def _read_section(self, s):
         section_type = s.read(1)
         if section_type == b"":
             raise EOFError("short read")
         field_count = s.read(1)[0]
+        print("how many fields", field_count, section_type)
         fields = {}
         for _ in range(field_count):
             ftype, value = self._read_field(s)
+            print("reading field", ftype)
             fields[ftype] = value
         return section_type, fields
 

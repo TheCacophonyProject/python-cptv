@@ -23,9 +23,10 @@ from .frame import Frame
 from .reader import Section, Field
 
 MAGIC = b"CPTV"
-VERSION = b"\x02"
+VERSION = b"\x03"
 COLS = 160
 ROWS = 120
+
 
 class CPTVWriter:
 
@@ -36,20 +37,25 @@ class CPTVWriter:
     preview_secs = None
     device_id = None
     motion_config = None
+    altitude = None
+    accuracy = None
+    fps = None
+    model = None
+    brand = None
+    firmware = None
+    camera_serial = None
 
     def __init__(self, fileobj):
         self.timestamp = datetime.now()
         self.fileobj = fileobj
 
     def write_header(self):
+        print("WRITING HEADER")
         if not self.timestamp:
             self.timestamp = datetime.now()
 
         mtime = self.timestamp.timestamp()
-        self.s = gzip.GzipFile(
-            fileobj=self.fileobj,
-            mode="wb",
-            mtime=mtime)
+        self.s = gzip.GzipFile(fileobj=self.fileobj, mode="wb", mtime=mtime)
         self.comp = Compressor()
 
         self.s.write(MAGIC)
@@ -80,29 +86,53 @@ class CPTVWriter:
         if self.motion_config:
             fw.string(ord(Field.MOTION_CONFIG), self.motion_config)
 
+        if self.altitude:
+            fw.float32(ord(Field.ALTITUDE), self.altitude)
+
+        if self.accuracy:
+            fw.float32(ord(Field.ACCURACY), self.accuracy)
+
+        if self.fps:
+            fw.uint8(ord(Field.FPS), self.fps)
+
+        if self.model:
+            fw.string(ord(Field.MODEL), self.model)
+
+        if self.brand:
+            fw.string(ord(Field.BRAND), self.brand)
+
+        if self.firmware:
+            fw.string(ord(Field.FIRMWARE), self.firmware)
+
+        if self.camera_serial:
+            fw.uint32(ord(Field.CAMERA_SERIAL), self.camera_serial)
+
         fw.write(ord(Section.HEADER), self.s)
 
     def write_frame(self, frame):
         bit_width, start_value, frame_buf = self.comp._next_frame(frame.pix)
 
         fw = FieldWriter()
-        fw.uint32(ord(Field.TIME_ON),
-                  frame.time_on / timedelta(milliseconds=1))
-        fw.uint32(ord(Field.LAST_FFC_TIME),
-                  frame.last_ffc_time / timedelta(milliseconds=1))
+        fw.uint32(ord(Field.TIME_ON), frame.time_on / timedelta(milliseconds=1))
+        fw.uint32(
+            ord(Field.LAST_FFC_TIME), frame.last_ffc_time / timedelta(milliseconds=1)
+        )
         fw.uint8(ord(Field.BIT_WIDTH), bit_width)
+        # fw.float32(ord(Field.TEMP_C), frame.temp_c)
+        # fw.float32(ord(Field.LAST_FFC_TEMP_C), frame.last_ffc_temp_c)
+        print("frame size is", len(frame_buf))
         fw.uint32(ord(Field.FRAME_SIZE), len(frame_buf) + 4)
         fw.write(ord(Section.FRAME), self.s)
 
         self.s.write(struct.pack("<l", start_value))
         self.s.write(frame_buf)
+        print("write count ", fw.count)
 
     def close(self):
         self.s.close()
 
 
 class FieldWriter:
-
     def __init__(self):
         self.s = BytesIO()
         self.count = 0
@@ -138,22 +168,22 @@ class FieldWriter:
 
 
 class Compressor:
-
     def _get_twisted(self):
-        if not hasattr(self, 'twisted'):
+        if not hasattr(self, "twisted"):
             width = COLS
             height = ROWS
-            linear = np.arange(width * height, dtype='I')
-            self.twisted = linear + \
-                ((linear // width) & 1) * (width - 1 - 2 * (linear % width))
+            linear = np.arange(width * height, dtype="I")
+            self.twisted = linear + ((linear // width) & 1) * (
+                width - 1 - 2 * (linear % width)
+            )
         return self.twisted
 
     def _next_frame(self, pix):
         twisted = self._get_twisted()
-        linear_pix = pix.ravel().astype('h')[twisted]
+        linear_pix = pix.ravel().astype("h")[twisted]
 
         delta = linear_pix
-        if hasattr(self, 'prev_linear_pix'):
+        if hasattr(self, "prev_linear_pix"):
             delta = linear_pix - self.prev_linear_pix
         else:
             delta = linear_pix
@@ -176,7 +206,7 @@ class Compressor:
             width = 8
 
         # Pack the deltas according to the bit width determined
-        pack_data = self.pack_bits(width, del_delta).astype('B')
+        pack_data = self.pack_bits(width, del_delta).astype("B")
 
         return width, delta[0], pack_data
 
@@ -192,14 +222,11 @@ class Compressor:
             stacked[:-1] += twos_complement[1:] >> 8
 
             result_len = (len(vals) * 3 + 1) // 2
-            result = np.empty(result_len, 'B')
+            result = np.empty(result_len, "B")
 
-            result[np.arange(0, result_len, 3)
-                   ] = vals[np.arange(0, len(vals), 2)] >> 4
-            result[np.arange(1, result_len, 3)
-                   ] = stacked[np.arange(0, len(vals), 2)]
-            result[np.arange(2, result_len, 3)
-                   ] = vals[np.arange(1, len(vals), 2)]
+            result[np.arange(0, result_len, 3)] = vals[np.arange(0, len(vals), 2)] >> 4
+            result[np.arange(1, result_len, 3)] = stacked[np.arange(0, len(vals), 2)]
+            result[np.arange(2, result_len, 3)] = vals[np.arange(1, len(vals), 2)]
             return result
 
         return self.pack_bits_fallback(packed_bit_width, vals)
@@ -208,14 +235,14 @@ class Compressor:
         # Hopefully not used
         result_len = (len(vals) * packed_bit_width + 7) // 8
 
-        result = np.empty(result_len, 'I')
+        result = np.empty(result_len, "I")
         index = 0
         bits = 0  # scratch buffer
         num_bits = 0  # number of bits in use in scratch
         mask = (1 << packed_bit_width) - 1
 
         for val in vals:
-            bits |= ((val & mask) << (32 - packed_bit_width - num_bits))
+            bits |= (val & mask) << (32 - packed_bit_width - num_bits)
             num_bits += packed_bit_width
             while num_bits >= 8:
                 result[index] = bits
