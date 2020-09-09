@@ -12,6 +12,8 @@ with open(filename, "rb") as f:
     print("time:", reader.timestamp)
     print("dims:", reader.x_resolution, reader.y_resolution)
     print("location:", reader.latitude, reader.longitude)
+    print("location timestamp:", reader.loc_timestamp)
+
     print("preview secs:", reader.preview_secs)
     print("motion config:", reader.loc_timestamp)
 
