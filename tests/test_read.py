@@ -13,7 +13,6 @@ def test_read_v1():
     filename = str(data_dir / "v1.cptv")
     with open(filename, "rb") as f:
         r = CPTVReader(f)
-        print(r.fps)
         assert r.version == 1
         assert r.device_name == b"livingsprings03"
         assert r.device_id == 0
@@ -58,6 +57,7 @@ def test_read_v2():
         assert r.motion_config == b"motion"
         assert r.latitude == 0
         assert r.longitude == 0
+        assert r.loc_timestamp == 0
 
         assert r.altitude == 0
         assert r.fps == 0
@@ -89,6 +89,7 @@ def test_read_v3():
         assert r.motion_config == b"blob"
         assert int(r.latitude) == 142
         assert int(r.longitude) == -39
+        assert r.loc_timestamp == datetime(2018, 9, 6, 5, 4, 3, tzinfo=timezone.utc)
         assert r.accuracy == 20
         assert r.altitude == 200
         assert r.fps == 30
@@ -101,7 +102,9 @@ def test_read_v3():
             count += 1
             assert frame.time_on is not None
             assert frame.last_ffc_time is not None
-        assert count == 100
+            assert frame.last_ffc_temp_c != 0
+            assert frame.temp_c != 0
+        assert count == 10
 
 
 def test_lat_lon():

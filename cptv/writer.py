@@ -44,13 +44,13 @@ class CPTVWriter:
     brand = None
     firmware = None
     camera_serial = None
+    loc_timestamp = None
 
     def __init__(self, fileobj):
         self.timestamp = datetime.now()
         self.fileobj = fileobj
 
     def write_header(self):
-        print("WRITING HEADER")
         if not self.timestamp:
             self.timestamp = datetime.now()
 
@@ -107,6 +107,8 @@ class CPTVWriter:
         if self.camera_serial:
             fw.uint32(ord(Field.CAMERA_SERIAL), self.camera_serial)
 
+        if self.loc_timestamp:
+            fw.timestamp(ord(Field.LOC_TIMESTAMP), self.loc_timestamp)
         fw.write(ord(Section.HEADER), self.s)
 
     def write_frame(self, frame):
@@ -118,15 +120,14 @@ class CPTVWriter:
             ord(Field.LAST_FFC_TIME), frame.last_ffc_time / timedelta(milliseconds=1)
         )
         fw.uint8(ord(Field.BIT_WIDTH), bit_width)
-        # fw.float32(ord(Field.TEMP_C), frame.temp_c)
-        # fw.float32(ord(Field.LAST_FFC_TEMP_C), frame.last_ffc_temp_c)
-        print("frame size is", len(frame_buf))
+        fw.float32(ord(Field.TEMP_C), frame.temp_c)
+        fw.float32(ord(Field.LAST_FFC_TEMP_C), frame.last_ffc_temp_c)
+
         fw.uint32(ord(Field.FRAME_SIZE), len(frame_buf) + 4)
         fw.write(ord(Section.FRAME), self.s)
 
         self.s.write(struct.pack("<l", start_value))
         self.s.write(frame_buf)
-        print("write count ", fw.count)
 
     def close(self):
         self.s.close()

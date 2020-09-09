@@ -61,6 +61,7 @@ class Field:
     LAST_FFC_TEMP_C = b"b"
 
 
+TIMESTAMP_FIELDS = {Field.TIMESTAMP, Field.LOC_TIMESTAMP}
 UINT32_FIELDS = {
     Field.X_RESOLUTION,
     Field.Y_RESOLUTION,
@@ -122,6 +123,7 @@ class CPTVReader:
 
     latitude = None
     longitude = None
+    loc_timestamp = None
     preview_secs = None
     motion_config = None
 
@@ -169,7 +171,7 @@ class CPTVReader:
         self.motion_config = fields.get(Field.MOTION_CONFIG)
         self.latitude = fields.get(Field.LATITUDE, 0.0)
         self.longitude = fields.get(Field.LONGITUDE, 0.0)
-
+        self.loc_timestamp = fields.get(Field.LOC_TIMESTAMP, 0)
         self.altitude = fields.get(Field.ALTITUDE, 0)
         self.accuracy = fields.get(Field.ACCURACY, 0)
         self.fps = fields.get(Field.FPS, 0)
@@ -227,11 +229,9 @@ class CPTVReader:
         if section_type == b"":
             raise EOFError("short read")
         field_count = s.read(1)[0]
-        print("how many fields", field_count, section_type)
         fields = {}
         for _ in range(field_count):
             ftype, value = self._read_field(s)
-            print("reading field", ftype)
             fields[ftype] = value
         return section_type, fields
 
@@ -247,7 +247,7 @@ class CPTVReader:
             val = self._read_string(s, data_len)
         elif ftype in FLOAT_FIELDS:
             val = self._read_float32(s)
-        elif ftype == Field.TIMESTAMP:
+        elif ftype in TIMESTAMP_FIELDS:
             micros = self._read_uint64(s)
             try:
                 val = epoch + timedelta(microseconds=micros)

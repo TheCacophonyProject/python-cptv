@@ -52,7 +52,7 @@ def test_round_trip_header_defaults():
 
 
 def test_round_trip_header():
-    buf = open("v3.cptv", "ab")
+    buf = BytesIO()
 
     w = CPTVWriter(buf)
     w.timestamp = datetime(2018, 7, 6, 5, 4, 3, tzinfo=timezone.utc)
@@ -60,6 +60,8 @@ def test_round_trip_header():
     w.device_id = 42
     w.latitude = 142.3
     w.longitude = -39.2
+    w.loc_timestamp = datetime(2018, 9, 6, 5, 4, 3, tzinfo=timezone.utc)
+
     w.preview_secs = 3
     w.motion_config = b"blob"
     w.accuracy = 20
@@ -75,10 +77,8 @@ def test_round_trip_header():
         frame = random_frame(60, 30)
         w.write_frame(frame)
     w.close()
-    buf.close()
 
-    # buf.seek(0, 0)
-    buf = open("v3.cptv", "rb")
+    buf.seek(0, 0)
 
     r = CPTVReader(buf)
     assert r.version == 3
@@ -89,6 +89,7 @@ def test_round_trip_header():
     assert r.device_id == w.device_id
     assert r.latitude == approx(w.latitude, 0.000001)
     assert r.longitude == approx(w.longitude, 0.000001)
+    assert r.loc_timestamp == w.loc_timestamp
     assert r.preview_secs == w.preview_secs
     assert r.motion_config == w.motion_config
 
@@ -99,10 +100,6 @@ def test_round_trip_header():
     assert r.brand == w.brand
     assert r.firmware == w.firmware
     assert r.camera_serial == w.camera_serial
-    for frame in r:
-        print("frame one")
-        print(frame)
-        print("frame two")
 
 
 def test_one_frame():
