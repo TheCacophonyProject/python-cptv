@@ -34,17 +34,17 @@ class CPTVWriter:
     device_name = None
     latitude = None
     longitude = None
+    altitude = None
+    accuracy = None
+    loc_timestamp = None
     preview_secs = None
     device_id = None
     motion_config = None
-    altitude = None
-    accuracy = None
     fps = None
     model = None
     brand = None
     firmware = None
     camera_serial = None
-    loc_timestamp = None
 
     def __init__(self, fileobj):
         self.timestamp = datetime.now()
@@ -74,23 +74,26 @@ class CPTVWriter:
 
         fw.timestamp(ord(Field.TIMESTAMP), self.timestamp)
 
-        if self.latitude:
-            fw.float32(ord(Field.LATITUDE), self.latitude)
-
-        if self.longitude:
-            fw.float32(ord(Field.LONGITUDE), self.longitude)
-
         if self.preview_secs:
             fw.uint8(ord(Field.PREVIEW_SECS), self.preview_secs)
 
         if self.motion_config:
             fw.string(ord(Field.MOTION_CONFIG), self.motion_config)
 
+        if self.latitude:
+            fw.float32(ord(Field.LATITUDE), self.latitude)
+
+        if self.longitude:
+            fw.float32(ord(Field.LONGITUDE), self.longitude)
+
         if self.altitude:
             fw.float32(ord(Field.ALTITUDE), self.altitude)
 
         if self.accuracy:
             fw.float32(ord(Field.ACCURACY), self.accuracy)
+
+        if self.loc_timestamp:
+            fw.timestamp(ord(Field.LOC_TIMESTAMP), self.loc_timestamp)
 
         if self.fps:
             fw.uint8(ord(Field.FPS), self.fps)
@@ -107,8 +110,6 @@ class CPTVWriter:
         if self.camera_serial:
             fw.uint32(ord(Field.CAMERA_SERIAL), self.camera_serial)
 
-        if self.loc_timestamp:
-            fw.timestamp(ord(Field.LOC_TIMESTAMP), self.loc_timestamp)
         fw.write(ord(Section.HEADER), self.s)
 
     def write_frame(self, frame):

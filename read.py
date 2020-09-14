@@ -13,11 +13,11 @@ with open(filename, "rb") as f:
     print("dims:", reader.x_resolution, reader.y_resolution)
     print("location:", reader.latitude, reader.longitude)
     print("location timestamp:", reader.loc_timestamp)
+    print("altitude:", reader.altitude)
 
     print("preview secs:", reader.preview_secs)
     print("motion config:", reader.loc_timestamp)
 
-    print("altitude:", reader.altitude)
     print("fps:", reader.fps)
     print("model:", reader.model)
     print("brand:", reader.brand)
