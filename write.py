@@ -28,8 +28,17 @@ def write_cptv(frames: Iterable[Frame], filename: str):
         w.device_name = b"foo42"
         w.latitude = 142.2
         w.longitude = -39.2
+        w.loc_timestamp = datetime.now()
+        w.accuracy = 20
+        w.altitude = 200
         w.preview_secs = 3
         w.motion_config = b"stuff"
+        w.fps = 30
+        w.model = b"ultra"
+        w.brand = b"laser"
+        w.firmware = b"killer"
+        w.camera_serial = 221
+
         w.write_header()
 
         for frame in frames:
