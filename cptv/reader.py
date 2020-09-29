@@ -148,7 +148,7 @@ class CPTVReader:
 
         # check version
         self.version = s.read(1)[0]
-        if self.version not in (1, 2, 3):
+        if self.version not in (1, 2):
             raise IOError("unsupported version")
 
         section_type, fields = self._read_section(s)
@@ -175,6 +175,7 @@ class CPTVReader:
         self.loc_timestamp = fields.get(Field.LOC_TIMESTAMP, 0)
         self.altitude = fields.get(Field.ALTITUDE, 0)
         self.accuracy = fields.get(Field.ACCURACY, 0)
+        print("setting accuracy")
         self.fps = fields.get(Field.FPS, 0)
         self.model = fields.get(Field.MODEL)
         self.brand = fields.get(Field.BRAND)
@@ -185,7 +186,7 @@ class CPTVReader:
         s = self.s
         s.seek(self.frame_file_offset)
 
-        linear_pix = np.zeros(self.frame_dim[0] * self.frame_dim[1], dtype="h")
+        linear_pix = np.zeros(self.frame_dim[0] * self.frame_dim[1], dtype="H")
 
         while True:
             try:
@@ -214,13 +215,11 @@ class CPTVReader:
                 last_ffc_time = timedelta(
                     milliseconds=fields.get(Field.LAST_FFC_TIME, 0)
                 )
-            else:
-                time_on = None
-                last_ffc_time = None
-            if self.version >= 3:
                 temp_c = fields.get(Field.TEMP_C, 0)
                 last_ffc_temp_c = fields.get(Field.LAST_FFC_TEMP_C, 0)
             else:
+                time_on = None
+                last_ffc_time = None
                 temp_c = 0
                 last_ffc_temp_c = 0
             yield Frame(pix, time_on, last_ffc_time, temp_c, last_ffc_temp_c)
@@ -284,7 +283,7 @@ class CPTVReader:
         return s.read(length)
 
     def _decompress_frame(self, current_frame, source, packed_bit_width):
-        s = np.empty(self.x_resolution * self.y_resolution, dtype="h")
+        s = np.empty(self.x_resolution * self.y_resolution, dtype="H")
         s[0] = struct.unpack("<i", source[0:4])[0]  # starting value, signed
 
         if packed_bit_width > 16:

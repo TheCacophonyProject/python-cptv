@@ -33,7 +33,7 @@ def test_round_trip_header_defaults():
     buf.seek(0, 0)
 
     r = CPTVReader(buf)
-    assert r.version == 3
+    assert r.version == 2
     assert r.x_resolution == 160
     assert r.y_resolution == 120
     assert not r.device_name
@@ -81,7 +81,7 @@ def test_round_trip_header():
     buf.seek(0, 0)
 
     r = CPTVReader(buf)
-    assert r.version == 3
+    assert r.version == 2
     assert r.x_resolution == 160
     assert r.y_resolution == 120
     assert r.timestamp == w.timestamp
@@ -155,8 +155,10 @@ def new_frame(pix):
 
 
 def random_frame(time_on, last_ffc_time):
+    pix = np.random.randint(3000, 6000, (120, 160), "uint16")
+    pix[0][0] = np.random.randint(32767, 65535)  # lepton3.5 test
     return Frame(
-        np.random.randint(3000, 6000, (120, 160), "uint16"),
+        pix,
         timedelta(seconds=time_on),
         timedelta(seconds=last_ffc_time),
         np.random.randint(2800, 3000),

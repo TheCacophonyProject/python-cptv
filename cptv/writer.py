@@ -182,7 +182,7 @@ class Compressor:
 
     def _next_frame(self, pix):
         twisted = self._get_twisted()
-        linear_pix = pix.ravel().astype("h")[twisted]
+        linear_pix = pix.ravel().astype("H")[twisted]
 
         delta = linear_pix
         if hasattr(self, "prev_linear_pix"):
