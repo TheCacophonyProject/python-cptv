@@ -175,7 +175,6 @@ class CPTVReader:
         self.loc_timestamp = fields.get(Field.LOC_TIMESTAMP, 0)
         self.altitude = fields.get(Field.ALTITUDE, 0)
         self.accuracy = fields.get(Field.ACCURACY, 0)
-        print("setting accuracy")
         self.fps = fields.get(Field.FPS, 0)
         self.model = fields.get(Field.MODEL)
         self.brand = fields.get(Field.BRAND)
