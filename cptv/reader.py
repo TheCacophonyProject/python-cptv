@@ -285,7 +285,7 @@ class CPTVReader:
         s = np.empty(self.x_resolution * self.y_resolution, dtype="H")
         s[0] = struct.unpack("<i", source[0:4])[0]  # starting value, signed
 
-        if packed_bit_width > 16:
+        if packed_bit_width > 32:
             raise IOError("Higher than 16bit thermal imaging not supported")
 
         if packed_bit_width == 8:
