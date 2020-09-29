@@ -23,7 +23,7 @@ from .frame import Frame
 from .reader import Section, Field
 
 MAGIC = b"CPTV"
-VERSION = b"\x03"
+VERSION = b"\x02"
 COLS = 160
 ROWS = 120
 
