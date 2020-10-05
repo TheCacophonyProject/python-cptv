@@ -293,22 +293,21 @@ class CPTVReader:
         if packed_bit_width == 8:
             s[1:] = source[4:].astype("b")
         else:
-            source = np.append(source, np.zeros(1))  # protect against overrun
-
-            (lookup_high, lookup_low, lookup_bit) = self._fetch_aux(packed_bit_width)
-
-            s[1:] = (
-                256 * source[lookup_high] + source[lookup_low]
-            )  # fetch nearby 16 bits
-
-            # twos complement and shift down into range
-            mask = (1 << packed_bit_width) - 1
-            max_packed_value = 1 << (packed_bit_width - 1)
-            s[1:] = (
-                ((s[1:] >> lookup_bit) + max_packed_value) & mask
-            ) - max_packed_value
-        # TODO: Fast path for 12bit and 16bit
-
+            delta_i = 1
+            nbits = 0
+            bits = 0
+            byte_i = 4
+            while delta_i < len(s):
+                while nbits < packed_bit_width:
+                    bits |= source[byte_i] << (24 - nbits)
+                    nbits += 8
+                    byte_i += 1
+                s[delta_i] = inverse_twos_comp(
+                    bits >> (32 - packed_bit_width) & 0xFFFF, packed_bit_width
+                )
+                delta_i += 1
+                bits = (bits << packed_bit_width) & 0xFFFFFFFF
+                nbits -= packed_bit_width
         current_frame += np.cumsum(s)  # expand deltas and delta-deltas
         pix_signed = current_frame[self._get_snake()]  # remove snake ordering
         return pix_signed.astype("H")  # cast unsigned
@@ -340,3 +339,13 @@ class CPTVReader:
             lookup_bit = lookup_bit.astype("B")
             self.lookup_cache[key] = (lookup_byte - 1, lookup_byte, lookup_bit)
         return self.lookup_cache[key]
+
+
+def inverse_twos_comp(v, width):
+    """Convert a two's complement value of a specific bit width to a
+    full width integer.
+
+    The inverse of twos_comp() in writer.pyx.
+    """
+    mask = 1 << (width - 1)
+    return -(v & mask) + (v & ~mask)
