@@ -148,7 +148,7 @@ class CPTVReader:
 
         # check version
         self.version = s.read(1)[0]
-        if self.version not in (1, 2, 3):
+        if self.version not in (1, 2):
             raise IOError("unsupported version")
 
         section_type, fields = self._read_section(s)
@@ -214,13 +214,11 @@ class CPTVReader:
                 last_ffc_time = timedelta(
                     milliseconds=fields.get(Field.LAST_FFC_TIME, 0)
                 )
-            else:
-                time_on = None
-                last_ffc_time = None
-            if self.version >= 3:
                 temp_c = fields.get(Field.TEMP_C, 0)
                 last_ffc_temp_c = fields.get(Field.LAST_FFC_TEMP_C, 0)
             else:
+                time_on = None
+                last_ffc_time = None
                 temp_c = 0
                 last_ffc_temp_c = 0
             yield Frame(pix, time_on, last_ffc_time, temp_c, last_ffc_temp_c)
