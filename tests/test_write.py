@@ -33,7 +33,7 @@ def test_round_trip_header_defaults():
     buf.seek(0, 0)
 
     r = CPTVReader(buf)
-    assert r.version == 3
+    assert r.version == 2
     assert r.x_resolution == 160
     assert r.y_resolution == 120
     assert not r.device_name
@@ -81,7 +81,7 @@ def test_round_trip_header():
     buf.seek(0, 0)
 
     r = CPTVReader(buf)
-    assert r.version == 3
+    assert r.version == 2
     assert r.x_resolution == 160
     assert r.y_resolution == 120
     assert r.timestamp == w.timestamp
