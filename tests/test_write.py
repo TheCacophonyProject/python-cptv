@@ -33,7 +33,7 @@ def test_round_trip_header_defaults():
     buf.seek(0, 0)
 
     r = CPTVReader(buf)
-    assert r.version == 3
+    assert r.version == 2
     assert r.x_resolution == 160
     assert r.y_resolution == 120
     assert not r.device_name
@@ -81,7 +81,7 @@ def test_round_trip_header():
     buf.seek(0, 0)
 
     r = CPTVReader(buf)
-    assert r.version == 3
+    assert r.version == 2
     assert r.x_resolution == 160
     assert r.y_resolution == 120
     assert r.timestamp == w.timestamp
@@ -131,6 +131,16 @@ def test_step_change():
     check_frames([frame0, frame1])
 
 
+def test_large_value():
+    frame0 = random_frame(0, 0)
+
+    pix1 = frame0.pix.copy()
+    pix1[0] += 32767
+    frame1 = new_frame(pix1)
+
+    check_frames([frame0, frame1])
+
+
 def check_frames(frames):
     buf = BytesIO()
     w = CPTVWriter(buf)
@@ -154,9 +164,13 @@ def new_frame(pix):
     return Frame(pix, timedelta(seconds=0), timedelta(seconds=0), 0.0, 0.0)
 
 
-def random_frame(time_on, last_ffc_time):
+def random_frame(time_on, last_ffc_time, min_value=None, max_value=None):
+    if min_value is None:
+        min_value = 3000
+    if max_value is None:
+        max_value = 6000
     return Frame(
-        np.random.randint(3000, 6000, (120, 160), "uint16"),
+        np.random.randint(min_value, max_value, (120, 160), "uint16"),
         timedelta(seconds=time_on),
         timedelta(seconds=last_ffc_time),
         np.random.randint(2800, 3000),
