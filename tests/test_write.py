@@ -49,6 +49,7 @@ def test_round_trip_header_defaults():
     assert r.brand is None
     assert r.firmware is None
     assert r.camera_serial == 0
+    assert r.background_frames == 0
 
 
 def test_round_trip_header():
@@ -71,7 +72,9 @@ def test_round_trip_header():
     w.brand = b"laser"
     w.firmware = b"killer"
     w.camera_serial = 221
-
+    back_frame = random_frame(60, 30)
+    back_frame.background_frame = True
+    w.background_frame = back_frame
     w.write_header()
     for i in range(10):
         frame = random_frame(60, 30)
@@ -100,6 +103,15 @@ def test_round_trip_header():
     assert r.brand == w.brand
     assert r.firmware == w.firmware
     assert r.camera_serial == w.camera_serial
+    assert r.background_frames == 1
+    count = 0
+    for frame in r:
+        if count == 0:
+            assert frame.background_frame
+        else:
+            assert frame.background_frame == False
+        count += 1
+    assert count == 11
 
 
 def test_one_frame():

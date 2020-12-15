@@ -30,6 +30,7 @@ def test_read_v1():
         assert r.brand is None
         assert r.firmware is None
         assert r.camera_serial == 0
+        assert r.background_frames == 0
 
         count = 0
         for frame in r:
@@ -40,6 +41,7 @@ def test_read_v1():
             assert frame.last_ffc_time is None
             assert frame.pix.min() > 2500
             assert frame.pix.max() < 3200
+            assert frame.background_frame == False
         assert count == 100
 
 
@@ -65,6 +67,7 @@ def test_read_v2():
         assert r.brand is None
         assert r.firmware is None
         assert r.camera_serial == 0
+
         count = 0
         for frame in r:
             count += 1

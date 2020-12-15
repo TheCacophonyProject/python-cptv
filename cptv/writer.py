@@ -45,6 +45,7 @@ class CPTVWriter:
     brand = None
     firmware = None
     camera_serial = None
+    background_frame = None
 
     def __init__(self, fileobj):
         self.timestamp = datetime.now()
@@ -110,7 +111,13 @@ class CPTVWriter:
         if self.camera_serial:
             fw.uint32(ord(Field.CAMERA_SERIAL), self.camera_serial)
 
+        if self.background_frame is not None:
+            fw.uint8(ord(Field.BACKGROUND_FRAME), 1)
+
         fw.write(ord(Section.HEADER), self.s)
+
+        if self.background_frame is not None:
+            self.write_frame(self.background_frame)
 
     def write_frame(self, frame):
         bit_width, start_value, frame_buf = self.comp._next_frame(frame.pix)
@@ -123,6 +130,9 @@ class CPTVWriter:
         fw.uint8(ord(Field.BIT_WIDTH), bit_width)
         fw.float32(ord(Field.TEMP_C), frame.temp_c)
         fw.float32(ord(Field.LAST_FFC_TEMP_C), frame.last_ffc_temp_c)
+
+        if frame.background_frame:
+            fw.uint8(ord(Field.BACKGROUND_FRAME), 1)
 
         fw.uint32(ord(Field.FRAME_SIZE), len(frame_buf) + 4)
         fw.write(ord(Section.FRAME), self.s)
