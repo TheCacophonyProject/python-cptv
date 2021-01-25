@@ -50,6 +50,7 @@ class Field:
     BRAND = b"B"
     FIRMWARE = b"V"
     CAMERA_SERIAL = b"N"
+    BACKGROUND_FRAME = b"g"
 
     # Frame fields
     BIT_WIDTH = b"w"
@@ -73,7 +74,13 @@ UINT32_FIELDS = {
     Field.CAMERA_SERIAL,
 }
 
-UINT8_FIELDS = {Field.COMPRESSION, Field.BIT_WIDTH, Field.PREVIEW_SECS, Field.FPS}
+UINT8_FIELDS = {
+    Field.COMPRESSION,
+    Field.BIT_WIDTH,
+    Field.PREVIEW_SECS,
+    Field.FPS,
+    Field.BACKGROUND_FRAME,
+}
 
 STRING_FIELDS = {
     Field.DEVICENAME,
@@ -135,6 +142,7 @@ class CPTVReader:
     brand = None
     firmward = None
     camera_serial = None
+    background_frames = None
 
     def __init__(self, fileobj):
         self.s = gzip.GzipFile(fileobj=fileobj, mode="rb")
@@ -180,6 +188,7 @@ class CPTVReader:
         self.brand = fields.get(Field.BRAND)
         self.firmware = fields.get(Field.FIRMWARE)
         self.camera_serial = fields.get(Field.CAMERA_SERIAL, 0)
+        self.background_frames = fields.get(Field.BACKGROUND_FRAME, 0)
 
     def __iter__(self):
         s = self.s
@@ -216,12 +225,16 @@ class CPTVReader:
                 )
                 temp_c = fields.get(Field.TEMP_C, 0)
                 last_ffc_temp_c = fields.get(Field.LAST_FFC_TEMP_C, 0)
+                background_frame = fields.get(Field.BACKGROUND_FRAME, 0) > 0
             else:
                 time_on = None
                 last_ffc_time = None
                 temp_c = 0
                 last_ffc_temp_c = 0
-            yield Frame(pix, time_on, last_ffc_time, temp_c, last_ffc_temp_c)
+                background_frame = False
+            yield Frame(
+                pix, time_on, last_ffc_time, temp_c, last_ffc_temp_c, background_frame
+            )
 
     def _read_section(self, s):
         section_type = s.read(1)
