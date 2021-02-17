@@ -296,7 +296,7 @@ class CPTVReader:
 
     def _decompress_frame(self, current_frame, source, packed_bit_width):
         print("decompress")
-        s = np.empty(self.x_resolution * self.y_resolution, dtype="h")
+        s = np.empty(self.x_resolution * self.y_resolution, dtype=np.int32)
         s[0] = struct.unpack("<i", source[0:4])[0]  # starting value, signed
         for bin in source[:20]:
             print(bin)
@@ -310,13 +310,32 @@ class CPTVReader:
 
             (lookup_high, lookup_low, lookup_bit) = self._fetch_aux(packed_bit_width)
 
+            print(lookup_high.shape)
             s[1:] = (
                 256 * source[lookup_high] + source[lookup_low]
             )  # fetch nearby 16 bits
+
+            print(
+                "s[:4]",
+                s[1:4],
+                "manual",
+                256 * source[lookup_high[0]] + source[lookup_low[0]],
+                256 * source[lookup_high[1]] + source[lookup_low[1]],
+                256 * source[lookup_high[2]] + source[lookup_low[2]],
+            )
+            mask = (1 << packed_bit_width) - 1
+            max_packed_value = 1 << (packed_bit_width - 1)
+            print("source", source.dtype, source[8])
+            test_bit = int(source[6] << 24) + int(source[7]) << 16 + int(source[8]) >> 6)
+            print("test ", test_bit, type(test_bit), "max value", max_packed_value)
+            output = (
+                ((test_bit >> lookup_bit[2]) + max_packed_value) & mask
+            ) - max_packed_value
+            print("out", output)
             print("hi", source[lookup_high][:10])
             print("low", source[lookup_low][:10])
+            print("lookup_bit", lookup_bit[:10])
             # twos complement and shift down into range
-            mask = (1 << packed_bit_width) - 1
             max_packed_value = 1 << (packed_bit_width - 1)
             print("max value is", max_packed_value)
             print("first 10 is", s[:10])
@@ -356,7 +375,6 @@ class CPTVReader:
             )  # 8 bits per byte, with 4+1 bytes offset from start
             print("look up byte", lookup_byte[:10])
             lookup_bit = 16 - packed_bit_width - (lookup & 7)
-            print(lookup_bit[:10])
             # 'I' might be faster on arm? need to profile
             lookup_bit = lookup_bit.astype("B")
             self.lookup_cache[key] = (lookup_byte - 1, lookup_byte, lookup_bit)
