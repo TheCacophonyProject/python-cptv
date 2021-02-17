@@ -156,7 +156,7 @@ class CPTVReader:
 
         # check version
         self.version = s.read(1)[0]
-        if self.version not in (1, 2):
+        if self.version not in (1, 2, 3):
             raise IOError("unsupported version")
 
         section_type, fields = self._read_section(s)
@@ -295,31 +295,39 @@ class CPTVReader:
         return s.read(length)
 
     def _decompress_frame(self, current_frame, source, packed_bit_width):
+        print("decompress")
         s = np.empty(self.x_resolution * self.y_resolution, dtype="h")
         s[0] = struct.unpack("<i", source[0:4])[0]  # starting value, signed
-
+        for bin in source[:20]:
+            print(bin)
         if packed_bit_width > 16:
             raise IOError("Higher than 16bit thermal imaging not supported")
 
         if packed_bit_width == 8:
             s[1:] = source[4:].astype("b")
         else:
-            delta_i = 1
-            nbits = 0
-            bits = 0
-            byte_i = 4
-            while delta_i < len(s):
-                while nbits < packed_bit_width:
-                    bits |= source[byte_i] << (24 - nbits)
-                    nbits += 8
-                    byte_i += 1
-                s[delta_i] = inverse_twos_comp(
-                    bits >> (32 - packed_bit_width) & 0xFFFF, packed_bit_width
-                )
-                delta_i += 1
-                bits = (bits << packed_bit_width) & 0xFFFFFFFF
-                nbits -= packed_bit_width
+            source = np.append(source, np.zeros(1))  # protect against overrun
+
+            (lookup_high, lookup_low, lookup_bit) = self._fetch_aux(packed_bit_width)
+
+            s[1:] = (
+                256 * source[lookup_high] + source[lookup_low]
+            )  # fetch nearby 16 bits
+            print("hi", source[lookup_high][:10])
+            print("low", source[lookup_low][:10])
+            # twos complement and shift down into range
+            mask = (1 << packed_bit_width) - 1
+            max_packed_value = 1 << (packed_bit_width - 1)
+            print("max value is", max_packed_value)
+            print("first 10 is", s[:10])
+            s[1:] = (
+                ((s[1:] >> lookup_bit) + max_packed_value) & mask
+            ) - max_packed_value
+            print("first 10 now is", s[:10])
+
+        # TODO: Fast path for 12bit and 16bit
         current_frame += np.cumsum(s)  # expand deltas and delta-deltas
+        print("frame becomes", current_frame[:10])
         pix_signed = current_frame[self._get_snake()]  # remove snake ordering
         return pix_signed.astype("H")  # cast unsigned
 
@@ -340,15 +348,19 @@ class CPTVReader:
         width = self.x_resolution
         height = self.y_resolution
         key = (width, height, packed_bit_width)
+        print("BIT WIRD", packed_bit_width)
         if not key in self.lookup_cache:
             lookup = np.arange(0, width * height - 1) * packed_bit_width
             lookup_byte = (
                 lookup // 8 + 5
             )  # 8 bits per byte, with 4+1 bytes offset from start
+            print("look up byte", lookup_byte[:10])
             lookup_bit = 16 - packed_bit_width - (lookup & 7)
+            print(lookup_bit[:10])
             # 'I' might be faster on arm? need to profile
             lookup_bit = lookup_bit.astype("B")
             self.lookup_cache[key] = (lookup_byte - 1, lookup_byte, lookup_bit)
+            print("adding to key")
         return self.lookup_cache[key]
 
 
