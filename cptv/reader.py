@@ -331,8 +331,11 @@ class CPTVReader:
                 source_p = source[lookup_pre[i]]
                 source_m = source[lookup_high[i]]
                 source_l = source[lookup_low[i]]
+                if i == 5:
+                    source_p = source[10]
+                    source_m = source[11]
+                    source_l = source[12]
                 output = s_p * source_p + s_m * source_m + source_l * s_l
-
                 print(
                     i,
                     " uses",
@@ -342,6 +345,7 @@ class CPTVReader:
                     "to become ",
                     s[i + 1],
                     source_p,
+                    source_m,
                     source_l,
                     "shifted",
                     s_p,
@@ -412,7 +416,7 @@ class CPTVReader:
         if not key in self.lookup_cache:
             lookup = np.arange(0, width * height - 1) * packed_bit_width
             lookup_byte = (
-                lookup // 8 + 5
+                lookup // 11 + 5
             )  # 8 bits per byte, with 4+1 bytes offset from start
             lookup_bit = 16 - packed_bit_width - (lookup & 7)
             max = 16 - packed_bit_width
