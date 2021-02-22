@@ -429,11 +429,12 @@ class CPTVReader:
                 bytes = math.ceil(temp / 8) * 8
                 shift = bytes - temp
                 if shift > max:
-                    left_over = shift - max
-                    lookup_bit[i] = 0
-                    shift_pre[i] = math.pow(2, packed_bit_width)
-                    shift_mid[i] = math.pow(2, packed_bit_width - left_over)
-                    shift_low[i] = math.pow(2, packed_bit_width - left_over - 8)
+
+                    left_over = 8 - (packed_bit_width - shift + 8)
+                    lookup_bit[i] = left_over + packed_bit_width
+                    shift_pre[i] = math.pow(2, 16)
+                    shift_mid[i] = math.pow(2, 8)
+                    shift_low[i] = 1
 
                 else:
                     lookup_bit[i] = shift
