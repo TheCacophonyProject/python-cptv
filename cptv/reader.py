@@ -306,14 +306,14 @@ class CPTVReader:
             source = np.append(source, np.zeros(1))  # protect against overrun
 
             (
-                lookup_pre,
                 lookup_high,
+                lookup_med,
                 lookup_low,
                 lookup_bit,
             ) = self._fetch_aux(packed_bit_width)
             s[1:] = (
-                65536 * source[lookup_pre]
-                + 256 * source[lookup_high]
+                65536 * source[lookup_high]  # left shift 16
+                + 256 * source[lookup_med]  # left shift 8
                 + source[lookup_low]
             )  # fetch nearby 16 bits
 
@@ -343,6 +343,14 @@ class CPTVReader:
     lookup_cache = {}
 
     def _fetch_aux(self, packed_bit_width):
+        """
+        Returns 4 arrays
+        The first 3 arrays(high, med, low) tell us which 3 bytes make up our final pixel at any given index
+        By high[i] << 16 + med[i] << 8 + low[i]
+        The 4th array tells us how much to bit shift the combination of the 3 pixels
+        This is always the same for (width, height, packed_bit_width) so can cache
+        for efficiency
+        """
         width = self.x_resolution
         height = self.y_resolution
         key = (width, height, packed_bit_width)
@@ -351,7 +359,19 @@ class CPTVReader:
             lookup_byte = (
                 lookup // 8 + 5
             )  # 8 bits per byte, with 4+1 bytes offset from start
-            lookup_bit = 24 - packed_bit_width - (lookup & 7)
+
+            # can use up to 3 bytes per pixel
+            # byte 1 = A, byte 2= B, byte 3 = C
+            # a single value is a combination of each byte (A, B, C)
+            # AAAAAAAA BBBBBBBB CCCCCCCC
+            # at any index (i) we can find out how many bits we have used from byte A
+            # by (i*packed_bit_width) & 7 ( same as modulo 8)
+            # e.g. if packed_bit_width = 11  and we have already used 3 bits from byte A we want to use
+            # the next 11 bits, so we shift ( 24 - 11 - 3) = 10 bits
+            # AAAAAAAA BBBBBB and take the lowest 11 bits (AAAAAA BBBBBB)
+            # the last 5 bits from byte A and first 6 bits from byte B
+            max_shift = 24 - packed_bit_width
+            lookup_bit = max_shift - (lookup & 7)
 
             self.lookup_cache[key] = (
                 lookup_byte - 1,
