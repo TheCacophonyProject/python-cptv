@@ -149,6 +149,7 @@ def test_large_value():
     pix1 = frame0.pix.copy()
     pix1[0] += 32767
     frame1 = new_frame(pix1)
+
     check_frames([frame0, frame1])
 
 

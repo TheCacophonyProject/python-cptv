@@ -17,7 +17,6 @@ import gzip
 import logging
 import struct
 import numpy as np
-import math
 from .frame import Frame
 
 logger = logging.getLogger("cptv")
