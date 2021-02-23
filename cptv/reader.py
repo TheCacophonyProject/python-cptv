@@ -156,7 +156,7 @@ class CPTVReader:
 
         # check version
         self.version = s.read(1)[0]
-        if self.version not in (1, 2, 3):
+        if self.version not in (1, 2):
             raise IOError("unsupported version")
 
         section_type, fields = self._read_section(s)
@@ -295,11 +295,8 @@ class CPTVReader:
         return s.read(length)
 
     def _decompress_frame(self, current_frame, source, packed_bit_width):
-        # print("decompress")
         s = np.empty(self.x_resolution * self.y_resolution, dtype=np.int32)
         s[0] = struct.unpack("<i", source[0:4])[0]  # starting value, signed
-        # for bin in source[:20]:
-        #     print(bin)
         if packed_bit_width > 16:
             raise IOError("Higher than 16bit thermal imaging not supported")
 
@@ -332,7 +329,6 @@ class CPTVReader:
 
         # TODO: Fast path for 12bit and 16bit
         current_frame += np.cumsum(s)  # expand deltas and delta-deltas
-        # print("frame becomes", current_frame[:10])
         pix_signed = current_frame[self._get_snake()]  # remove snake ordering
         return pix_signed.astype("H")  # cast unsigned
 
@@ -380,8 +376,6 @@ class CPTVReader:
                     shift_mid[i] = 1
                     shift_low[i] = 0
 
-            # 'I' might be faster on arm? need to profile
-            # lookup_bit = lookup_bit.astype("B")
             self.lookup_cache[key] = (
                 shift_high,
                 shift_mid,
