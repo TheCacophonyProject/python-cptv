@@ -306,18 +306,15 @@ class CPTVReader:
             source = np.append(source, np.zeros(1))  # protect against overrun
 
             (
-                shift_pre,
-                shift_mid,
-                shift_low,
                 lookup_pre,
                 lookup_high,
                 lookup_low,
                 lookup_bit,
             ) = self._fetch_aux(packed_bit_width)
             s[1:] = (
-                shift_pre * source[lookup_pre]
-                + shift_mid * source[lookup_high]
-                + shift_low * source[lookup_low]
+                65536 * source[lookup_pre]
+                + 256 * source[lookup_high]
+                + source[lookup_low]
             )  # fetch nearby 16 bits
 
             mask = (1 << packed_bit_width) - 1
@@ -349,39 +346,14 @@ class CPTVReader:
         width = self.x_resolution
         height = self.y_resolution
         key = (width, height, packed_bit_width)
-        if not key in self.lookup_cache:
+        if key not in self.lookup_cache:
             lookup = np.arange(0, width * height - 1) * packed_bit_width
             lookup_byte = (
                 lookup // 8 + 5
             )  # 8 bits per byte, with 4+1 bytes offset from start
-            lookup_bit = np.empty(lookup.shape, dtype="B")
-            max_shift = 16 - packed_bit_width
-            # maximum shift 2 bytes can support
-            shift_high = np.empty(lookup.shape)
-            shift_mid = np.empty(lookup.shape)
-            shift_low = np.empty(lookup.shape)
-
-            for i in range(len(lookup_bit)):
-                temp = (i + 1) * packed_bit_width
-                bytes = math.ceil(temp / 8) * 8
-                shift = bytes - temp
-                if shift > max_shift:
-                    # need to use 3 bytes
-                    lookup_bit[i] = shift
-                    shift_high[i] = 65536  # same as shifting 16 bits
-                    shift_mid[i] = 256  # same as shifting 8 bits
-                    shift_low[i] = 1  # no shift
-
-                else:
-                    lookup_bit[i] = 16 - packed_bit_width - (lookup[i] & 7)
-                    shift_high[i] = 256
-                    shift_mid[i] = 1
-                    shift_low[i] = 0
+            lookup_bit = 24 - packed_bit_width - (lookup & 7)
 
             self.lookup_cache[key] = (
-                shift_high,
-                shift_mid,
-                shift_low,
                 lookup_byte - 1,
                 lookup_byte,
                 lookup_byte + 1,
