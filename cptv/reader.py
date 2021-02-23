@@ -355,7 +355,8 @@ class CPTVReader:
                 lookup // 8 + 5
             )  # 8 bits per byte, with 4+1 bytes offset from start
             lookup_bit = np.empty(lookup.shape, dtype="B")
-            max = 16 - packed_bit_width
+            max_shift = 16 - packed_bit_width
+            # maximum shift 2 bytes can support
             shift_high = np.empty(lookup.shape)
             shift_mid = np.empty(lookup.shape)
             shift_low = np.empty(lookup.shape)
@@ -364,7 +365,8 @@ class CPTVReader:
                 temp = (i + 1) * packed_bit_width
                 bytes = math.ceil(temp / 8) * 8
                 shift = bytes - temp
-                if shift > max:
+                if shift > max_shift:
+                    # need to use 3 bytes
                     lookup_bit[i] = shift
                     shift_high[i] = 65536  # same as shifting 16 bits
                     shift_mid[i] = 256  # same as shifting 8 bits
