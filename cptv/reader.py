@@ -295,11 +295,11 @@ class CPTVReader:
         return s.read(length)
 
     def _decompress_frame(self, current_frame, source, packed_bit_width):
-        print("decompress")
+        # print("decompress")
         s = np.empty(self.x_resolution * self.y_resolution, dtype=np.int32)
         s[0] = struct.unpack("<i", source[0:4])[0]  # starting value, signed
-        for bin in source[:20]:
-            print(bin)
+        # for bin in source[:20]:
+        #     print(bin)
         if packed_bit_width > 16:
             raise IOError("Higher than 16bit thermal imaging not supported")
 
@@ -317,82 +317,22 @@ class CPTVReader:
                 lookup_low,
                 lookup_bit,
             ) = self._fetch_aux(packed_bit_width)
-
-            print(lookup_high.shape)
             s[1:] = (
                 shift_pre * source[lookup_pre]
                 + shift_mid * source[lookup_high]
                 + shift_low * source[lookup_low]
             )  # fetch nearby 16 bits
-            for i in range(0, 10):
-                s_p = shift_pre[i]
-                s_m = shift_mid[i]
-                s_l = shift_low[i]
-                source_p = source[lookup_pre[i]]
-                source_m = source[lookup_high[i]]
-                source_l = source[lookup_low[i]]
-                # if i == 5:
-                #     source_p = source[10]
-                #     source_m = source[11]
-                #     source_l = source[12]
-                output = s_p * source_p + s_m * source_m + source_l * s_l
-                print(
-                    i,
-                    " uses",
-                    lookup_pre[i],
-                    lookup_high[i],
-                    lookup_low[i],
-                    "to become ",
-                    s[i + 1],
-                    source_p,
-                    source_m,
-                    source_l,
-                    "shifted",
-                    s_p,
-                    s_m,
-                    s_l,
-                    "calculated",
-                    output,
-                )
-                # shift_pre[0] * source[lookup_pre[0]]
-                # + shift_mid[0] * source[lookup_high[0]]
-                # + shift_low[0] * source[lookup_low[0]],
-                # shift_pre[1] * source[lookup_pre[1]]
-                # + shift_mid[1] * source[lookup_high[1]]
-                # + shift_low[1] * source[lookup_low[1]],
-                # shift_pre[2] * source[lookup_pre[2]]
-                # + shift_mid[2] * source[lookup_high[2]]
-                # + shift_low[2] * source[lookup_low[2]],
-                # shift_pre[2] * source[lookup_pre[2]]
-                # + shift_mid[2] * source[lookup_high[2]]
-                # + shift_low[2] * source[lookup_low[2]],
 
             mask = (1 << packed_bit_width) - 1
             max_packed_value = 1 << (packed_bit_width - 1)
-            print("lookup_high", lookup_high[:9])
-            print("lookup_low", lookup_low[:9])
-            print("source", source[:20])
-            # test_bit = (int(source[6] << 24)) + (int(source[7]) << 16) +(int(source[8]) >> 6))
-            # print("test ", test_bit, type(test_bit), "max value", max_packed_value)
-            # output = (
-            #     ((test_bit >> lookup_bit[2]) + max_packed_value) & mask
-            # ) - max_packed_value
-            # print("out", output)
-            print("hi", source[lookup_high][:10])
-            print("low", source[lookup_low][:10])
-            print("lookup_bit", lookup_bit[:10])
-            # twos complement and shift down into range
-            max_packed_value = 1 << (packed_bit_width - 1)
-            print("max value is", max_packed_value)
-            print("first 10 is", s[:10])
+
             s[1:] = (
                 ((s[1:] >> lookup_bit) + max_packed_value) & mask
             ) - max_packed_value
-            print("first 10 now is", s[:10])
 
         # TODO: Fast path for 12bit and 16bit
         current_frame += np.cumsum(s)  # expand deltas and delta-deltas
-        print("frame becomes", current_frame[:10])
+        # print("frame becomes", current_frame[:10])
         pix_signed = current_frame[self._get_snake()]  # remove snake ordering
         return pix_signed.astype("H")  # cast unsigned
 
@@ -418,38 +358,32 @@ class CPTVReader:
             lookup_byte = (
                 lookup // 8 + 5
             )  # 8 bits per byte, with 4+1 bytes offset from start
-            lookup_bit = 16 - packed_bit_width - (lookup & 7)
+            lookup_bit = np.empty(lookup.shape, dtype="B")
             max = 16 - packed_bit_width
-            shift_mid = np.arange(0, width * height - 1) * packed_bit_width
-            shift_low = np.arange(0, width * height - 1) * packed_bit_width
-            shift_pre = np.arange(0, width * height - 1) * packed_bit_width
+            shift_high = np.empty(lookup.shape)
+            shift_mid = np.empty(lookup.shape)
+            shift_low = np.empty(lookup.shape)
 
-            for i in range(len(lookup)):
-                temp = (i + 1) * 11
+            for i in range(len(lookup_bit)):
+                temp = (i + 1) * packed_bit_width
                 bytes = math.ceil(temp / 8) * 8
                 shift = bytes - temp
                 if shift > max:
-
-                    left_over = 8 - (packed_bit_width - shift + 8)
-                    lookup_bit[i] = left_over + packed_bit_width
-                    shift_pre[i] = math.pow(2, 16)
-                    shift_mid[i] = math.pow(2, 8)
-                    shift_low[i] = 1
+                    lookup_bit[i] = shift
+                    shift_high[i] = 65536  # same as shifting 16 bits
+                    shift_mid[i] = 256  # same as shifting 8 bits
+                    shift_low[i] = 1  # no shift
 
                 else:
-                    lookup_bit[i] = shift
-                    shift_pre[i] = 256
+                    lookup_bit[i] = 16 - packed_bit_width - (lookup[i] & 7)
+                    shift_high[i] = 256
                     shift_mid[i] = 1
                     shift_low[i] = 0
-            print("ADJUSTED up bit", lookup_bit[:10])
-            print("shift_pret", shift_pre[:10])
-            print("shift_mid", shift_mid[:10])
-            print("shift_low", shift_low[:10])
 
             # 'I' might be faster on arm? need to profile
-            lookup_bit = lookup_bit.astype("B")
+            # lookup_bit = lookup_bit.astype("B")
             self.lookup_cache[key] = (
-                shift_pre,
+                shift_high,
                 shift_mid,
                 shift_low,
                 lookup_byte - 1,
@@ -457,7 +391,6 @@ class CPTVReader:
                 lookup_byte + 1,
                 lookup_bit,
             )
-            print("adding to key")
         return self.lookup_cache[key]
 
 
