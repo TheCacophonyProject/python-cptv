@@ -303,7 +303,7 @@ class CPTVReader:
         if packed_bit_width == 8:
             s[1:] = source[4:].astype("b")
         else:
-            source = np.append(source, np.zeros(1))  # protect against overrun
+            source = np.append(source, np.zeros(2))  # protect against overrun
 
             (
                 lookup_high,
