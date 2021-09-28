@@ -257,7 +257,7 @@ class Compressor:
 
             num_bits += packed_bit_width
             while num_bits >= 8:
-                bits = bits & mask
+                bits = np.int64(bits)
                 result[index] = bits
                 index = index + 1
                 bits <<= 8
