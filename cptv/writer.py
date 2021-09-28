@@ -251,16 +251,17 @@ class Compressor:
         bits = 0  # scratch buffer
         num_bits = 0  # number of bits in use in scratch
         mask = (1 << packed_bit_width) - 1
+        int32Mask = (1 << 32) - 1
+
         for val in vals:
             # working with native python is much faster on bitwise
             bits |= (val.item() & mask) << (32 - packed_bit_width - num_bits)
-
             num_bits += packed_bit_width
             while num_bits >= 8:
-                bits = np.int64(bits)
+                bits = bits
                 result[index] = bits
                 index = index + 1
-                bits <<= 8
+                bits = (bits << 8) & int32Mask
                 num_bits -= 8
 
         if num_bits > 0:
