@@ -252,9 +252,9 @@ class Compressor:
         num_bits = 0  # number of bits in use in scratch
         mask = (1 << packed_bit_width) - 1
         pack_into = struct.pack_into
-        for val in vals:
-            # working with native python is much faster on bitwise
-            bits |= (val.item() & mask) << (32 - packed_bit_width - num_bits)
+        # working with native python is much faster on bitwise
+        for val in vals.tolist():
+            bits |= (val & mask) << (32 - packed_bit_width - num_bits)
             num_bits += packed_bit_width
             rem = num_bits % 8
             pack_into(">I", b, index, bits)
