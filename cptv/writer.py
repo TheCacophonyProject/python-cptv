@@ -21,6 +21,7 @@ import numpy as np
 
 from .frame import Frame
 from .reader import Section, Field
+import struct
 
 MAGIC = b"CPTV"
 VERSION = b"\x02"
@@ -252,19 +253,40 @@ class Compressor:
         num_bits = 0  # number of bits in use in scratch
         mask = (1 << packed_bit_width) - 1
         int32Mask = (1 << 32) - 1
+        int_to_four_bytes = struct.Struct("<I").pack
+        int8mask = (1 << 8) - 1
 
         for val in vals:
             # working with native python is much faster on bitwise
             bits |= (val.item() & mask) << (32 - packed_bit_width - num_bits)
             num_bits += packed_bit_width
-            while num_bits >= 8:
-                bits = bits
-                result[index] = bits
-                index = index + 1
-                bits = (bits << 8) & int32Mask
-                num_bits -= 8
 
+            # struct.pack_into("<I", b, index, bits >> num_bits)
+            # index += 4
+            rem = num_bits % 8
+
+            a = int_to_four_bytes(bits >> rem)
+            # print("num bits ", num_bits // 8)
+
+            # for r in a:
+            #     print("new is", r)
+            new_i = 3
+            for r in range(num_bits // 8):
+                result[index] = a[new_i]
+                index += 1
+                new_i -= 1
+            num_bits = rem
+            bits = bits & ((1 << num_bits) - 1)
+            # while num_bits >= 8:
+            #     bits = bits
+            #     result[index] = a[new_i]
+            #     # print("old is ", result[index], "new is", a[new_i])
+            #     assert result[index] == a[new_i]
+            #     index = index + 1
+            #     bits = (bits << 8) & int32Mask
+            #     num_bits -= 8
+            #     new_i -= 1
         if num_bits > 0:
             result[index] = bits
 
-        return result >> 24
+        return result
