@@ -257,11 +257,14 @@ class Compressor:
             bits |= (val & mask) << (32 - packed_bit_width - num_bits)
             num_bits += packed_bit_width
             rem = num_bits % 8
+            bits = bits & ((1 << 32) - 1)
             pack_into(">I", b, index, bits)
-            index += num_bits // 8
+            eights = num_bits // 8
+            index += eights
+            bits = bits << eights * 8
             num_bits = rem
-            bits = bits & ((1 << num_bits) - 1)
         if num_bits > 0:
-            pack_into(">B", b, index, bits)
+            bits = bits >> 24 & ((1 << 8) - 1)
+            pack_into("B", b, index, bits)
 
-        return np.frombuffer(b, "B")
+        return np.frombuffer(b, "b")
