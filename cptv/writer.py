@@ -21,6 +21,8 @@ import numpy as np
 
 from .frame import Frame
 from .reader import Section, Field
+import struct
+import ctypes
 
 MAGIC = b"CPTV"
 VERSION = b"\x02"
@@ -229,13 +231,11 @@ class Compressor:
         if packed_bit_width == 12:
             mask = (1 << packed_bit_width) - 1
             twos_complement = vals & mask
-
             stacked = twos_complement << 4
             stacked[:-1] += twos_complement[1:] >> 8
 
             result_len = (len(vals) * 3 + 1) // 2
             result = np.empty(result_len, "B")
-
             result[np.arange(0, result_len, 3)] = vals[np.arange(0, len(vals), 2)] >> 4
             result[np.arange(1, result_len, 3)] = stacked[np.arange(0, len(vals), 2)]
             result[np.arange(2, result_len, 3)] = vals[np.arange(1, len(vals), 2)]
@@ -246,23 +246,25 @@ class Compressor:
     def pack_bits_fallback(self, packed_bit_width, vals):
         # Hopefully not used
         result_len = (len(vals) * packed_bit_width + 7) // 8
-
-        result = np.empty(result_len, "I")
+        b = ctypes.create_string_buffer(result_len * 4)
         index = 0
         bits = 0  # scratch buffer
         num_bits = 0  # number of bits in use in scratch
         mask = (1 << packed_bit_width) - 1
-
-        for val in vals:
+        pack_into = struct.pack_into
+        # working with native python is much faster on bitwise
+        for val in vals.tolist():
             bits |= (val & mask) << (32 - packed_bit_width - num_bits)
             num_bits += packed_bit_width
-            while num_bits >= 8:
-                result[index] = bits
-                index = index + 1
-                bits <<= 8
-                num_bits -= 8
-
+            rem = num_bits % 8
+            bits = bits & ((1 << 32) - 1)
+            pack_into(">I", b, index, bits)
+            eights = num_bits // 8
+            index += eights
+            bits = bits << eights * 8
+            num_bits = rem
         if num_bits > 0:
-            result[index] = bits
+            bits = bits >> 24 & ((1 << 8) - 1)
+            pack_into("B", b, index, bits)
 
-        return result >> 24
+        return np.frombuffer(b, "b")
