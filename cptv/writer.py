@@ -58,7 +58,9 @@ class CPTVWriter:
             self.timestamp = datetime.now()
 
         mtime = self.timestamp.timestamp()
-        self.s = gzip.GzipFile(fileobj=self.fileobj, mode="wb", mtime=mtime)
+        self.s = gzip.GzipFile(
+            fileobj=self.fileobj, mode="wb", mtime=mtime, compresslevel=1
+        )
         self.comp = Compressor()
 
         self.s.write(MAGIC)
