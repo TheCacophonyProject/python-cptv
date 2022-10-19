@@ -297,8 +297,8 @@ class CPTVReader:
     def _decompress_frame(self, current_frame, source, packed_bit_width):
         s = np.empty(self.x_resolution * self.y_resolution, dtype=np.int32)
         s[0] = struct.unpack("<i", source[0:4])[0]  # starting value, signed
-        if packed_bit_width > 16:
-            raise IOError("Higher than 16bit thermal imaging not supported")
+        if packed_bit_width > 24:
+            raise IOError("Higher than 24bit thermal imaging not supported")
 
         if packed_bit_width == 8:
             s[1:] = source[4:].astype("b")
