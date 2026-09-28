@@ -53,7 +53,7 @@ class Field:
     BACKGROUND_FRAME = b"g"
     MIN_VALUE = b"Q"
     MAX_VALUE = b"K"
-    NUM_FRAMES = b'J'
+    NUM_FRAMES = b"J"
 
     # Frame fields
     BIT_WIDTH = b"w"

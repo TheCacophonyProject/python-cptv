@@ -50,7 +50,6 @@ class CPTVWriter:
     camera_serial = None
     has_background = False
 
-
     # to keep existing code working this is a property
     def _set_background_frame(self, frame):
         if frame is not None:
@@ -71,7 +70,7 @@ class CPTVWriter:
             fileobj=self.fileobj, mode="wb", mtime=mtime, compresslevel=1
         )
         self.comp = Compressor()
-    
+
     def write_header(self):
         fw = FieldWriter()
         fw.uint8(ord(Field.COMPRESSION), 1)
@@ -129,7 +128,7 @@ class CPTVWriter:
 
         if self.has_background:
             fw.uint8(ord(Field.BACKGROUND_FRAME), 1)
-        
+
         file_path = Path(self.s.name)
         header_file = file_path.with_name(f"{file_path.stem}-headers{file_path.suffix}")
         if not self.timestamp:
@@ -145,7 +144,7 @@ class CPTVWriter:
 
     def write_frame(self, frame):
         bit_width, start_value, frame_buf = self.comp._next_frame(frame.pix)
-        self.num_frames +=1
+        self.num_frames += 1
         if not frame.background_frame:
             frame_max = np.amax(frame.pix)
             frame_min = np.amin(frame.pix)
@@ -170,9 +169,6 @@ class CPTVWriter:
 
         self.s.write(struct.pack("<l", start_value))
         self.s.write(frame_buf)
-
-
-
 
     # close writes a new header file so that min value, max_vlaue and num_frames can be placed in the header
     # then combines the header and frame gzip streams into one file, and replaces the file with this combined output
@@ -201,10 +197,12 @@ class CPTVWriter:
 
 def remove_file(file_name):
     import os
+
     try:
         os.remove(file_name)
     except:
         pass
+
 
 class FieldWriter:
     def __init__(self):
@@ -226,7 +224,7 @@ class FieldWriter:
     def uint16(self, code, val):
         self.s.write(struct.pack("<BBH", 2, code, int(val)))
         self.count += 1
-        
+
     def uint32(self, code, val):
         self.s.write(struct.pack("<BBL", 4, code, int(val)))
         self.count += 1

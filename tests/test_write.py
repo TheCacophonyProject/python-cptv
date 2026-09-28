@@ -49,7 +49,8 @@ def test_round_trip_header_defaults(tmp_path):
     assert r.min_value is None
     assert r.max_value is None
     assert r.num_frames == 0
-    
+
+
 def test_round_trip_header(tmp_path):
     path = tmp_path / "test.cptv"
     w = CPTVWriter(open(path, "wb"))
@@ -119,7 +120,9 @@ def test_one_frame(tmp_path):
 
 
 def test_random_frames(tmp_path):
-    check_frames(tmp_path, [random_frame(60, 30), random_frame(61, 31), random_frame(62, 32)])
+    check_frames(
+        tmp_path, [random_frame(60, 30), random_frame(61, 31), random_frame(62, 32)]
+    )
 
 
 def test_minimal_change(tmp_path):
