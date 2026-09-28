@@ -51,6 +51,9 @@ class Field:
     FIRMWARE = b"V"
     CAMERA_SERIAL = b"N"
     BACKGROUND_FRAME = b"g"
+    MIN_VALUE = b"Q"
+    MAX_VALUE = b"K"
+    NUM_FRAMES = b"J"
 
     # Frame fields
     BIT_WIDTH = b"w"
@@ -73,6 +76,8 @@ UINT32_FIELDS = {
     Field.DEVICEID,
     Field.CAMERA_SERIAL,
 }
+
+UINT16_FIELDS = {Field.MIN_VALUE, Field.MAX_VALUE, Field.NUM_FRAMES}
 
 UINT8_FIELDS = {
     Field.COMPRESSION,
@@ -134,6 +139,9 @@ class CPTVReader:
     loc_timestamp = None
     preview_secs = None
     motion_config = None
+    min_value = None
+    max_value = None
+    num_frames = None
 
     altitude = None
     accuracy = None
@@ -170,6 +178,9 @@ class CPTVReader:
             )
 
         self.timestamp = fields[Field.TIMESTAMP]
+        self.min_value = fields.get(Field.MIN_VALUE)
+        self.max_value = fields.get(Field.MAX_VALUE)
+        self.num_frames = fields.get(Field.NUM_FRAMES)
         self.x_resolution = fields[Field.X_RESOLUTION]
         self.y_resolution = fields[Field.Y_RESOLUTION]
         self.frame_dim = (self.y_resolution, self.x_resolution)
@@ -253,6 +264,8 @@ class CPTVReader:
 
         if ftype in UINT8_FIELDS:
             val = self._read_uint8(s)
+        elif ftype in UINT16_FIELDS:
+            val = self._read_uint16(s)
         elif ftype in UINT32_FIELDS:
             val = self._read_uint32(s)
         elif ftype in STRING_FIELDS:

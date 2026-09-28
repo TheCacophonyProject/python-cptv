@@ -12,7 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from io import BytesIO
 from datetime import datetime, timedelta, timezone
 
 import numpy as np
@@ -23,16 +22,13 @@ from cptv import CPTVWriter, CPTVReader
 from cptv.frame import Frame
 
 
-def test_round_trip_header_defaults():
-    buf = BytesIO()
-
-    w = CPTVWriter(buf)
+def test_round_trip_header_defaults(tmp_path):
+    path = tmp_path / "test.cptv"
+    w = CPTVWriter(open(path, "wb"))
     w.write_header()
     w.close()
 
-    buf.seek(0, 0)
-
-    r = CPTVReader(buf)
+    r = CPTVReader(open(path, "rb"))
     assert r.version == 2
     assert r.x_resolution == 160
     assert r.y_resolution == 120
@@ -50,12 +46,14 @@ def test_round_trip_header_defaults():
     assert r.firmware is None
     assert r.camera_serial == 0
     assert r.background_frames == 0
+    assert r.min_value is None
+    assert r.max_value is None
+    assert r.num_frames == 0
 
 
-def test_round_trip_header():
-    buf = BytesIO()
-
-    w = CPTVWriter(buf)
+def test_round_trip_header(tmp_path):
+    path = tmp_path / "test.cptv"
+    w = CPTVWriter(open(path, "wb"))
     w.timestamp = datetime(2018, 7, 6, 5, 4, 3, tzinfo=timezone.utc)
     w.device_name = b"hello"
     w.device_id = 42
@@ -76,14 +74,14 @@ def test_round_trip_header():
     back_frame.background_frame = True
     w.background_frame = back_frame
     w.write_header()
+    frames = []
     for i in range(10):
         frame = random_frame(60, 30)
         w.write_frame(frame)
+        frames.append(frame)
     w.close()
 
-    buf.seek(0, 0)
-
-    r = CPTVReader(buf)
+    r = CPTVReader(open(path, "rb"))
     assert r.version == 2
     assert r.x_resolution == 160
     assert r.y_resolution == 120
@@ -104,6 +102,9 @@ def test_round_trip_header():
     assert r.firmware == w.firmware
     assert r.camera_serial == w.camera_serial
     assert r.background_frames == 1
+    assert r.min_value == min(f.pix.min() for f in frames)
+    assert r.max_value == max(f.pix.max() for f in frames)
+    assert r.num_frames == len(frames) + 1
     count = 0
     for frame in r:
         if count == 0:
@@ -114,15 +115,17 @@ def test_round_trip_header():
     assert count == 11
 
 
-def test_one_frame():
-    check_frames([random_frame(60, 30)])
+def test_one_frame(tmp_path):
+    check_frames(tmp_path, [random_frame(60, 30)])
 
 
-def test_random_frames():
-    check_frames([random_frame(60, 30), random_frame(61, 31), random_frame(62, 32)])
+def test_random_frames(tmp_path):
+    check_frames(
+        tmp_path, [random_frame(60, 30), random_frame(61, 31), random_frame(62, 32)]
+    )
 
 
-def test_minimal_change():
+def test_minimal_change(tmp_path):
     frame0 = random_frame(0, 0)
 
     # Change one pixel
@@ -130,40 +133,41 @@ def test_minimal_change():
     pix1[0, 0] += 1
     frame1 = new_frame(pix1)
 
-    check_frames([frame0, frame1])
+    check_frames(tmp_path, [frame0, frame1])
 
 
-def test_step_change():
+def test_step_change(tmp_path):
     frame0 = random_frame(0, 0)
 
     pix1 = frame0.pix.copy()
     pix1 += 1
     frame1 = new_frame(pix1)
 
-    check_frames([frame0, frame1])
+    check_frames(tmp_path, [frame0, frame1])
 
 
-def test_large_value():
+def test_large_value(tmp_path):
     frame0 = random_frame(0, 0)
 
     pix1 = frame0.pix.copy()
     pix1[0] += 32767
     frame1 = new_frame(pix1)
 
-    check_frames([frame0, frame1])
+    check_frames(tmp_path, [frame0, frame1])
 
 
-def check_frames(frames):
-    buf = BytesIO()
-    w = CPTVWriter(buf)
+def check_frames(tmp_path, frames):
+    path = tmp_path / "test.cptv"
+    w = CPTVWriter(open(path, "wb"))
     w.write_header()
     for frame in frames:
         w.write_frame(frame)
     w.close()
 
-    buf.seek(0, 0)
-
-    r = CPTVReader(buf)
+    r = CPTVReader(open(path, "rb"))
+    assert r.min_value == min(f.pix.min() for f in frames)
+    assert r.max_value == max(f.pix.max() for f in frames)
+    assert r.num_frames == len(frames)
     count = 0
     for in_frame, out_frame in zip(frames, r):
         assert in_frame == out_frame

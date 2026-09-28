@@ -5,7 +5,6 @@ from pytest import approx
 
 from cptv import CPTVReader
 
-
 data_dir = Path(__file__).parent / "data"
 
 
