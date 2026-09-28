@@ -13,13 +13,14 @@
 # limitations under the License.
 
 import gzip
+import os
+import shutil
 import struct
 from io import BytesIO
 from datetime import datetime, timedelta
-
+from pathlib import Path
 import numpy as np
 
-from .frame import Frame
 from .reader import Section, Field
 import struct
 import ctypes
@@ -47,30 +48,42 @@ class CPTVWriter:
     brand = None
     firmware = None
     camera_serial = None
-    background_frame = None
+    has_background = False
+
+    @property
+    def background_frame(self):
+        return self._background_frame
+
+    @background_frame.setter
+    def background_frame(self, frame):
+        if frame is not None:
+            self.has_background = True
+            self.write_frame(frame)
 
     def __init__(self, fileobj):
         self.timestamp = datetime.now()
         self.fileobj = fileobj
-
-    def write_header(self):
-        if not self.timestamp:
-            self.timestamp = datetime.now()
+        self.max_value = None
+        self.min_value = None
+        self.num_frames = 0
 
         mtime = self.timestamp.timestamp()
         self.s = gzip.GzipFile(
             fileobj=self.fileobj, mode="wb", mtime=mtime, compresslevel=1
         )
         self.comp = Compressor()
-
-        self.s.write(MAGIC)
-        self.s.write(VERSION)
-
+    
+    def write_header(self):
         fw = FieldWriter()
         fw.uint8(ord(Field.COMPRESSION), 1)
         fw.uint32(ord(Field.X_RESOLUTION), COLS)
         fw.uint32(ord(Field.Y_RESOLUTION), ROWS)
 
+        if self.min_value:
+            fw.uint16(ord(Field.MIN_VALUE), self.min_value)
+        if self.max_value:
+            fw.uint16(ord(Field.MAX_VALUE), self.max_value)
+        fw.uint16(ord(Field.NUM_FRAMES), self.num_frames)
         if self.device_name:
             fw.string(ord(Field.DEVICENAME), self.device_name)
 
@@ -115,17 +128,31 @@ class CPTVWriter:
         if self.camera_serial:
             fw.uint32(ord(Field.CAMERA_SERIAL), self.camera_serial)
 
-        if self.background_frame is not None:
+        if self.has_background:
             fw.uint8(ord(Field.BACKGROUND_FRAME), 1)
+        
+        file_path = Path(self.s.name)
+        header_file = file_path.with_name(f"{file_path.stem}-headers{file_path.suffix}")
+        if not self.timestamp:
+            self.timestamp = datetime.now()
 
-        fw.write(ord(Section.HEADER), self.s)
+        mtime = self.timestamp.timestamp()
+        with gzip.GzipFile(header_file, "wb", mtime=mtime, compresslevel=1) as header_s:
+            header_s.write(MAGIC)
+            header_s.write(VERSION)
+            fw.write(ord(Section.HEADER), header_s)
 
-        if self.background_frame is not None:
-            self.write_frame(self.background_frame)
+        return header_file
 
     def write_frame(self, frame):
         bit_width, start_value, frame_buf = self.comp._next_frame(frame.pix)
-
+        self.num_frames +=1
+        frame_max = np.amax(frame.pix)
+        frame_min = np.amin(frame.pix)
+        if self.max_value is None or frame_max > self.max_value:
+            self.max_value = frame_max
+        if self.min_value is None or frame_min < self.min_value:
+            self.min_value = frame_min
         fw = FieldWriter()
         fw.uint32(ord(Field.TIME_ON), frame.time_on / timedelta(milliseconds=1))
         fw.uint32(
@@ -144,9 +171,40 @@ class CPTVWriter:
         self.s.write(struct.pack("<l", start_value))
         self.s.write(frame_buf)
 
+
+
+
+    #close writes a new header file so that min value, max_vlaue and num_frames can be placed in the header
+    # then combines the header and frame gzip streams into one file, and replaces the file with this combined output
     def close(self):
         self.s.close()
+        # GzipFile doesn't close a passed-in fileobj; close it so buffered data hits disk
+        self.fileobj.close()
+        file_path = Path(self.s.name)
+        header_file = file_path.with_name(f"{file_path.stem}-headers.gz")
 
+        header_file = self.write_header()
+        output_file = file_path.with_suffix(".gz")
+        try:
+            with open(output_file, "wb") as out:
+                for part in (header_file, file_path):
+                    with open(part, "rb") as src:
+                        shutil.copyfileobj(src, out, 1024 * 1024)
+            os.replace(output_file, file_path)
+        except BaseException:
+            remove_file(output_file)
+            remove_file(file_path)
+            raise
+        finally:
+            remove_file(header_file)
+
+
+def remove_file(file_name):
+    import os
+    try:
+        os.remove(file_name)
+    except:
+        pass
 
 class FieldWriter:
     def __init__(self):
@@ -165,6 +223,10 @@ class FieldWriter:
         self.s.write(struct.pack("<BBB", 1, code, val))
         self.count += 1
 
+    def uint16(self, code, val):
+        self.s.write(struct.pack("<BBH", 2, code, int(val)))
+        self.count += 1
+        
     def uint32(self, code, val):
         self.s.write(struct.pack("<BBL", 4, code, int(val)))
         self.count += 1
