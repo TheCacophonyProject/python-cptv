@@ -52,11 +52,12 @@ class CPTVWriter:
 
 
     # to keep existing code working this is a property
-    @property
-    def background_frame(self, frame):
+    def _set_background_frame(self, frame):
         if frame is not None:
             self.has_background = True
             self.write_frame(frame)
+
+    background_frame = property(fset=_set_background_frame)
 
     def __init__(self, fileobj):
         self.timestamp = datetime.now()
@@ -77,9 +78,9 @@ class CPTVWriter:
         fw.uint32(ord(Field.X_RESOLUTION), COLS)
         fw.uint32(ord(Field.Y_RESOLUTION), ROWS)
 
-        if self.min_value:
+        if self.min_value is not None:
             fw.uint16(ord(Field.MIN_VALUE), self.min_value)
-        if self.max_value:
+        if self.max_value is not None:
             fw.uint16(ord(Field.MAX_VALUE), self.max_value)
         fw.uint16(ord(Field.NUM_FRAMES), self.num_frames)
         if self.device_name:

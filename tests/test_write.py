@@ -25,8 +25,6 @@ from cptv.frame import Frame
 def test_round_trip_header_defaults(tmp_path):
     path = tmp_path / "test.cptv"
     w = CPTVWriter(open(path, "wb"))
-    w.max_value = 200
-    w.min_value = 100
     w.write_header()
     w.close()
 
@@ -48,8 +46,8 @@ def test_round_trip_header_defaults(tmp_path):
     assert r.firmware is None
     assert r.camera_serial == 0
     assert r.background_frames == 0
-    assert r.min_value == 100
-    assert r.max_value == 200
+    assert r.min_value is None
+    assert r.max_value is None
     assert r.num_frames == 0
     
 def test_round_trip_header(tmp_path):
@@ -75,9 +73,11 @@ def test_round_trip_header(tmp_path):
     back_frame.background_frame = True
     w.background_frame = back_frame
     w.write_header()
+    frames = [back_frame]
     for i in range(10):
         frame = random_frame(60, 30)
         w.write_frame(frame)
+        frames.append(frame)
     w.close()
 
     r = CPTVReader(open(path, "rb"))
@@ -101,6 +101,9 @@ def test_round_trip_header(tmp_path):
     assert r.firmware == w.firmware
     assert r.camera_serial == w.camera_serial
     assert r.background_frames == 1
+    assert r.min_value == min(f.pix.min() for f in frames)
+    assert r.max_value == max(f.pix.max() for f in frames)
+    assert r.num_frames == len(frames)
     count = 0
     for frame in r:
         if count == 0:
@@ -159,6 +162,9 @@ def check_frames(tmp_path, frames):
     w.close()
 
     r = CPTVReader(open(path, "rb"))
+    assert r.min_value == min(f.pix.min() for f in frames)
+    assert r.max_value == max(f.pix.max() for f in frames)
+    assert r.num_frames == len(frames)
     count = 0
     for in_frame, out_frame in zip(frames, r):
         assert in_frame == out_frame
