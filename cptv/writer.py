@@ -50,11 +50,9 @@ class CPTVWriter:
     camera_serial = None
     has_background = False
 
-    @property
-    def background_frame(self):
-        return self._background_frame
 
-    @background_frame.setter
+    # to keep existing code working this is a property
+    @property
     def background_frame(self, frame):
         if frame is not None:
             self.has_background = True
@@ -174,7 +172,7 @@ class CPTVWriter:
 
 
 
-    #close writes a new header file so that min value, max_vlaue and num_frames can be placed in the header
+    # close writes a new header file so that min value, max_vlaue and num_frames can be placed in the header
     # then combines the header and frame gzip streams into one file, and replaces the file with this combined output
     def close(self):
         self.s.close()

@@ -181,7 +181,6 @@ class CPTVReader:
         self.min_value = fields.get(Field.MIN_VALUE)
         self.max_value = fields.get(Field.MAX_VALUE)
         self.num_frames = fields.get(Field.NUM_FRAMES)
-        self.y_resolution = fields[Field.Y_RESOLUTION]
         self.x_resolution = fields[Field.X_RESOLUTION]
         self.y_resolution = fields[Field.Y_RESOLUTION]
         self.frame_dim = (self.y_resolution, self.x_resolution)

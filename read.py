@@ -1,7 +1,6 @@
 import sys
 from cptv import CPTVReader
 
-
 filename = sys.argv[1]
 
 with open(filename, "rb") as f:
