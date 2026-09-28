@@ -146,12 +146,13 @@ class CPTVWriter:
     def write_frame(self, frame):
         bit_width, start_value, frame_buf = self.comp._next_frame(frame.pix)
         self.num_frames +=1
-        frame_max = np.amax(frame.pix)
-        frame_min = np.amin(frame.pix)
-        if self.max_value is None or frame_max > self.max_value:
-            self.max_value = frame_max
-        if self.min_value is None or frame_min < self.min_value:
-            self.min_value = frame_min
+        if not frame.background_frame:
+            frame_max = np.amax(frame.pix)
+            frame_min = np.amin(frame.pix)
+            if self.max_value is None or frame_max > self.max_value:
+                self.max_value = frame_max
+            if self.min_value is None or frame_min < self.min_value:
+                self.min_value = frame_min
         fw = FieldWriter()
         fw.uint32(ord(Field.TIME_ON), frame.time_on / timedelta(milliseconds=1))
         fw.uint32(

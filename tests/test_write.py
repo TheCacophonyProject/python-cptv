@@ -73,7 +73,7 @@ def test_round_trip_header(tmp_path):
     back_frame.background_frame = True
     w.background_frame = back_frame
     w.write_header()
-    frames = [back_frame]
+    frames = []
     for i in range(10):
         frame = random_frame(60, 30)
         w.write_frame(frame)
@@ -103,7 +103,7 @@ def test_round_trip_header(tmp_path):
     assert r.background_frames == 1
     assert r.min_value == min(f.pix.min() for f in frames)
     assert r.max_value == max(f.pix.max() for f in frames)
-    assert r.num_frames == len(frames)
+    assert r.num_frames == len(frames) + 1
     count = 0
     for frame in r:
         if count == 0:
